@@ -2,6 +2,7 @@ package es.uji.ei1027.clubesportiu;
 
 import java.util.logging.Logger;
 
+import es.uji.ei1027.clubesportiu.dao.ODSDao;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -19,7 +20,6 @@ public class ODSApplication implements CommandLineRunner {
 	// Funció principal
 	public void run(String... strings) throws Exception {
 		log.info("Ací va el meu codi");
-
 	}
 }
 
