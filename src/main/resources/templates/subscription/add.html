@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Crear nou ODS</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Nou ODS</h2>
+<form action="#" th:action="@{/subscription/add}"
+      th:object="${subscription}" method="post">
+  <table>
+    <tr>
+      <td><label>Mail</label></td>
+      <td><input type="text" th:field="*{mail}" /></td>
+    </tr>
+    <tr>
+      <td><label>Id de subscripción</label></td>
+      <td><input type="number" th:field="*{idSub}" /></td>
+    </tr>
+    <tr>
+      <td><label>Nombre de Ods</label></td>
+      <td><input type="text" th:field="*{nameOds}" /></td>
+    </tr>
+    <tr>
+      <td><label>Fecha de subscripcion</label></td>
+      <td><input type="date" th:field="*{initialDate}" /></td>
+    </tr>
+    <tr>
+      <td><label>Fecha de finalizacion de subscripcion</label></td>
+      <td><input type="date" th:field="*{endDate}" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><input type="submit" value="Afegeix ODS" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
