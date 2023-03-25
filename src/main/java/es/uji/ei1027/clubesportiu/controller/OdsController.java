@@ -81,35 +81,5 @@ public class OdsController {
 //
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
-//
-//    private ClassificacioService classificacioService;
-//
-//    @Autowired
-//    public void setClassificacioService(ClassificacioService                                                classificacioService) {
-//        this.classificacioService = classificacioService;
-//    }
-//
-//    @RequestMapping("/perpais/{nProva}")
-//    public String listClsfPerPais(@PathVariable String nProva,
-//                                  Model model) {
-//        model.addAttribute("classificacions",
-//                classificacioService.getClassificationByCountry(nProva));
-//        return "classificacio/perpais";
-//    }
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-//
-//    @RequestMapping("/perprova/{nPais}")
-//    public String listClsfPerProva(@PathVariable String nPais,
-//                                   Model model) {
-//        model.addAttribute("classificacions",
-//                classificacioService.getClassificationByTest(nPais));
-//        return "classificacio/perprova";
-//    }
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-
 
 }
