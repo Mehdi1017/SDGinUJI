@@ -1,17 +1,13 @@
 package es.uji.ei1027.clubesportiu.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalTime;
-
-public class ODS {
+public class Ods {
 
     private String nameOds;
     private Integer relevance;
     private String axis;
     private String description;
 
-    public ODS() {
+    public Ods() {
     }
 
 

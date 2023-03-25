@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Gestionar ODS</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+  <h1>Llista de ODS</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Nom ODS</th>
+      <th>Axis</th>
+      <th>Relevancia</th>
+      <th>Descripció</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ods: ${allOds}">
+      <td th:text="${ods.nameOds}"></td>
+      <td th:text="${ods.axis}"></td>
+      <td th:text="${ods.relevance}"></td>
+      <td th:text="${ods.description}"></td>
+      <td> <a th:href="@{/templates/ods/update/{nom}(nom=${ods.nameOds})}" class="btn btn-warning" role="button">Edita</a></td>
+      <td><a th:href="@{/templates/ods/delete/{nom}(nom=${ods.nameOds})}" class="btn btn-danger" role="button">Esborra</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="add" class="btn btn-success" role="button">Afegeix ODS</a>
+  <a href="/" class="btn btn-primary">Tornar</a>
+</div>
+</body>
+</html>
+
