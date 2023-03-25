@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Crear nou ODS</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Nou ODS</h2>
+<form action="#" th:action="@{/ods/add}"
+      th:object="${ods}" method="post">
+  <table>
+    <tr>
+      <td><label>Nom</label></td>
+      <td><input type="text" th:field="*{nameOds}" /></td>
+    </tr>
+    <tr>
+      <td><label>Relevancia</label></td>
+      <td><input type="number" th:field="*{relevance}" /></td>
+    </tr>
+    <tr>
+      <td><label>Axis (Gov/Edu/Res)</label></td>
+      <td><input type="text" th:field="*{axis}" /></td>
+    </tr>
+    <tr>
+      <td><label>Descripció</label></td>
+      <td><input type="text" th:field="*{description}" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><input type="submit" value="Afegeix ODS" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

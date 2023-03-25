@@ -50,16 +50,15 @@ public class OdsDao {
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-    // TODO add
-//    public void addNadador(Nadador nadador) {
-//        jdbcTemplate.update(
-//                "INSERT INTO Nadador VALUES(?, ?, ?, ?, ?)",
-//                nadador.getNom(),
-//                nadador.getNumFederat(),
-//                nadador.getPais(),
-//                nadador.getEdat(),
-//                nadador.getGenere());
-//    }
+
+    public void addOds(Ods ods) {
+        jdbcTemplate.update(
+                "INSERT INTO ods VALUES(?, ?, CAST(? AS sector_enum), ?)",
+                ods.getNameOds(),
+                ods.getRelevance(),
+                ods.getAxis(),
+                ods.getDescription());
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------

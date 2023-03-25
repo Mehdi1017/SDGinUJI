@@ -1,10 +1,14 @@
 package es.uji.ei1027.clubesportiu.controller;
 
 import es.uji.ei1027.clubesportiu.dao.OdsDao;
+import es.uji.ei1027.clubesportiu.model.Ods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/ods")
@@ -31,22 +35,22 @@ public class OdsController {
 
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
-//
-//    @RequestMapping(value="/add")
-//    public String addClassificacio(Model model) {
-//        model.addAttribute("classificacio", new Classificacio());  // SET MODEL ATTRIBUTE
-//        return "classificacio/add";
-//    }
-//
-//    @RequestMapping(value="/add", method= RequestMethod.POST)
-//    public String processAddSubmit(@ModelAttribute("classificacio") Classificacio classificacio,  // RETRIEVE MODEL ATTRIBUTE
-//                                   BindingResult bindingResult) {
-//        if (bindingResult.hasErrors())
-//            return "classificacio/add";
-//        classificacioDao.addClassificacio(classificacio);
-//        return "redirect:list";
-//    }
-//
+
+    @RequestMapping(value="/add")
+    public String addOds(Model model) {
+        model.addAttribute("ods", new Ods());  // SET MODEL ATTRIBUTE
+        return "ods/add";
+    }
+
+    @RequestMapping(value="/add", method= RequestMethod.POST)
+    public String processAddSubmit(@ModelAttribute("ods") Ods ods,  // RETRIEVE MODEL ATTRIBUTE
+                                   BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "ods/add";
+        odsDao.addOds(ods);
+        return "redirect:list";
+    }
+
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 //
