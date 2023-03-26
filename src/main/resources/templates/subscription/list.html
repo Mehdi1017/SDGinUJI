@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Gestionar ODS</title>
+  <title>Gestionar Subscripciones</title>
   <meta charset="UTF-8" />
   <link rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="container">
-  <h1>Llista de ODS</h1>
+  <h1>Llista de Subscripciones</h1>
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>Mail</th>
       <th>Id subscripcion</th>
+      <th>Mail</th>
       <th>Nombre de Ods</th>
       <th>Fecha inicio</th>
       <th>Fecha fin</th>
@@ -22,17 +22,15 @@
     </thead>
     <tbody>
     <tr th:each="subscription: ${allSubscription}">
-      <td th:text="${subscription.mail}"></td>
       <td th:text="${subscription.idSub}"></td>
+      <td th:text="${subscription.mail}"></td>
       <td th:text="${subscription.nameOds}"></td>
       <td th:text="${subscription.initialDate}"></td>
       <td th:text="${subscription.endDate}"></td>
-      <td> <a th:href="@{/templates/subscription/update/{nom}(nom=${subscription.mail})}" class="btn btn-warning" role="button">Edita</a></td>
-      <td><a th:href="@{/templates/subscription/delete/{nom}(nom=${subscription.mail})}" class="btn btn-danger" role="button">Esborra</a></td>
+
     </tr>
     </tbody>
   </table>
-  <a href="add" class="btn btn-success" role="button">Afegeix ODS</a>
   <a href="/" class="btn btn-primary">Tornar</a>
 </div>
 </body>
