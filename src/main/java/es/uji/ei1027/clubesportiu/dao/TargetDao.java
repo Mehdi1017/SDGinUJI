@@ -25,7 +25,7 @@ public class TargetDao {
 
     public Target getTarget(String nameOds, String nameTarg) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * from subscription WHERE name_ods=? AND name_targ=?",
+            return jdbcTemplate.queryForObject("SELECT * from Target WHERE name_ods=? AND name_targ=?",
                     new TargetRowMapper(),
                     nameOds,
                     nameTarg);
@@ -54,7 +54,7 @@ public class TargetDao {
 
     public void addTarget(Target target) {
         jdbcTemplate.update(
-                "INSERT INTO subscription VALUES(?, ?, ?)",
+                "INSERT INTO Target VALUES(?, ?, ?)",
                 target.getNameOds(),
                 target.getNameTarg(),
                 target.getDescription());
@@ -65,7 +65,7 @@ public class TargetDao {
     //-----------------------------------------------------------------------------------------------------------------
     //TODO delete
     public void deleteTarget(Target target) {
-        jdbcTemplate.update("DELETE FROM Subscription WHERE name_ods=? AND name_targ=? ",
+        jdbcTemplate.update("DELETE FROM Target WHERE name_ods=? AND name_targ=? ",
                 target.getNameOds(), target.getNameTarg());
     }
     // -----------------------------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ public class TargetDao {
     // TODO update
     public void updateTarget(Target target) {
         jdbcTemplate.update("UPDATE Target " +
-                        "SET    description = ? ," +
+                        "SET    description = ? " +
                         "WHERE  name_ods = ?"      +
                         "WHERE  name_targ = ?",
                 target.getDescription(),
