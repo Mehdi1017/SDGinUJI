@@ -18,6 +18,9 @@
       <th>Data de fi</th>
       <th>Estat</th>
       <th>Data de modificació</th>
+      <th>Progrés</th>
+      <th>Responsable</th>
+      <th>ODS relacionat</th>
       <th></th>
       <th></th>
     </tr>
@@ -25,7 +28,7 @@
     <tbody>
     <tr th:each="initiative: ${allInitiative}">
       <td th:text="${initiative.nameIni}"></td>
-      <td th:text="${initiative.descripcion}"></td>
+      <td th:text="${initiative.description}"></td>
       <td th:text="${initiative.startDate}"></td>
       <td th:text="${initiative.endDate}"></td>
       <td th:text="${initiative.stat}"></td>

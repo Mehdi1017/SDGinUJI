@@ -58,7 +58,7 @@ public class InitiativeDao {
                 initiative.getDescription(),
                 initiative.getStartDate(),
                 initiative.getEndDate(),
-                initiative.getStat(),
+                initiative.getStat().name(),
                 initiative.getLastModified(),
                 initiative.getProgress(),
                 initiative.getMail(),

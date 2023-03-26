@@ -1,13 +1,18 @@
 package es.uji.ei1027.clubesportiu.model;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Initiative {
 
     private String nameIni;
     private String description;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate startDate;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
     private StatEnum stat;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate lastModified;
     private double progress;
     private String mail;
@@ -53,8 +58,8 @@ public class Initiative {
         return stat;
     }
 
-    public void setStat(StatEnum stat) {
-        this.stat = stat;
+    public void setStat(String stat) {
+        this.stat = StatEnum.valueOf(stat);
     }
 
     public LocalDate getLastModified() {

@@ -16,7 +16,7 @@ public class InitiativeRowMapper implements RowMapper<Initiative> {
         initiative.setDescription(rs.getString("description"));
         initiative.setStartDate(rs.getObject("startdate", LocalDate.class));
         initiative.setEndDate(rs.getObject("enddate", LocalDate.class));
-        initiative.setStat(rs.getObject("description", StatEnum.class));
+        initiative.setStat(rs.getString("stat"));
         initiative.setLastModified(rs.getObject("lastmodified", LocalDate.class));
         initiative.setProgress(rs.getDouble("progress"));
         initiative.setMail(rs.getString("mail"));
