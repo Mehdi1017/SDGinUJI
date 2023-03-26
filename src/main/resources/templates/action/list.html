@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar Subscripciones</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Llista de Actions</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre de Action</th>
+            <th>Nombre de Initiative</th>
+            <th>Nombre de ODS</th>
+            <th>Nombre de Target</th>
+            <th>Creation date</th>
+            <th>End date</th>
+            <th>description</th>
+            <th>progress</th>
+
+
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="action: ${allActionn}">
+            <td th:text="${action.nameAction}"></td>
+            <td th:text="${action.nameInitiative}"></td>
+            <td th:text="${action.nameOds}"></td>
+            <td th:text="${action.nameTarget}"></td>
+            <td th:text="${action.creationDate}"></td>
+            <td th:text="${action.endDate}"></td>
+            <td th:text="${action.description}"></td>
+            <td th:text="${action.progress}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/" class="btn btn-primary">Tornar</a>
+</div>
+</body>
+</html>
+
