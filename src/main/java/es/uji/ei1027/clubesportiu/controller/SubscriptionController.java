@@ -42,7 +42,7 @@ public class SubscriptionController {
         return "subscription/add";
     }
 
-    @RequestMapping(value="/add", method= RequestMethod.POST)
+   /* @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("subscription") Subscription subscription,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -50,7 +50,7 @@ public class SubscriptionController {
         subscriptionDao.addSubscription(subscription);
         return "redirect:list";
     }
-
+*/
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 //
