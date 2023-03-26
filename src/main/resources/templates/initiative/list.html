@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Gestionar Iniciatives</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+  <h1>Llista de Iniciatives</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Nom Iniciatives</th>
+      <th>Descripció</th>
+      <th>Data de inici</th>
+      <th>Data de fi</th>
+      <th>Estat</th>
+      <th>Data de modificació</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="initiative: ${allInitiative}">
+      <td th:text="${initiative.nameIni}"></td>
+      <td th:text="${initiative.descripcion}"></td>
+      <td th:text="${initiative.startDate}"></td>
+      <td th:text="${initiative.endDate}"></td>
+      <td th:text="${initiative.stat}"></td>
+      <td th:text="${initiative.lastModified}"></td>
+      <td th:text="${initiative.progress}"></td>
+      <td th:text="${initiative.mail}"></td>
+      <td th:text="${initiative.nameOds}"></td>
+      <td> <a th:href="@{/templates/initiative/update/{nom}(nom=${initiative.nameIni})}" class="btn btn-warning" role="button">Edita</a></td>
+      <td><a th:href="@{/templates/initiative/delete/{nom}(nom=${initiative.nameIni})}" class="btn btn-danger" role="button">Esborra</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="add" class="btn btn-success" role="button">Afegeix Iniciatives</a>
+  <a href="/" class="btn btn-primary">Tornar</a>
+</div>
+</body>
+</html>
+

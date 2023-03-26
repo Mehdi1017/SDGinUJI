@@ -66,18 +66,18 @@ public class SubscriptionDao {
      //-----------------------------------------------------------------------------------------------------------------
      //TODO delete
         public void deleteSubscription(Subscription subscription) {
-            jdbcTemplate.update("DELETE FROM Subscription WHERE  id_sub = ? ",
+            jdbcTemplate.update("DELETE FROM subscription WHERE  id_sub = ? ",
                     subscription.getIdSub());
         }
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     // TODO update
         public void updateSubscription(Subscription subscription) {
-            jdbcTemplate.update("UPDATE Subscription " +
+            jdbcTemplate.update("UPDATE subscription " +
                             "SET    mail = ? ," +
                             "       name_ods = ? ," +
-                            "       initialdate = ?" +
-                            "       enddate = ?" +
+                            "       initialdate = ? ," +
+                            "       enddate = ? ," +
                             "WHERE  id_sub = ?",
                     subscription.getMail(),
                     subscription.getNameOds(),

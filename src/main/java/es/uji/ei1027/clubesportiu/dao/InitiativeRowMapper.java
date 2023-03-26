@@ -1,0 +1,26 @@
+package es.uji.ei1027.clubesportiu.dao;
+
+import es.uji.ei1027.clubesportiu.model.Initiative;
+import es.uji.ei1027.clubesportiu.model.StatEnum;
+import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+public class InitiativeRowMapper implements RowMapper<Initiative> {
+    @Override
+    public Initiative mapRow(ResultSet rs, int rowNum) throws SQLException {
+        Initiative initiative = new Initiative();
+        initiative.setNameIni(rs.getString("name_ini"));
+        initiative.setDescription(rs.getString("description"));
+        initiative.setStartDate(rs.getObject("startdate", LocalDate.class));
+        initiative.setEndDate(rs.getObject("enddate", LocalDate.class));
+        initiative.setStat(rs.getObject("description", StatEnum.class));
+        initiative.setLastModified(rs.getObject("lastmodified", LocalDate.class));
+        initiative.setProgress(rs.getDouble("progress"));
+        initiative.setMail(rs.getString("mail"));
+        initiative.setNameOds(rs.getString("name_ods"));
+        return initiative;
+    }
+}
