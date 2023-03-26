@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Crear nou membre</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Nou membre</h2>
+<form action="#" th:action="@{/uji_participant/add}"
+      th:object="${ujiParticipant}" method="post">
+  <table>
+    <tr>
+      <td><label>Mail</label></td>
+      <td><input type="text" th:field="*{mail}" /></td>
+    </tr>
+    <tr>
+      <td><label>Nom</label></td>
+      <td><input type="text" th:field="*{nameMem}" /></td>
+    </tr>
+    <tr>
+      <td><label>Tipus (PDI/PAS/Student/Others)</label></td>
+      <td><input type="text" th:field="*{usrType}" /></td>
+    </tr>
+    <tr>
+      <td><label>Genre (Male/Female/Other)</label></td>
+      <td><input type="text" th:field="*{gender}" /></td>
+    </tr>
+    <tr>
+      <td><label>Telefon</label></td>
+      <td><input type="text" th:field="*{phone}" /></td>
+    </tr>
+    <tr>
+      <td colspan="2"><input type="submit" value="Afegeix membre" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

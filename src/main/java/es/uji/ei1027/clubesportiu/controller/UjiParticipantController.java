@@ -1,7 +1,7 @@
 package es.uji.ei1027.clubesportiu.controller;
 
-import es.uji.ei1027.clubesportiu.dao.OdsDao;
-import es.uji.ei1027.clubesportiu.model.Ods;
+import es.uji.ei1027.clubesportiu.dao.UjiParticipantDao;
+import es.uji.ei1027.clubesportiu.model.UjiParticipant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,73 +12,73 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/ods")
-public class OdsController {
+@RequestMapping("/uji_participant")
+public class UjiParticipantController {
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    private OdsDao odsDao;
+    private UjiParticipantDao ujiParticipantDao;
 
     @Autowired
-    public void setOdsDao(OdsDao odsDao) {
-        this.odsDao = odsDao;
+    public void setUjiParticipantDao(UjiParticipantDao ujiParticipantDao) {
+        this.ujiParticipantDao = ujiParticipantDao;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping("/list")
-    public String listOds(Model model) {
-        model.addAttribute("allOds", odsDao.getAllOds());
-        return "ods/list";
+    public String listUjiParticipants(Model model) {
+        model.addAttribute("allUjiParticipants", ujiParticipantDao.getAllUjiParticipants());
+        return "uji_participant/list";
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping(value="/add")
-    public String addOds(Model model) {
-        model.addAttribute("ods", new Ods());  // SET MODEL ATTRIBUTE
-        return "ods/add";
+    public String addUjiParticipant(Model model) {
+        model.addAttribute("ujiParticipant", new UjiParticipant());  // SET MODEL ATTRIBUTE
+        return "uji_participant/add";
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("ods") Ods ods,  // RETRIEVE MODEL ATTRIBUTE
+    public String processAddSubmit(@ModelAttribute("ujiParticipant") UjiParticipant ujiParticipant,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "ods/add";
-        odsDao.addOds(ods);
+            return "uji_participant/add";
+        ujiParticipantDao.addUjiParticipant(ujiParticipant);
         return "redirect:list";
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    @RequestMapping(value="/update/{nOds}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-    public String editOds(Model model,
-                          @PathVariable String nOds) {  // RETRIEVE PATH VARIABLE
-        model.addAttribute("ods", odsDao.getOds(nOds));  // SET MODEL ATTRIBUTE
-        return "ods/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
+    @RequestMapping(value="/update/{mail}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String editUjiParticipant(Model model,
+                          @PathVariable String mail) {  // RETRIEVE PATH VARIABLE
+        model.addAttribute("ujiParticipant", ujiParticipantDao.getUjiParticipant(mail));  // SET MODEL ATTRIBUTE
+        return "uji_participant/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
     }
 
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public String processUpdateSubmit(
-            @ModelAttribute("ods") Ods ods, // RETRIEVE MODEL ATTRIBUTE
+            @ModelAttribute("ujiParticipant") UjiParticipant ujiParticipant, // RETRIEVE MODEL ATTRIBUTE
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "ods/update";    // TRY AGAIN, HAD ERRORS
-        System.out.println(ods);
-        odsDao.updateOds(ods);  // UPDATE
+            return "uji_participant/update";    // TRY AGAIN, HAD ERRORS
+        System.out.println(ujiParticipant);
+        ujiParticipantDao.updateUjiParticipant(ujiParticipant);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    @RequestMapping(value = "/delete/{nOds}")
-    public String processDeleteOds(@PathVariable String nOds) {
-        odsDao.deleteOds(nOds);
+    @RequestMapping(value = "/delete/{mail}")
+    public String processDeleteUjiParticipant(@PathVariable String mail) {
+        ujiParticipantDao.deleteUjiParticipant(mail);
         return "redirect:../list";
     }
 
