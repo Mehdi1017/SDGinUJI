@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Modifica un nadador</title>
+  <title>Modifica un Ods</title>
   <meta charset="UTF-8" />
   <link rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<h2>Modifica al nadador <span th:text="${nadador.nom}"> </span></h2>
-<form action="#" th:action="@{/nadador/update}"
-      th:object="${nadador}" method="post">
-  <input type="hidden" th:field="*{nom}"/>
+<h2>Modifica al Ods <span th:text="${ods.nameOds}"> </span></h2>
+<form action="#" th:action="@{/ods/update}"
+      th:object="${ods}" method="post">
+  <input type="hidden" th:field="*{nameOds}"/>
   <table>
     <tr>
-      <td><label>Num. Federat</label></td>
-      <td><input type="text" th:field="*{numFederat}" /></td>
+      <td><label>Relevancia</label></td>
+      <td><input type="number" th:field="*{relevance}" /></td>
     </tr>
     <tr>
-      <td><label>Pais</label></td>
-      <td><input type="text" th:field="*{pais}" /></td>
+      <td><label>Axis</label></td>
+      <td><input type="text" th:field="*{axis}" /></td>
     </tr>
     <tr>
-      <td><label>Edat</label></td>
-      <td><input type="number" th:field="*{edat}" /></td>
+      <td><label>Descripció</label></td>
+      <td><input type="text" th:field="*{description}" /></td>
     </tr>
     <tr>
-      <td><label>Genere</label></td>
-      <td><input type="text" th:field="*{genere}" /></td>
-    </tr>
-    <tr>
-      <td colspan="2"><input type="submit" value="Modifica nadador" /></td>
+      <td colspan="2"><input type="submit" value="Modifica Ods" /></td>
     </tr>
   </table>
 </form>

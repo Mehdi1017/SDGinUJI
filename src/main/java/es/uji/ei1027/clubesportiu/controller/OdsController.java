@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -51,39 +52,37 @@ public class OdsController {
         return "redirect:list";
     }
 
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-//
-//    @RequestMapping(value="/update/{nNadador}/{nProva}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-//    public String editClassificacio(Model model,
-//                                    @PathVariable String nNadador,
-//                                    @PathVariable String nProva) {  // RETRIEVE PATH VARIABLE
-//        model.addAttribute("classificacio", classificacioDao.getClassificacio(nNadador, nProva));  // SET MODEL ATTRIBUTE
-//        return "classificacio/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
-//    }
-//
-//    @RequestMapping(value="/update", method = RequestMethod.POST)
-//    public String processUpdateSubmit(
-//            @ModelAttribute("classificacio") Classificacio classificacio, // RETRIEVE MODEL ATTRIBUTE
-//            BindingResult bindingResult) {
-//        if (bindingResult.hasErrors())
-//            return "classificacio/update";    // TRY AGAIN, HAD ERRORS
-//        System.out.println(classificacio);
-//        classificacioDao.updateClassificacio(classificacio);  // UPDATE
-//        return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
-//    }
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-//
-//    @RequestMapping(value = "/delete/{nNadador}/{nProva}")
-//    public String processDeleteClassif(@PathVariable String nNadador,
-//                                       @PathVariable String nProva) {
-//        classificacioDao.deleteClassificacio(nNadador, nProva);
-//        return "redirect:../../list";
-//    }
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @RequestMapping(value="/update/{nOds}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String editOds(Model model,
+                          @PathVariable String nOds) {  // RETRIEVE PATH VARIABLE
+        model.addAttribute("ods", odsDao.getOds(nOds));  // SET MODEL ATTRIBUTE
+        return "ods/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
+    }
+
+    @RequestMapping(value="/update", method = RequestMethod.POST)
+    public String processUpdateSubmit(
+            @ModelAttribute("ods") Ods ods, // RETRIEVE MODEL ATTRIBUTE
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "ods/update";    // TRY AGAIN, HAD ERRORS
+        System.out.println(ods);
+        odsDao.updateOds(ods);  // UPDATE
+        return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @RequestMapping(value = "/delete/{nOds}")
+    public String processDeleteOds(@PathVariable String nOds) {
+        odsDao.deleteOds(nOds);
+        return "redirect:../list";
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
 
 }

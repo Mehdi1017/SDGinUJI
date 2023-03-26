@@ -62,28 +62,26 @@ public class OdsDao {
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-    // TODO delete
-//    public void deleteNadador(Nadador nadador) {
-//        jdbcTemplate.update("DELETE FROM Nadador WHERE nom = ? ",
-//                nadador.getNom());
-//    }
+
+    public void deleteOds(String nOds) {
+        jdbcTemplate.update("DELETE FROM ods WHERE name_ods = ? ",
+                    nOds);
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-    // TODO update
-//    public void updateNadador(Nadador nadador) {
-//        jdbcTemplate.update("UPDATE Nadador " +
-//                        "SET    num_federat = ? ," +
-//                        "       edat = ? ," +
-//                        "       pais = ? ," +
-//                        "       genere = ?" +
-//                        "WHERE  nom = ? ",
-//                nadador.getNumFederat(),
-//                nadador.getEdat(),
-//                nadador.getPais(),
-//                nadador.getGenere(),
-//                nadador.getNom());
-//    }
+
+    public void updateOds(Ods ods) {
+        jdbcTemplate.update("UPDATE ods " +
+                        "SET    relevance = ? ," +
+                        "       axis = CAST(? AS sector_enum) ," +
+                        "       description = ? " +
+                        "WHERE  name_ods = ? ",
+                ods.getRelevance(),
+                ods.getAxis(),
+                ods.getDescription(),
+                ods.getNameOds());
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
