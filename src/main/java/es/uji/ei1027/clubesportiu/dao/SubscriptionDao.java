@@ -61,32 +61,32 @@ public class SubscriptionDao {
                 subscription.getEndDate());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // TODO delete
-//    public void deleteNadador(Nadador nadador) {
-//        jdbcTemplate.update("DELETE FROM Nadador WHERE nom = ? ",
-//                nadador.getNom());
-//    }
 
+    // -----------------------------------------------------------------------------------------------------------------
+     //-----------------------------------------------------------------------------------------------------------------
+     //TODO delete
+        public void deleteSubscription(Subscription subscription) {
+            jdbcTemplate.update("DELETE FROM Subscription WHERE  id_sub = ? ",
+                    subscription.getIdSub());
+        }
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     // TODO update
-//    public void updateNadador(Nadador nadador) {
-//        jdbcTemplate.update("UPDATE Nadador " +
-//                        "SET    num_federat = ? ," +
-//                        "       edat = ? ," +
-//                        "       pais = ? ," +
-//                        "       genere = ?" +
-//                        "WHERE  nom = ? ",
-//                nadador.getNumFederat(),
-//                nadador.getEdat(),
-//                nadador.getPais(),
-//                nadador.getGenere(),
-//                nadador.getNom());
-//    }
+        public void updateSubscription(Subscription subscription) {
+            jdbcTemplate.update("UPDATE Subscription " +
+                            "SET    mail = ? ," +
+                            "       name_ods = ? ," +
+                            "       initialdate = ?" +
+                            "       enddate = ?" +
+                            "WHERE  id_sub = ?",
+                    subscription.getMail(),
+                    subscription.getNameOds(),
+                    subscription.getInitialDate(),
+                    subscription.getEndDate(),
+                    subscription.getIdSub());
+        }
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
 
 }
