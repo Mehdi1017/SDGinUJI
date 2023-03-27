@@ -47,8 +47,8 @@ public class InitiativeController {
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
-        //if (bindingResult.hasErrors())
-         //   return "initiative/add";
+        if (bindingResult.hasErrors())
+            return "initiative/add";
         initiativeDao.addInitiative(initiative);
         return "redirect:list";
     }
