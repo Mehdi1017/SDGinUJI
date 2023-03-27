@@ -2,7 +2,7 @@ package es.uji.ei1027.clubesportiu.controller;
 
 import es.uji.ei1027.clubesportiu.dao.InitiativeDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
-import es.uji.ei1027.clubesportiu.model.Initiative;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,13 +73,11 @@ public String editInitiative(Model model,
         initiativeDao.updateInitiative(initiative);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
-//
-//    @RequestMapping(value = "/delete/{nNadador}/{nProva}")
-//    public String processDeleteClassif(@PathVariable String nNadador,
-//                                       @PathVariable String nProva) {
-//        classificacioDao.deleteClassificacio(nNadador, nProva);
-//        return "redirect:../../list";
-//    }
+    @RequestMapping(value = "/delete/{nInitiative}")
+    public String processDeleteInitiative(@PathVariable String nInitiative) {
+        initiativeDao.deleteInitiative(nInitiative);
+        return "redirect:../list";
+    }
 //
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------

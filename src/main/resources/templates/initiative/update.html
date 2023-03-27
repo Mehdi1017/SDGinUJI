@@ -7,14 +7,14 @@
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<h2>Modifica la iniciativa <span th:text="${initiative.nameInitiative}"> </span></h2>
+<h2>Modifica la iniciativa <span th:text="${initiative.nameIni}"> </span></h2>
 <form action="#" th:action="@{/initiative/update}"
       th:object="${initiative}" method="post">
   <input type="hidden" th:field="*{nameIni}"/>
   <table>
     <tr>
       <td><label>Descripció</label></td>
-      <td><input type="number" th:field="*{description}" /></td>
+      <td><input type="text" th:field="*{description}" /></td>
     </tr>
     <tr>
       <td><label>Data de inici</label></td>
@@ -30,7 +30,7 @@
     </tr>
     <tr>
       <td><label>Progrés</label></td>
-      <td><input type="text" th:field="*{progress}" /></td>
+      <td><input type="number" th:field="*{progress}" /></td>
     </tr>
     <tr>
       <td><label>Mail</label></td>

@@ -68,9 +68,9 @@ public class InitiativeDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
      //TODO delete
-        public void deleteInitiative(Initiative initiative) {
+        public void deleteInitiative(String nameIni) {
             jdbcTemplate.update("DELETE FROM initiative WHERE name_ini = ? ",
-                    initiative.getNameIni());
+                    nameIni);
         }
      //-----------------------------------------------------------------------------------------------------------------
      //-----------------------------------------------------------------------------------------------------------------
@@ -81,7 +81,7 @@ public class InitiativeDao {
                             "       description = ? ," +
                             "       startDate = ? ," +
                             "       enddate = ? ," +
-                            "       stat = ? ," +
+                            "       stat = CAST(? AS stat_enum) ," +
                             "       lastmodified = ? ," +
                             "       progress = ? ," +
                             "       mail = ? ," +

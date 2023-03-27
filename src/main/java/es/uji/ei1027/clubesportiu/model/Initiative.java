@@ -11,7 +11,7 @@ public class Initiative {
     private LocalDate startDate;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
-    private StatEnum stat;
+    private String stat;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate lastModified;
     private double progress;
@@ -54,12 +54,12 @@ public class Initiative {
         this.endDate = endDate;
     }
 
-    public StatEnum getStat() {
+    public String getStat() {
         return stat;
     }
 
     public void setStat(String stat) {
-        this.stat = StatEnum.valueOf(stat);
+        this.stat = stat;
     }
 
     public LocalDate getLastModified() {
