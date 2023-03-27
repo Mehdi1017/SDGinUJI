@@ -17,7 +17,7 @@ public class InitiativeParticipationRowMapper implements RowMapper<InitiativePar
         initiativeParticipation.setRequestMessage(rs.getString("request_message"));
         initiativeParticipation.setCreationDate(rs.getObject("creation_date", LocalDate.class));
         initiativeParticipation.setStat(rs.getString("stat"));
-        initiativeParticipation.setCreationDate(rs.getObject("startdate", LocalDate.class));
+        initiativeParticipation.setStartDate(rs.getObject("startdate", LocalDate.class));
         initiativeParticipation.setEndDate(rs.getObject("enddate", LocalDate.class));
         return initiativeParticipation;
     }

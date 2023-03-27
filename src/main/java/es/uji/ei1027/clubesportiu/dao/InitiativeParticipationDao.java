@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,12 +55,11 @@ public class InitiativeParticipationDao {
 
     public void addInitiativeParticipation(InitiativeParticipation initiativeParticipation) {
         jdbcTemplate.update(
-                "INSERT INTO initiative_participation VALUES(?, ?, ?, ?, CAST(? AS stat_enum), ?, ?)",
+                "INSERT INTO initiative_participation VALUES(?, ?, ?, ?, 'Pending', ?, ?)",
                 initiativeParticipation.getMail(),
                 initiativeParticipation.getNameIni(),
                 initiativeParticipation.getRequestMessage(),
-                initiativeParticipation.getCreationDate(),
-                initiativeParticipation.getStat(),
+                LocalDate.now(),
                 initiativeParticipation.getStartDate(),
                 initiativeParticipation.getEndDate());
     }
