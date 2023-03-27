@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,14 +54,12 @@ public class InitiativeDao {
 
     public void addInitiative(Initiative initiative) {
         jdbcTemplate.update(
-                "INSERT INTO initiative VALUES(?, ?, ?, ?, CAST(? AS stat_enum), ?, ?, ?, ?)",
+                "INSERT INTO initiative VALUES(?, ?, ?, ?, 'Pending', ?, 0.0, ?, ?)",
                 initiative.getNameIni(),
                 initiative.getDescription(),
                 initiative.getStartDate(),
                 initiative.getEndDate(),
-                initiative.getStat().name(),
-                initiative.getLastModified(),
-                initiative.getProgress(),
+                initiative.getStartDate(),
                 initiative.getMail(),
                 initiative.getNameOds());
     }
@@ -69,9 +68,9 @@ public class InitiativeDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
      //TODO delete
-        public void deleteInitiative(Initiative initiative) {
+        public void deleteInitiative(String nameIni) {
             jdbcTemplate.update("DELETE FROM initiative WHERE name_ini = ? ",
-                    initiative.getNameIni());
+                    nameIni);
         }
      //-----------------------------------------------------------------------------------------------------------------
      //-----------------------------------------------------------------------------------------------------------------
@@ -82,7 +81,7 @@ public class InitiativeDao {
                             "       description = ? ," +
                             "       startDate = ? ," +
                             "       enddate = ? ," +
-                            "       stat = ? ," +
+                            "       stat = CAST(? AS stat_enum) ," +
                             "       lastmodified = ? ," +
                             "       progress = ? ," +
                             "       mail = ? ," +
@@ -92,7 +91,7 @@ public class InitiativeDao {
                     initiative.getStartDate(),
                     initiative.getEndDate(),
                     initiative.getStat(),
-                    initiative.getLastModified(),
+                    LocalDate.now(),
                     initiative.getProgress(),
                     initiative.getMail(),
                     initiative.getNameOds(),

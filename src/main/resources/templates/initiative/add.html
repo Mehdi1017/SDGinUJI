@@ -13,39 +13,27 @@
   <table>
     <tr>
       <td><label>Nom</label></td>
-      <td><input type="text" th:field="*{nameIni}" /></td>
+      <td><input type="text" th:field="*{nameIni}" required/></td>
     </tr>
     <tr>
       <td><label>Descripció</label></td>
-      <td><input type="text" th:field="*{description}" /></td>
+      <td><input type="text" th:field="*{description}" required/></td>
     </tr>
     <tr>
       <td><label>Data de inici</label></td>
-      <td><input type="text" th:field="*{startDate}" /></td>
+      <td><input type="text" th:field="*{startDate}" required/></td>
     </tr>
     <tr>
       <td><label>Data de Fi</label></td>
       <td><input type="text" th:field="*{endDate}" /></td>
     </tr>
     <tr>
-      <td><label>Estat</label></td>
-      <td><input type="text" th:field="*{stat}" /></td>
-    </tr>
-    <tr>
-      <td><label>Data d'última modificació</label></td>
-      <td><input type="text" th:field="*{lastModified}" /></td>
-    </tr>
-    <tr>
-      <td><label>Progrés</label></td>
-      <td><input type="number" th:field="*{progress}" /></td>
-    </tr>
-    <tr>
       <td><label>Mail</label></td>
-      <td><input type="text" th:field="*{mail}" /></td>
+      <td><input type="text" th:field="*{mail}" required/></td>
     </tr>
     <tr>
       <td><label>Nom ODS</label></td>
-      <td><input type="text" th:field="*{nameOds}" /></td>
+      <td><input type="text" th:field="*{nameOds}" required/></td>
     </tr>
       <td colspan="2"><input type="submit" value="Afegeix Iniciatives" /></td>
     </tr>
