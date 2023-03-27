@@ -53,14 +53,12 @@ public class InitiativeDao {
 
     public void addInitiative(Initiative initiative) {
         jdbcTemplate.update(
-                "INSERT INTO initiative VALUES(?, ?, ?, ?, CAST(? AS stat_enum), ?, ?, ?, ?)",
+                "INSERT INTO initiative VALUES(?, ?, ?, ?, 'Pending', ?, 0.0, ?, ?)",
                 initiative.getNameIni(),
                 initiative.getDescription(),
                 initiative.getStartDate(),
                 initiative.getEndDate(),
-                initiative.getStat().name(),
-                initiative.getLastModified(),
-                initiative.getProgress(),
+                initiative.getStartDate(),
                 initiative.getMail(),
                 initiative.getNameOds());
     }
