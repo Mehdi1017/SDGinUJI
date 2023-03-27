@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Gestionar Participacions en Iniciatives</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+  <h1>Llista de participacions en iniciatives</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Mail Admin.</th>
+      <th>Iniciativa</th>
+      <th>Missatge</th>
+      <th>Creació</th>
+      <th>Estat</th>
+      <th>Data ingrés</th>
+      <th>Data fi</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="initiativeParticipation: ${allInitiativeParticipations}">
+      <td th:text="${initiativeParticipation.mail}"></td>
+      <td th:text="${initiativeParticipation.nameIni}"></td>
+      <td th:text="${initiativeParticipation.requestMessage}"></td>
+      <td th:text="${initiativeParticipation.creationDate}"></td>
+      <td th:text="${initiativeParticipation.stat}"></td>
+      <td th:text="${initiativeParticipation.creationDate}"></td>
+      <td th:text="${initiativeParticipation.endDate}"></td>
+      <td> <a th:href="@{/templates/initiative_participation/update/{mail}/{nameIni}(mail=${initiativeParticipation.mail}, nameIni=${initiativeParticipation.nameIni})}" class="btn btn-warning" role="button">Edita</a></td>
+      <td><a th:href="@{/templates/initiative_participation/delete/{mail}/{nameIni}(mail=${initiativeParticipation.mail}, nameIni=${initiativeParticipation.nameIni})}" class="btn btn-danger" role="button">Esborra</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="add" class="btn btn-success" role="button">Afegeix participació</a>
+  <a href="/" class="btn btn-primary">Tornar</a>
+</div>
+</body>
+</html>
+

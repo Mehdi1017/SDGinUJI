@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Crear participacio en iniciativa</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2>Nova participació en iniciativa</h2>
+<form action="#" th:action="@{/initiative_participation/add}"
+      th:object="${initiativeParticipation}" method="post">
+  <table>
+    <tr>
+      <td><label>Mail</label></td>
+      <td><input type="text" th:field="*{mail}" /></td>
+      <td><a href="uji_participant/list">Llistat mails</a></td>
+    </tr>
+    <tr>
+      <td><label>Iniciativa</label></td>
+      <td><input type="text" th:field="*{nameIni}" /></td>
+      <td><a href="initiative/list">Llistat Iniciatives</a></td>
+    </tr>
+    <tr>
+      <td><label>Data de inici</label></td>
+      <td><input type="text" th:field="*{startDate}" /></td>
+    </tr>
+    <tr>
+      <td><label>Data de Fi</label></td>
+      <td><input type="text" th:field="*{endDate}" /></td>
+    </tr>
+    <tr>
+      <td><label>Estat</label></td>
+      <td><input type="text" th:field="*{stat}" /></td>
+    </tr>
+    <tr>
+      <td><label>Data d'última modificació</label></td>
+      <td><input type="text" th:field="*{lastModified}" /></td>
+    </tr>
+    <tr>
+      <td><label>Progrés</label></td>
+      <td><input type="number" th:field="*{progress}" /></td>
+    </tr>
+    <tr>
+      <td><label>Mail</label></td>
+      <td><input type="text" th:field="*{mail}" /></td>
+    </tr>
+    <tr>
+      <td><label>Nom ODS</label></td>
+      <td><input type="text" th:field="*{nameOds}" /></td>
+    </tr>
+      <td colspan="2"><input type="submit" value="Afegeix Iniciatives" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
