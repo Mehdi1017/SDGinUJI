@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +91,7 @@ public class InitiativeDao {
                     initiative.getStartDate(),
                     initiative.getEndDate(),
                     initiative.getStat(),
-                    initiative.getLastModified(),
+                    LocalDate.now(),
                     initiative.getProgress(),
                     initiative.getMail(),
                     initiative.getNameOds(),

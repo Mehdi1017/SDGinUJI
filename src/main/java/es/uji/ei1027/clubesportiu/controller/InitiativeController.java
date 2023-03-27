@@ -2,11 +2,13 @@ package es.uji.ei1027.clubesportiu.controller;
 
 import es.uji.ei1027.clubesportiu.dao.InitiativeDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
+import es.uji.ei1027.clubesportiu.model.Initiative;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -54,27 +56,23 @@ public class InitiativeController {
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 //
-//    @RequestMapping(value="/update/{nNadador}/{nProva}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-//    public String editClassificacio(Model model,
-//                                    @PathVariable String nNadador,
-//                                    @PathVariable String nProva) {  // RETRIEVE PATH VARIABLE
-//        model.addAttribute("classificacio", classificacioDao.getClassificacio(nNadador, nProva));  // SET MODEL ATTRIBUTE
-//        return "classificacio/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
-//    }
-//
-//    @RequestMapping(value="/update", method = RequestMethod.POST)
-//    public String processUpdateSubmit(
-//            @ModelAttribute("classificacio") Classificacio classificacio, // RETRIEVE MODEL ATTRIBUTE
-//            BindingResult bindingResult) {
-//        if (bindingResult.hasErrors())
-//            return "classificacio/update";    // TRY AGAIN, HAD ERRORS
-//        System.out.println(classificacio);
-//        classificacioDao.updateClassificacio(classificacio);  // UPDATE
-//        return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
-//    }
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
+@RequestMapping(value="/update/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+public String editInitiative(Model model,
+                      @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
+    model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));  // SET MODEL ATTRIBUTE
+    return "initiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
+}
+
+    @RequestMapping(value="/update", method = RequestMethod.POST)
+    public String processUpdateSubmit(
+            @ModelAttribute("initiative") Initiative initiative, // RETRIEVE MODEL ATTRIBUTE
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "initiative/update";    // TRY AGAIN, HAD ERRORS
+        System.out.println(initiative);
+        initiativeDao.updateInitiative(initiative);  // UPDATE
+        return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
+    }
 //
 //    @RequestMapping(value = "/delete/{nNadador}/{nProva}")
 //    public String processDeleteClassif(@PathVariable String nNadador,
