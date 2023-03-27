@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Gestionar Iniciatives</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+  <h1>Llista de Participació en accions</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Nom Accció</th>
+      <th>Nom Iniciativa</th>
+      <th>Mail participant</th>
+      <th>Estat</th>
+      <th>Data de inici</th>
+      <th>Data de fi</th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="actionParticipation: ${allActionParticipation}">
+      <td th:text="${actionParticipation.nameAct}"></td>
+      <td th:text="${actionParticipation.nameIni}"></td>
+      <td th:text="${actionParticipation.mail}"></td>
+      <td th:text="${actionParticipation.stat}"></td>
+      <td th:text="${actionParticipation.startDate}"></td>
+      <td th:text="${actionParticipation.endDate}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <a href="/" class="btn btn-primary">Tornar</a>
+</div>
+</body>
+</html>
+
