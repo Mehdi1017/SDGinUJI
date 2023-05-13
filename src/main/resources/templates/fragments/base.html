@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    />
+
+    <!-- app css  -->
+    <link type="text/css" th:href="@{/css/ods.css}" href="/css/ods.css"
+          rel="stylesheet"/>
+
+    <title th:text="${CONTENT_TITLE}">EI1027 - ODS Project</title>
+</head>
+
+<body class="container">
+<div th:replace="fragments/header"></div>
+<div th:replace="fragments/nav"></div>
+<div th:replace="fragments/logininfo"></div>
+<div layout:fragment="content"></div>
+<footer>
+    <hr>
+    <p class="text-muted">EI1027 - ODS Project</p>
+</footer>
+</body>
+</html>
