@@ -35,16 +35,16 @@ public class InitiativeDao {
         }
     }
 
-    /*public Initiative getMytiative(String ) {
+    public Initiative getMyInitiative(String mail) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * from initiative WHERE name_ini=?",
+            return jdbcTemplate.queryForObject("SELECT * from initiative WHERE mail=?",
                     new InitiativeRowMapper(),
-                    nameIni);
+                    mail);
         }
         catch(EmptyResultDataAccessException e) {
             return null;
         }
-    }*/
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------

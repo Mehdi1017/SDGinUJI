@@ -4,6 +4,7 @@ public class UserDetails {
     Boolean isAdmin = false;
     String username;
     String password;
+    String mail;
 
     public boolean isAdmin(){
         return isAdmin;
@@ -27,5 +28,13 @@ public class UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }

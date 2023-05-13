@@ -17,6 +17,7 @@ public class FakeUserProvider implements UserDao {
         
         // usuario UJI member
         userFrancesc.setUsername("francesc");
+        userFrancesc.setMail("francesc@gmail.com");
         userFrancesc.setPassword(passwordEncryptor.encryptPassword("francesc"));
         userFrancesc.setIsAdmin(false);
         knownUsers.put("francesc", userFrancesc);
@@ -24,6 +25,7 @@ public class FakeUserProvider implements UserDao {
         // usuario OCDS staff
         UserDetails userMaria = new UserDetails();
         userMaria.setUsername("maria");
+        userMaria.setMail("maria@gmail.com");
         userMaria.setPassword(passwordEncryptor.encryptPassword("maria"));
         userMaria.setIsAdmin(true);
         knownUsers.put("maria", userMaria);
