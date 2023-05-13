@@ -8,7 +8,9 @@
 
     padding-left: 30pt;
 }
-
+*{
+    font-family: 'Montserrat', sans-serif;
+}
 .page-anonymous-background {
     background-color:cornflowerblue;
 }

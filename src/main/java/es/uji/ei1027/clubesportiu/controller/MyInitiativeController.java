@@ -44,14 +44,18 @@ public class MyInitiativeController {
         model.addAttribute("CONTENT_TITLE","Creando una Iniciativa");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("initiative", new Initiative());  // SET MODEL ATTRIBUTE
+
         return "myInitiative/add";
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,  // RETRIEVE MODEL ATTRIBUTE
-                                   BindingResult bindingResult) {
+                                   BindingResult bindingResult, Model model) {
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        InitiativeValidator initiativeValidator = new InitiativeValidator();
+        initiativeValidator.validate(initiative, bindingResult);
         if (bindingResult.hasErrors())
-            return "initiative/add";
+            return "myInitiative/add";
         initiativeDao.addInitiative(initiative);
         return "redirect:list";
     }
