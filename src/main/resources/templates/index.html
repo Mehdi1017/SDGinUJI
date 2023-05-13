@@ -10,7 +10,7 @@
 <div layout:fragment="content">
   <img th:src="@{/imagenes/bannerval.jpg}">
   <ol>
-    <li th:each="ods: ${allOds}" th:text="${ods.nameOds}"></li>
+    <li th:each="ods: ${allOds}" th:text="${ods.nameOds} "></li>
   </ol>
 </div>
 </body>
