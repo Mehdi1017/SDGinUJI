@@ -27,12 +27,12 @@ class UserValidator implements Validator {
 
         // Check if username is empty
         if (userDetails.getUsername().isEmpty()) {
-            errors.rejectValue("username", "empty.username", "Username cannot be empty");
+            errors.rejectValue("username", "empty.username", "Introduzca un usuario");
         }
 
         // Check if password is empty
         if (userDetails.getPassword().isEmpty()) {
-            errors.rejectValue("password", "empty.password", "Password cannot be empty");
+            errors.rejectValue("password", "empty.password", "Introduzca una contraseña");
         }
     }
 }
@@ -64,7 +64,7 @@ public class LoginController {
         // intentant carregar les dades de l'usuari
         user = userDao.loadUserByUsername(user.getUsername(), user.getPassword());
         if (user == null) {
-            bindingResult.rejectValue("password", "badpw", "Contrasenya incorrecta");
+            bindingResult.rejectValue("password", "badpw", "Contraseña incorrecta");
             return "login";
         }
         // Autenticats correctament.
