@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<form action="#" th:action="@{/myInitiative/add}"
+      th:object="${initiative}" method="post">
+  <table>
+    <tr>
+      <td><label>Nombre de la iniciativa:</label></td>
+      <td><input type="text" th:field="*{nameIni}" required/></td>
+    </tr>
+
+    <tr>
+      <td><label>Data de inici</label></td>
+      <td><input type="text" th:field="*{startDate}" required/></td>
+    </tr>
+    <tr>
+      <td><label>Data de Fi</label></td>
+      <td><input type="text" th:field="*{endDate}" /></td>
+    </tr>
+    <tr>
+      <td><label>SDG al que va dirigida:</label></td>
+      <td><input type="text" th:field="*{nameOds}" required/></td>
+    </tr>
+    <tr>
+      <td><label>Descripción:</label></td>
+      <td><input type="text" th:field="*{description}" required/></td>
+    </tr>
+      <td colspan="2"><input type="submit" value="ENVIAR" /></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
