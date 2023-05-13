@@ -1,12 +1,12 @@
 .page-header {
     color: black;
-    height: 100px;
+    height: 80pt;
 
     display: flex;
     align-items: center;
     justify-content: left;
 
-    padding-left: 40px;
+    padding-left: 30pt;
 }
 
 .page-anonymous-background {
@@ -32,14 +32,24 @@
 }
 
 .custom-navbar {
-    height:30px;
+    height:20pt;
 }
 .navbar-gap {
-    gap: 10px;
+    gap: 10pt;
 }
+
+.loggeduser {
+    color: black;
+    text-align: right;
+}
+
 
 .bold {
     font-weight: bold;
+}
+
+a {
+    color: indianred;
 }
 
 body {
