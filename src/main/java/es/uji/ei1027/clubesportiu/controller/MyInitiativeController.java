@@ -33,6 +33,7 @@ public class MyInitiativeController {
         //model.addAttribute("allInitiative", initiativeDao.getAllInitiative());
         model.addAttribute("CONTENT_TITLE","Mostrando tus Iniciativas");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
+        model.addAttribute("myInitiatives", initiativeDao.getAllInitiative());
         return "myInitiative/list";
     }
 
