@@ -10,6 +10,7 @@ public class HomeController {
     public String index(Model model) {
 
         model.addAttribute("CONTENT_TITLE","EI1027 - Spring MVC");
+        model.addAttribute("SELECTED_NAVBAR","SDGs");
         return "index";
     }
 }

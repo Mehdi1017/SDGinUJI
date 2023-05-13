@@ -21,11 +21,25 @@
     background-color:indianred;
 }
 
-
 .page-h1 {
     font-weight: bold;
     font-size: xx-large;
     margin: 0;
+}
+
+.bg-grey {
+    background-color: #e5e5e5;
+}
+
+.custom-navbar {
+    height:30px;
+}
+.navbar-gap {
+    gap: 10px;
+}
+
+.bold {
+    font-weight: bold;
 }
 
 body {
