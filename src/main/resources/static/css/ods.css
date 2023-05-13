@@ -1,0 +1,57 @@
+.page-header {
+    color: black;
+    height: 80pt;
+
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+    padding-left: 30pt;
+}
+
+.page-anonymous-background {
+    background-color:cornflowerblue;
+}
+
+.page-user-background {
+    background-color:limegreen;
+}
+
+.page-admin-background {
+    background-color:indianred;
+}
+
+.page-h1 {
+    font-weight: bold;
+    font-size: xx-large;
+    margin: 0;
+}
+
+.bg-grey {
+    background-color: #e5e5e5;
+}
+
+.custom-navbar {
+    height:20pt;
+}
+.navbar-gap {
+    gap: 10pt;
+}
+
+.loggeduser {
+    color: black;
+    text-align: right;
+}
+
+
+.bold {
+    font-weight: bold;
+}
+
+a {
+    color: indianred;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}

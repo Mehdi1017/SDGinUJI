@@ -1,3 +1,6 @@
-<header class="page-header-user">
-    <h1 th:text="${CONTENT_TITLE}">EI1027 - ODS Project</h1>
+<header class="page-header page-anonymous-background">
+    <h1 th:if="*{user == null}" class="page-h1 page-anonymous-background" th:text="${CONTENT_TITLE}">EI1027 - ODS Project</h1>
+    <h1 th:if="*{user != null && user.isAdmin() == False}" class="page-h1 page-user-background" th:text="${CONTENT_TITLE}">EI1027 - ODS Project</h1>
+    <h1 th:if="*{user != null && user.isAdmin() == True}" class="page-h1 page-admin-background" th:text="${CONTENT_TITLE}">EI1027 - ODS Project</h1>
+
 </header>

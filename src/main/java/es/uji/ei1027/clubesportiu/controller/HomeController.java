@@ -18,6 +18,7 @@ public class HomeController {
 
         model.addAttribute("CONTENT_TITLE","EI1027 - Spring MVC");
         model.addAttribute("allOds", odsDao.getAllOds());
+        model.addAttribute("SELECTED_NAVBAR","SDGs");
         return "index";
     }
 }
