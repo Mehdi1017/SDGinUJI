@@ -24,6 +24,6 @@ public class AreaPrivada {
         if(!usuario.isAdmin())
             return "front_office/area_privada";
         else
-            return  "/login";
+            return  "back_office/area_privada";
     }
 }

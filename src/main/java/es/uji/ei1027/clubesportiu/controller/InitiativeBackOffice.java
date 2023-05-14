@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/myInitiative")
-public class MyInitiativeController {
+@RequestMapping("/InitiativeBackOffice")
+public class InitiativeBackOffice {
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -34,14 +34,14 @@ public class MyInitiativeController {
     @RequestMapping("/list")
     public String listInitiative(Model model, HttpSession session) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
-        if (usuario == null){
-            return "redirect:/login";
+        if (usuario == null || !usuario.isAdmin()){
+            return "login";
         }
 
-        model.addAttribute("CONTENT_TITLE","Mostrando tus Iniciativas");
+        model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas Pendientes");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        model.addAttribute("myInitiatives", initiativeDao.getMyInitiative(usuario.getMail()));
-        return "myInitiative/list";
+        model.addAttribute("iniciativas", initiativeDao.getMyInitiative(usuario.getMail()));
+        return "InitiativeBackOffice/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------
@@ -68,15 +68,15 @@ public class MyInitiativeController {
         return "redirect:list";
     }
 
-//    // -----------------------------------------------------------------------------------------------------------------
+    //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 //
-@RequestMapping(value="/update/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-public String editInitiative(Model model,
-                      @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
-    model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));  // SET MODEL ATTRIBUTE
-    return "initiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
-}
+    @RequestMapping(value="/update/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String editInitiative(Model model,
+                                 @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
+        model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));  // SET MODEL ATTRIBUTE
+        return "initiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
+    }
 
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public String processUpdateSubmit(
