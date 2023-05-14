@@ -9,16 +9,21 @@
 </head>
 <body>
 <div layout:fragment="content">
-  <table class="table table-striped" th:each="initiative: ${iniciativas}">
+
+  <div class="centered_text" th:if="${iniciativas.isEmpty()}">
+    <p class="txt"><b>No hay iniciativas pendientes</b></p>
+  </div>
+  <table class="table " th:each="initiative: ${iniciativas}">
     <tr><td>
-      <a class="txt" th:text="${initiative.nameIni}" th:href="@{/InitiativeBackOffice/view/{nom}(nom=${initiative.getNameIni()})}"></a>
-      <p class="txt" th:text="${#strings.abbreviate(initiative.description,150)}"></p>
-      <a th:href="@{/InitiativeBackOffice/accept/{nom}(nom=${initiative.getNameIni()})}" class="boton_secundario color_verde">Aceptar</a>
-      <a th:href="@{/InitiativeBackOffice/reject/{nom}(nom=${initiative.getNameIni()})}" class="boton_secundario color_rojo_2">Rechazar</a>
+      <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/InitiativeBackOffice/view/{nom}(nom=${initiative.getNameIni()})}"></a> <br>
+      <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
+      <a class="boton_secundario color_verde" th:href="@{/InitiativeBackOffice/accept/{nom}(nom=${initiative.getNameIni()})}">Aceptar</a>
+      <a class="boton_secundario color_rojo_0" th:href="@{/InitiativeBackOffice/reject/{nom}(nom=${initiative.getNameIni()})}">Rechazar</a>
     </td>
     </tr>
-
   </table>
+
+
 </div>
 </body>
 </html>

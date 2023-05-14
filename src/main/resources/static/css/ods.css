@@ -60,7 +60,7 @@ body {
     text-align: center;
 }
 
-.centered_text ul {
+.centered_text ul, ol {
     display: inline-block;
     margin: 0;
     padding: 0;
@@ -184,4 +184,15 @@ a.boton_secundario, .boton_secundario {
     margin: 4pt;
     font-weight: 500;
     font-size: small;
+}
+
+.spaced_txt {
+    padding-left: 10pt;
+}
+
+.img_principal {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60%;
 }

@@ -8,10 +8,13 @@
 </head>
 <body>
 <div layout:fragment="content">
-  <img th:src="@{/imagenes/bannerval.jpg}">
-  <ol>
-    <li class="txt" th:each="ods: ${allOds}" th:text="${ods.nameOds} "><a href=""></a></li>
-  </ol>
+  <img class="img_principal" th:src="@{/imagenes/bannerval.jpg}">
+  <br>
+  <div class="floater_wrapper centered_text">
+    <ol>
+      <li class="txt" th:each="ods: ${allOds}"><a href="" th:text="${ods.nameOds}"></a></li>
+    </ol>
+  </div>
 </div>
 </body>
 </html>
