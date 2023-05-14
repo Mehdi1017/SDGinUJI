@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-grey custom-navbar">
     <ul class="navbar-nav flex-row navbar-gap">
-        <li class="nav-item" ><a class="nav-link text-dark" href="/" th:href="@{/}" th:classappend="${SELECTED_NAVBAR.equals('SDGs')} ? bold">SDGs</a></li>
-        <li class="nav-item" ><a class="nav-link text-dark" href="/fixme" th:href="@{/fixme}" th:classappend="${SELECTED_NAVBAR.equals('Iniciativas')} ? bold">Iniciativas</a></li>
-        <li class="nav-item" ><a class="nav-link text-dark" href="/area" th:href="@{/area}" th:classappend="${SELECTED_NAVBAR.equals('Área privada')} ? bold">Área privada</a></li>
+        <li class="nav-item" ><a class="nav-link text-dark" href="/" th:href="@{/}" th:classappend="${SELECTED_NAVBAR != null && SELECTED_NAVBAR.equals('SDGs')} ? bold">SDGs</a></li>
+        <li class="nav-item" ><a class="nav-link text-dark" href="/fixme" th:href="@{/fixme}" th:classappend="${SELECTED_NAVBAR != null && SELECTED_NAVBAR.equals('Iniciativas')} ? bold">Iniciativas</a></li>
+        <li class="nav-item" ><a class="nav-link text-dark" href="/area" th:href="@{/area}" th:classappend="${SELECTED_NAVBAR != null && SELECTED_NAVBAR.equals('Área privada')} ? bold">Área privada</a></li>
     </ul>
 </nav>
