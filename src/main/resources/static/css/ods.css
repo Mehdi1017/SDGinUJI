@@ -60,6 +60,26 @@ body {
     text-align: center;
 }
 
+.centered_text ul {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    /* For IE, the outcast */
+    zoom:1;
+    *display: inline;
+}
+.centered_text li {
+    float: none;
+    padding: 2px 5px;
+    text-align: left;
+    /*border: 1px solid black;*/
+}
+
+.centered_h {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .floater {
     float: left;
     margin-left: 10pt;

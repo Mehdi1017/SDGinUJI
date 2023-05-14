@@ -19,11 +19,14 @@ public class AreaPrivada {
             return "redirect:login";
         String nombre = usuario.getUsername();
 
-        model.addAttribute("CONTENT_TITLE","Bienvenido " + nombre);
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        if(!usuario.isAdmin())
+        if(!usuario.isAdmin()) {
+            model.addAttribute("CONTENT_TITLE", "Bienvenido " + nombre + " 😆");
             return "front_office/area_privada";
-        else
-            return  "back_office/area_privada";
+        }
+        else {
+            model.addAttribute("CONTENT_TITLE", "Bienvenido " + nombre);
+            return "back_office/area_privada";
+        }
     }
 }
