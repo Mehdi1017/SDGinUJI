@@ -37,7 +37,9 @@ public class InitiativeDao {
 
     public List<Initiative> getMyInitiative(String mail) {
         try {
-            return jdbcTemplate.query("SELECT * from initiative WHERE mail=?",
+            return jdbcTemplate.query("SELECT * from initiative AS i " +
+                                            "LEFT JOIN initiative_participation AS p USING(name_ini) " +
+                                            "WHERE ? IN (p.mail, i.mail)",
                     new InitiativeRowMapper(),
                     mail);
         }
