@@ -2,7 +2,7 @@ package es.uji.ei1027.clubesportiu.controller;
 
 import es.uji.ei1027.clubesportiu.dao.InitiativeDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
-
+import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
-@RequestMapping("/initiative")
-public class InitiativeController {
+@RequestMapping("/myInitiative")
+public class MyInitiativeController {
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -30,26 +32,35 @@ public class InitiativeController {
     // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping("/list")
-    public String listInitiative(Model model) {
-        model.addAttribute("allInitiative", initiativeDao.getAllInitiative());
-        return "initiative/list";
+    public String listInitiative(Model model, HttpSession session) {
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        model.addAttribute("CONTENT_TITLE","Mostrando tus Iniciativas");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        model.addAttribute("myInitiatives", initiativeDao.getMyInitiative(usuario.getMail()));
+        return "myInitiative/list";
     }
 
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping(value="/add")
     public String addInitiative(Model model) {
+        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("initiative", new Initiative());  // SET MODEL ATTRIBUTE
-        return "initiative/add";
+
+        return "myInitiative/add";
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,  // RETRIEVE MODEL ATTRIBUTE
-                                   BindingResult bindingResult) {
+                                   BindingResult bindingResult, Model model) {
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        InitiativeValidator initiativeValidator = new InitiativeValidator();
+        initiativeValidator.validate(initiative, bindingResult);
         if (bindingResult.hasErrors())
-            return "initiative/add";
-        initiativeDao.addInitiativeNaif(initiative);
+            return "myInitiative/add";
+        initiativeDao.addInitiative(initiative);
         return "redirect:list";
     }
 

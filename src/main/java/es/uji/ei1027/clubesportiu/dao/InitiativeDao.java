@@ -35,6 +35,17 @@ public class InitiativeDao {
         }
     }
 
+    public Initiative getMyInitiative(String mail) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * from initiative WHERE mail=?",
+                    new InitiativeRowMapper(),
+                    mail);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -52,7 +63,7 @@ public class InitiativeDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public void addInitiative(Initiative initiative) {
+    public void addInitiativeNaif(Initiative initiative) {
         jdbcTemplate.update(
                 "INSERT INTO initiative VALUES(?, ?, ?, ?, 'Pending', ?, 0.0, ?, ?)",
                 initiative.getNameIni(),
@@ -63,6 +74,17 @@ public class InitiativeDao {
                 initiative.getMail(),
                 initiative.getNameOds());
     }
+
+    public void addInitiative(Initiative initiative) {
+        jdbcTemplate.update(
+                "INSERT INTO initiative VALUES(?, ?, null, null, 'Pending', ?, 0.0, ?, ?)",
+                initiative.getNameIni(),
+                initiative.getDescription(),
+                LocalDate.now(),
+                initiative.getMail(),
+                initiative.getNameOds());
+    }
+
 
 
     // -----------------------------------------------------------------------------------------------------------------

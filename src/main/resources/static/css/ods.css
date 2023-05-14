@@ -8,7 +8,9 @@
 
     padding-left: 30pt;
 }
-
+*{
+    font-family: 'Montserrat', sans-serif;
+}
 .page-anonymous-background {
     background-color:cornflowerblue;
 }
@@ -48,10 +50,87 @@
     font-weight: bold;
 }
 
-a {
-    color: indianred;
+
+
+
+/*
+Montserrat codes:
+black (900), xbold (800), bold (700), sbold (600), medium (500),
+regular (400), lihght (300), xlight (200), thin (100)
+*/
+*{
+    font-family: 'Montserrat', sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+}
+/*body {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+    min-width: 400px;
+    padding-left: 10px;
+    padding-right: 10px;
+}*/
+/*
+    max-width: 1200px;
+    min-width: 400px;
+    padding-left: 10px;
+    padding-right: 10px;
+*/
+
+.title {
+    font-weight: 700;
+    font-size: xx-large;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
+.txt {
+    font-weight: 500;
+    font-size: medium;
+}
+
+.txt_sec {
+    font-weight: 400;
+    font-size: small;
+}
+
+.txt_sec2 {
+    font-weight: 500;
+    font-size: small;
+}
+
+.txt_error {
+    color: #F70000;
+}
+
+a:link {
+    color: #B70000;
+}
+
+a:visited {
+    color: #4122ff;
+}
+
+.color_negro {
+    background-color: black;
+}
+.color_gris {
+    background-color: #E5E5E5;
+}
+.color_rojo_0 {
+    background-color: #FF7870;
+}
+.color_rojo_1 {
+    background-color: #F70000;
+}
+.color_rojo_2 {
+    background-color: #B70000;
+}
+.color_azul_0 {
+    background-color: #70b2ff;
+}
+.color_azul_1 {
+    background-color: #4122FF;
+}
+.color_verde {
+    background-color: #7BFF70;
 }
