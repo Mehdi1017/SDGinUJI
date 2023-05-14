@@ -60,6 +60,17 @@ public class InitiativeDao {
         }
     }
 
+    public List<Initiative> getPendingInitiatives() {
+        try {
+            return jdbcTemplate.query(
+                    "SELECT * FROM initiative WHERE stat = 'Pending' ",
+                    new InitiativeRowMapper());
+        }
+        catch(EmptyResultDataAccessException e) {
+            return new ArrayList<Initiative>();
+        }
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
