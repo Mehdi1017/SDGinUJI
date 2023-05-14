@@ -10,13 +10,18 @@
 <body>
 <div layout:fragment="content">
 
-
 <table class="table table-striped" th:each="initiative: ${myInitiatives}">
-  <tr th:text="${initiative.nameIni}"></tr>
+  <tr><td>
+    <a class="txt" th:text="${initiative.nameIni}"></a>
+    <span th:if="${initiative.stat == 'Pending'}"><b>(PENDIENTE)</b></span>
+    <p class="txt-sec" th:text="${#strings.abbreviate(initiative.description,150)}"></p>
+    <a class="boton_secundario color_verde" th:unless="${initiative.stat == 'Pending'}">AGREGAR RESULTADOS</a>
+    <a class="boton_secundario color_rojo_0" th:unless="${initiative.stat == 'Pending'}">EDITAR</a>
+    <a class="boton_secundario" th:if="${initiative.stat != 'Pending'}">GESTIONAR PARTICIPANTES</a>
+  </td>
+  </tr>
 </table>
-<a href="add" class="txt btn btn-success">NUEVA INICIATIVA</a>
-
-
+<a href="add" class="color_verde boton_principal">NUEVA INICIATIVA</a>
 </div>
 </body>
 </html>
