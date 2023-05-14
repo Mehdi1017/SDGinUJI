@@ -102,13 +102,14 @@ regular (400), lihght (300), xlight (200), thin (100)
     color: #F70000;
 }
 
-a:link {
+a:link, a {
     color: #B70000;
+    text-decoration: underline;
 }
 
-a:visited {
-    color: #4122ff;
-}
+/*a:visited {*/
+/*    color: #4122ff;*/
+/*}*/
 
 .color_negro {
     background-color: black;

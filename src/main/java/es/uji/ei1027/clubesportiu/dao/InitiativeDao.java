@@ -35,14 +35,14 @@ public class InitiativeDao {
         }
     }
 
-    public Initiative getMyInitiative(String mail) {
+    public List<Initiative> getMyInitiative(String mail) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * from initiative WHERE mail=?",
+            return jdbcTemplate.query("SELECT * from initiative WHERE mail=?",
                     new InitiativeRowMapper(),
                     mail);
         }
         catch(EmptyResultDataAccessException e) {
-            return null;
+            return new ArrayList<Initiative>();
         }
     }
 
