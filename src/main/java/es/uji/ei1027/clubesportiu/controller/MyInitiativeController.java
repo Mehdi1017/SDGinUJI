@@ -1,6 +1,7 @@
 package es.uji.ei1027.clubesportiu.controller;
 
 import es.uji.ei1027.clubesportiu.dao.InitiativeDao;
+import es.uji.ei1027.clubesportiu.dao.OdsDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,14 @@ public class MyInitiativeController {
     // -----------------------------------------------------------------------------------------------------------------
 
     private InitiativeDao initiativeDao;
+    private OdsDao odsDao;
 
     @Autowired
     public void setInitiativeDao(InitiativeDao initiativeDao) {
         this.initiativeDao = initiativeDao;
     }
-
+    @Autowired
+    public void setOdsDao(OdsDao odsDao){this.odsDao = odsDao;}
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -52,7 +55,7 @@ public class MyInitiativeController {
         model.addAttribute("CONTENT_TITLE","Creando una Iniciativa");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("initiative", new Initiative());  // SET MODEL ATTRIBUTE
-
+        model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
         return "myInitiative/add";
     }
 

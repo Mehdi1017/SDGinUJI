@@ -20,7 +20,12 @@
     </tr>
     <tr>
       <td><label>SDG al que va dirigida:</label></td>
-      <td><input type="text" th:field="*{nameOds}" required/></td>
+      <td><select type="text" th:field="*{nameOds}">
+        <!--option value="No seleccionat">Selecciona el gènere</option-->
+        <option th:each="ods : ${odsList}"
+                th:value="${ods.nameOds}"
+                th:text="${ods.nameOds}"></option>
+      </select></td>
     </tr>
     <tr>
       <td><label>Descripción:</label></td>
