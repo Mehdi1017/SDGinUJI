@@ -63,7 +63,7 @@ public class InitiativeDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public void addInitiative(Initiative initiative) {
+    public void addInitiativeNaif(Initiative initiative) {
         jdbcTemplate.update(
                 "INSERT INTO initiative VALUES(?, ?, ?, ?, 'Pending', ?, 0.0, ?, ?)",
                 initiative.getNameIni(),
@@ -74,6 +74,17 @@ public class InitiativeDao {
                 initiative.getMail(),
                 initiative.getNameOds());
     }
+
+    public void addInitiative(Initiative initiative) {
+        jdbcTemplate.update(
+                "INSERT INTO initiative VALUES(?, ?, null, null, 'Pending', ?, 0.0, ?, ?)",
+                initiative.getNameIni(),
+                initiative.getDescription(),
+                LocalDate.now(),
+                initiative.getMail(),
+                initiative.getNameOds());
+    }
+
 
 
     // -----------------------------------------------------------------------------------------------------------------

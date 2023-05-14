@@ -49,7 +49,7 @@ public class InitiativeController {
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "initiative/add";
-        initiativeDao.addInitiative(initiative);
+        initiativeDao.addInitiativeNaif(initiative);
         return "redirect:list";
     }
 
