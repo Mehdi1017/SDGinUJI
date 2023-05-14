@@ -15,13 +15,12 @@
   <table class="txt">
     <tr>
       <td><label>Nombre de la iniciativa:</label></td>
-      <td><input type="text" th:field="*{nameIni}"/></td>
+      <td><input type="text" th:field="*{nameIni}" maxlength="50" required/></td>
       <td th:if="${#fields.hasErrors('nameIni')}" th:errors="*{nameIni}"></td>
     </tr>
     <tr>
       <td><label>SDG al que va dirigida:</label></td>
       <td><select type="text" th:field="*{nameOds}">
-        <!--option value="No seleccionat">Selecciona el gènere</option-->
         <option th:each="ods : ${odsList}"
                 th:value="${ods.nameOds}"
                 th:text="${ods.nameOds}"></option>
@@ -29,7 +28,7 @@
     </tr>
     <tr>
       <td><label>Descripción:</label></td>
-      <td><input type="text" th:field="*{description}" required/></td>
+      <td><input type="text" th:field="*{description}" maxlength="500" required/></td>
     </tr>
       <td colspan="2"><input class="txt btn btn-success" type="submit" value="ENVIAR" /></td>
     </tr>

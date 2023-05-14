@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/myInitiative")
@@ -24,6 +25,7 @@ public class MyInitiativeController {
 
     private InitiativeDao initiativeDao;
     private OdsDao odsDao;
+    public static List<Initiative> iniciativas;
 
     @Autowired
     public void setInitiativeDao(InitiativeDao initiativeDao) {
@@ -56,6 +58,7 @@ public class MyInitiativeController {
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("initiative", new Initiative());  // SET MODEL ATTRIBUTE
         model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
+        iniciativas = initiativeDao.getAllInitiative();
         return "myInitiative/add";
     }
 
@@ -65,8 +68,11 @@ public class MyInitiativeController {
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         InitiativeValidator initiativeValidator = new InitiativeValidator();
         initiativeValidator.validate(initiative, bindingResult);
-        if (bindingResult.hasErrors())
+        if (bindingResult.hasErrors()){
+            model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
             return "myInitiative/add";
+        }
+
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         initiative.setMail(usuario.getMail());
         initiativeDao.addInitiative(initiative);
