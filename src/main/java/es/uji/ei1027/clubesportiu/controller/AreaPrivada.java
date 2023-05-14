@@ -15,8 +15,10 @@ public class AreaPrivada {
     public String index(Model model, HttpSession session) {
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
-        if (usuario == null)
+        if (usuario == null) {
+            session.setAttribute("nextUrl", "/area");
             return "redirect:login";
+        }
         String nombre = usuario.getUsername();
 
         model.addAttribute("SELECTED_NAVBAR","Área privada");

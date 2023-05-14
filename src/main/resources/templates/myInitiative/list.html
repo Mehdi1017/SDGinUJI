@@ -17,7 +17,7 @@
     <p class="txt-sec" th:text="${#strings.abbreviate(initiative.description,150)}"></p>
     <a class="boton_secundario color_verde" th:unless="${initiative.stat == 'Pending'}">AGREGAR RESULTADOS</a>
     <a class="boton_secundario color_rojo_0" th:unless="${initiative.stat == 'Pending'}">EDITAR</a>
-    <a class="boton_secundario" th:if="${initiative.stat != 'Pending'}">GESTIONAR PARTICIPANTES</a>
+    <a class="boton_secundario color_amarillo" th:if="${initiative.stat != 'Pending'}">GESTIONAR PARTICIPANTES</a>
   </td>
   </tr>
 </table>
