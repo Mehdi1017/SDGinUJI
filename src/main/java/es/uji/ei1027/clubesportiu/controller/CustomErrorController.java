@@ -35,7 +35,7 @@ public class CustomErrorController implements ErrorController {
         Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
 
         // Add custom attributes to the model
-        model.addAttribute("CONTENT_TITLE","Error " + statusCode);
+        model.addAttribute("CONTENT_TITLE","Error " + statusCode + " 🤧🤒");
 
 
         // Add statusCode and exception attributes to the model

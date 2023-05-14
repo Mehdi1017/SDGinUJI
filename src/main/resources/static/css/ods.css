@@ -52,8 +52,8 @@ body {
     margin-left: auto;
     margin-right: auto;
     padding: 20pt;
-    max-width: 1200px;
-    min-width: 900px;
+    max-width: 1200pt;
+    min-width: 900pt;
 }
 
 .centered_text {
@@ -151,6 +151,10 @@ a:link, a {
 
 .color_amarillo {
     background-color: #ffd770;
+}
+
+.color_rojo_1_txt {
+    color: #F70000;
 }
 
 .r_corners {
