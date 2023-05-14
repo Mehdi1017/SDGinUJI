@@ -14,10 +14,12 @@
   <tr><td>
     <a class="txt" th:text="${initiative.nameIni}"></a>
     <span th:if="${initiative.stat == 'Pending'}"><b>(PENDIENTE)</b></span>
+    <span th:if="${initiative.stat == 'Rejected'}"><b>(RECHAZADA)</b></span>
+    <span th:if="${initiative.stat == 'Ended'}"><b>(FINALIZADA)</b></span>
     <p class="txt-sec" th:text="${#strings.abbreviate(initiative.description,150)}"></p>
-    <a class="boton_secundario color_verde" th:unless="${initiative.stat == 'Pending'}">AGREGAR RESULTADOS</a>
-    <a class="boton_secundario color_rojo_0" th:unless="${initiative.stat == 'Pending'}">EDITAR</a>
-    <a class="boton_secundario color_amarillo" th:if="${initiative.stat != 'Pending'}">GESTIONAR PARTICIPANTES</a>
+    <a class="boton_secundario color_verde" th:if="${initiative.stat == 'Approved'}">AGREGAR RESULTADOS</a>
+    <a class="boton_secundario color_rojo_0" th:if="${initiative.stat == 'Approved'}">EDITAR</a>
+    <a class="boton_secundario color_amarillo" th:if="${initiative.stat == 'Approved'}">GESTIONAR PARTICIPANTES</a>
   </td>
   </tr>
 </table>
