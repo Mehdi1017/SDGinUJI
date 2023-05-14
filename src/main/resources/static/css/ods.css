@@ -56,6 +56,10 @@ body {
     min-width: 900px;
 }
 
+.centered_text {
+    text-align: center;
+}
+
 .floater {
     float: left;
     margin-left: 10pt;
@@ -83,7 +87,7 @@ body {
 }
 
 .txt_sec2 {
-    font-weight: 500;
+    font-weight: 600;
     font-size: small;
 }
 
@@ -140,7 +144,8 @@ a.boton_link, .boton_link, .link_camuflado, a.link_camuflado {
     text-decoration: none;
 }
 
-a.boton_principal {
+a.boton_principal, .boton_principal {
+    border-color: transparent;
     color: black;
     text-decoration: none;
     border-radius: 10pt;
@@ -150,7 +155,8 @@ a.boton_principal {
     font-size: medium;
 }
 
-a.boton_secundario {
+a.boton_secundario, .boton_secundario {
+    border-color: transparent;
     color: black;
     text-decoration: none;
     border-radius: 10pt;

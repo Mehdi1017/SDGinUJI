@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}"
-      >
+      layout:decorate="~{fragments/base}">
 <head>
   <link rel="stylesheet" type="text/css"
         href="/css/ods.css"
@@ -12,22 +11,27 @@
 </head>
 <body>
 <div layout:fragment="content">
-  <h2>Acceso</h2>
+
+
   <form action="#" th:action="@{/login}"
         th:object="${user}" method="post">
-    <p>
+    <p class="centered_text">
       <label>Nombre de usuario:</label>
       <input class="form_control" type="text" th:field="*{username}"/>
-    <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+      <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
     </p>
-    <p>
+    <p class="centered_text">
       <label>Contraseña:</label>
       <input class="form_control" type="password" th:field="*{password}"/>
     <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
     </p>
-    <input type="submit" value="Acceder" />
+    <p class="centered_text">
+      <input class="boton_principal color_azul_0" type="submit" value="Acceder" />
+    </p>
   </form>
   <a href="/pass_recover.html">Contraseña olvidada</a>
+
+
 </div>
 </body>
 </html>
