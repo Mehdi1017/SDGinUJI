@@ -40,7 +40,7 @@ public class InitiativeBackOffice {
 
         model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas Pendientes");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        model.addAttribute("iniciativas", initiativeDao.getMyInitiative(usuario.getMail()));
+        model.addAttribute("iniciativas", initiativeDao.getPendingInitiatives());
         return "InitiativeBackOffice/list";
     }
 
