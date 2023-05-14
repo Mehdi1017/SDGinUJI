@@ -35,7 +35,7 @@ public class InitiativeBackOffice {
     public String listInitiative(Model model, HttpSession session) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()){
-            return "login";
+            return "redirect:/login";
         }
 
         model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas Pendientes");

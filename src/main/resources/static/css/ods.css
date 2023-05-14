@@ -102,12 +102,9 @@ regular (400), lihght (300), xlight (200), thin (100)
     color: #F70000;
 }
 
-a:link {
-    color: #B70000;
-}
 
 a:visited {
-    color: #4122ff;
+    color: #B70000;
 }
 
 .color_negro {
