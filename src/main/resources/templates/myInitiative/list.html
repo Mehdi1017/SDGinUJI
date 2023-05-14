@@ -9,10 +9,14 @@
 </head>
 <body>
 <div layout:fragment="content">
-  <table class="table table-striped" th:each="initiative: ${myInitiatives}">
-    <tr th:text="${initiative.nameIni}"></tr>
 
-  <a href="add" class="txt btn btn-success">NUEVA INICIATIVA</a>
+
+<table class="table table-striped" th:each="initiative: ${myInitiatives}">
+  <tr th:text="${initiative.nameIni}"></tr>
+</table>
+<a href="add" class="txt btn btn-success">NUEVA INICIATIVA</a>
+
+
 </div>
 </body>
 </html>

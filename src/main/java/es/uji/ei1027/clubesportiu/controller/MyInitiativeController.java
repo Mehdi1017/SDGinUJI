@@ -58,12 +58,14 @@ public class MyInitiativeController {
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,  // RETRIEVE MODEL ATTRIBUTE
-                                   BindingResult bindingResult, Model model) {
+                                   BindingResult bindingResult, Model model, HttpSession session) {
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         InitiativeValidator initiativeValidator = new InitiativeValidator();
         initiativeValidator.validate(initiative, bindingResult);
         if (bindingResult.hasErrors())
             return "myInitiative/add";
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        initiative.setMail(usuario.getMail());
         initiativeDao.addInitiative(initiative);
         return "redirect:list";
     }
