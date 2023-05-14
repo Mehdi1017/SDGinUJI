@@ -1,10 +1,16 @@
 package es.uji.ei1027.clubesportiu.controller;
 
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class InitiativeValidator implements Validator {
+
     @Override
     public boolean supports(Class<?> cls) {
         return Initiative.class.equals(cls);
@@ -15,9 +21,14 @@ public class InitiativeValidator implements Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         Initiative initiative = (Initiative)obj;
-        if (initiative.getNameIni().trim().equals(""))
-            errors.rejectValue("nameIni", "obligatori",
-                    "Nombre no correcto");
+        List<Initiative> iniciativas = MyInitiativeController.iniciativas;
+        if (iniciativas != null && iniciativas.size() >0) {
+            for (Initiative iniciativa : iniciativas) {
+                if (initiative.getNameIni().trim().equals(iniciativa.getNameIni()))
+                    errors.rejectValue("nameIni", "obligatori",
+                            "Nombre no correcto");
+            }
+        }
         // Afegeix ací la validació per a Edat > 15 anys
     }
 }
