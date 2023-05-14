@@ -10,7 +10,14 @@
 <body>
 <div layout:fragment="content">
   <table class="table table-striped" th:each="initiative: ${iniciativas}">
-    <tr th:text="${initiative.nameIni}"></tr>
+    <tr><td>
+      <a class="txt" th:text="${initiative.nameIni}" th:href="@{/InitiativeBackOffice/view/{nom}(nom=${initiative.getNameIni()})}"></a>
+      <p class="txt" th:text="${#strings.abbreviate(initiative.description,150)}"></p>
+      <a th:href="@{/InitiativeBackOffice/accept/{nom}(nom=${initiative.getNameIni()})}" class="boton_secundario color_verde">Aceptar</a>
+      <a th:href="@{/InitiativeBackOffice/reject/{nom}(nom=${initiative.getNameIni()})}" class="boton_secundario color_rojo_2">Rechazar</a>
+    </td>
+    </tr>
+
   </table>
 </div>
 </body>

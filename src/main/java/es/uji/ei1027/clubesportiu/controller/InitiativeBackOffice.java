@@ -35,7 +35,7 @@ public class InitiativeBackOffice {
     public String listInitiative(Model model, HttpSession session) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()){
-            return "login";
+            return "redirect:/login";
         }
 
         model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas Pendientes");
@@ -44,57 +44,42 @@ public class InitiativeBackOffice {
         return "InitiativeBackOffice/list";
     }
 
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
+    @RequestMapping("/accept/{nInitiative}")
+    public String acceptInitiative(Model model, HttpSession session, @PathVariable String nInitiative){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        Initiative iniciativa = initiativeDao.getInitiative(nInitiative);
 
-    @RequestMapping(value="/add")
-    public String addInitiative(Model model) {
-        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa");
+        if (usuario == null || !usuario.isAdmin()){
+            return "redirect:/login";
+        }
+
+        iniciativa.setStat("Approved");
+        initiativeDao.updateInitiative(iniciativa);
+
+        model.addAttribute("CONTENT_TITLE","Iniciativa Aceptada");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        model.addAttribute("initiative", new Initiative());  // SET MODEL ATTRIBUTE
 
-        return "myInitiative/add";
+        model.addAttribute("iniciativa", iniciativa);
+        return "InitiativeBackOffice/accept";
     }
 
-    @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,  // RETRIEVE MODEL ATTRIBUTE
-                                   BindingResult bindingResult, Model model) {
+    @RequestMapping("/reject/{nInitiative}")
+    public String rejectInitiative(Model model, HttpSession session, @PathVariable String nInitiative){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        Initiative iniciativa = initiativeDao.getInitiative(nInitiative);
+        if (usuario == null || !usuario.isAdmin()){
+            return "redirect:/login";
+        }
+
+        iniciativa.setStat("Rejected");
+        initiativeDao.updateInitiative(iniciativa);
+
+        model.addAttribute("CONTENT_TITLE","Iniciativa Rechazada");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        InitiativeValidator initiativeValidator = new InitiativeValidator();
-        initiativeValidator.validate(initiative, bindingResult);
-        if (bindingResult.hasErrors())
-            return "myInitiative/add";
-        initiativeDao.addInitiative(initiative);
-        return "redirect:list";
+
+        model.addAttribute("iniciativa", iniciativa);
+        return "InitiativeBackOffice/reject";
     }
 
-    //    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-//
-    @RequestMapping(value="/update/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-    public String editInitiative(Model model,
-                                 @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
-        model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));  // SET MODEL ATTRIBUTE
-        return "initiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
-    }
-
-    @RequestMapping(value="/update", method = RequestMethod.POST)
-    public String processUpdateSubmit(
-            @ModelAttribute("initiative") Initiative initiative, // RETRIEVE MODEL ATTRIBUTE
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "initiative/update";    // TRY AGAIN, HAD ERRORS
-        System.out.println(initiative);
-        initiativeDao.updateInitiative(initiative);  // UPDATE
-        return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
-    }
-    @RequestMapping(value = "/delete/{nInitiative}")
-    public String processDeleteInitiative(@PathVariable String nInitiative) {
-        initiativeDao.deleteInitiative(nInitiative);
-        return "redirect:../list";
-    }
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
 
 }

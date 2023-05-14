@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+
+    <p class="txt" >La Iniciativa <i th:text="${iniciativa.nameIni}"></i> ha sido</p>
+    <p class="txt"><b>ACEPTADA</b></p>
+    <p>La Iniciativa va a ser hecha pública y a partir de ahora ya se podrán añadir acciones y participantes</p>
+    <a class="boton_principal" th:href="@{/InitiativeBackOffice/view/{nom}(nom=${iniciativa.getNameIni()})}"> IR A LA INICIATIVA</a>
+</div>
+</html>
