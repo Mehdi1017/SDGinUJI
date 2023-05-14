@@ -7,35 +7,19 @@
     justify-content: left;
 
     padding-left: 30pt;
-}
-*{
-    font-family: 'Montserrat', sans-serif;
-}
-.page-anonymous-background {
-    background-color:cornflowerblue;
-}
 
-.page-user-background {
-    background-color:limegreen;
-}
-
-.page-admin-background {
-    background-color:indianred;
-}
-
-.page-h1 {
-    font-weight: bold;
-    font-size: xx-large;
-    margin: 0;
-}
-
-.bg-grey {
-    background-color: #e5e5e5;
+    border-top-left-radius: 10pt;
+    border-top-right-radius: 10pt;
+    /*margin-top: 4px;*/
 }
 
 .custom-navbar {
     height:20pt;
+    flex-flow: row nowrap;
+    border-bottom-left-radius: 10pt;
+    border-bottom-right-radius: 10pt;
 }
+
 .navbar-gap {
     gap: 10pt;
 }
@@ -45,42 +29,47 @@
     text-align: right;
 }
 
-
 .bold {
     font-weight: bold;
 }
 
-
-
-
+/*============================================================================*/
 /*
 Montserrat codes:
-black (900), xbold (800), bold (700), sbold (600), medium (500),
-regular (400), lihght (300), xlight (200), thin (100)
+      black (900), xbold (800), bold (700), sbold (600), medium (500),
+      regular (400), lihght (300), xlight (200), thin (100)
 */
+.inactive_link {
+    pointer-events: none;
+    cursor: default;
+}
+
 *{
     font-family: 'Montserrat', sans-serif;
-    margin-left: auto;
-    margin-right: auto;
 }
-/*body {
+
+body {
     margin-left: auto;
     margin-right: auto;
+    padding: 20pt;
     max-width: 1200px;
-    min-width: 400px;
-    padding-left: 10px;
-    padding-right: 10px;
-}*/
-/*
-    max-width: 1200px;
-    min-width: 400px;
-    padding-left: 10px;
-    padding-right: 10px;
-*/
+    min-width: 900px;
+}
 
-.title {
+.floater {
+    float: left;
+    margin-left: 10pt;
+    margin-right: 30pt;
+}
+
+.floater_wrapper {
+    overflow: hidden;
+}
+
+.title, h1.title {
     font-weight: 700;
     font-size: xx-large;
+    margin: 0pt;
 }
 
 .txt {
@@ -134,4 +123,39 @@ a:link, a {
 }
 .color_verde {
     background-color: #7BFF70;
+}
+
+.color_amarillo {
+    background-color: #ffd770;
+}
+
+.r_corners {
+    border-radius: 10pt;
+    padding: 4pt 8pt;
+    margin: 4pt;
+}
+
+a.boton_link, .boton_link, .link_camuflado, a.link_camuflado {
+    color: black;
+    text-decoration: none;
+}
+
+a.boton_principal {
+    color: black;
+    text-decoration: none;
+    border-radius: 10pt;
+    padding: 4pt 8pt;
+    margin: 4pt;
+    font-weight: 500;
+    font-size: medium;
+}
+
+a.boton_secundario {
+    color: black;
+    text-decoration: none;
+    border-radius: 10pt;
+    padding: 4pt 8pt;
+    margin: 4pt;
+    font-weight: 500;
+    font-size: small;
 }

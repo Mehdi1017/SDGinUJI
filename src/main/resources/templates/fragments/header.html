@@ -1,11 +1,11 @@
 <div th:object="${session}">
-<header  th:if="*{user == null}" class="page-header page-anonymous-background"  >
-    <h1 class="page-h1" th:text="${CONTENT_TITLE}">EI1027 - ODS Project</h1>
+<header  th:if="*{user == null}" class="page-header color_azul_0"  >
+    <h1 class="title" th:text="${CONTENT_TITLE}">EI1027 - ODS Project</h1>
 </header>
-<header  th:if="*{user != null && user.isAdmin() == false}" class="page-header page-user-background"  >
-    <h1 class="page-h1" th:text="${CONTENT_TITLE}">EI1027 - ODS Project</h1>
+<header  th:if="*{user != null && user.isAdmin() == false}" class="page-header color_verde"  >
+    <h1 class="title" th:text="${CONTENT_TITLE}">EI1027 - ODS Project</h1>
 </header>
-<header th:if="*{user != null && user.isAdmin() == true}" class="page-header page-admin-background"  >
-    <h1 class="page-h1" th:text="${CONTENT_TITLE}">EI1027 - ODS Project</h1>
+<header th:if="*{user != null && user.isAdmin() == true}" class="page-header color_rojo_0"  >
+    <h1 class="title" th:text="${CONTENT_TITLE}">EI1027 - ODS Project</h1>
 </header>
 </div>

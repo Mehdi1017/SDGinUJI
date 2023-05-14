@@ -53,9 +53,9 @@ public class InitiativeController {
         return "redirect:list";
     }
 
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-//
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+
 @RequestMapping(value="/update/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
 public String editInitiative(Model model,
                       @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
