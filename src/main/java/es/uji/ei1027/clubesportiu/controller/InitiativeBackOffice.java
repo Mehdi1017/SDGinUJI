@@ -43,4 +43,43 @@ public class InitiativeBackOffice {
         model.addAttribute("iniciativas", initiativeDao.getPendingInitiatives());
         return "InitiativeBackOffice/list";
     }
+
+    @RequestMapping("/accept/{nInitiative}")
+    public String acceptInitiative(Model model, HttpSession session, @PathVariable String nInitiative){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        Initiative iniciativa = initiativeDao.getInitiative(nInitiative);
+
+        if (usuario == null || !usuario.isAdmin()){
+            return "redirect:/login";
+        }
+
+        iniciativa.setStat("Approved");
+        initiativeDao.updateInitiative(iniciativa);
+
+        model.addAttribute("CONTENT_TITLE","Iniciativa Aceptada");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        model.addAttribute("iniciativa", iniciativa);
+        return "InitiativeBackOffice/accept";
+    }
+
+    @RequestMapping("/reject/{nInitiative}")
+    public String rejectInitiative(Model model, HttpSession session, @PathVariable String nInitiative){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        Initiative iniciativa = initiativeDao.getInitiative(nInitiative);
+        if (usuario == null || !usuario.isAdmin()){
+            return "redirect:/login";
+        }
+
+        iniciativa.setStat("Rejected");
+        initiativeDao.updateInitiative(iniciativa);
+
+        model.addAttribute("CONTENT_TITLE","Iniciativa Rechazada");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        model.addAttribute("iniciativa", iniciativa);
+        return "InitiativeBackOffice/reject";
+    }
+
+
 }
