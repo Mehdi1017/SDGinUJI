@@ -81,6 +81,7 @@ public class MyInitiativeController {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         initiative.setMail(usuario.getMail());
         initiativeDao.addInitiative(initiative);
+        model.addAttribute("CONTENT_TITLE","Iniciativa Enviada! 😁📤");
         return "myInitiative/iniciativa_creada";
     }
 
