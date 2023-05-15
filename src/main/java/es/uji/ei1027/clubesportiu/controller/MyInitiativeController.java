@@ -81,7 +81,7 @@ public class MyInitiativeController {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         initiative.setMail(usuario.getMail());
         initiativeDao.addInitiative(initiative);
-        return "redirect:list";
+        return "myInitiative/iniciativa_creada";
     }
 
     // -----------------------------------------------------------------------------------------------------------------
