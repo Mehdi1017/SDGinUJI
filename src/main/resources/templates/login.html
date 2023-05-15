@@ -18,12 +18,12 @@
     <p class="centered_text">
       <label>Nombre de usuario:</label>
       <input class="form_control" type="text" th:field="*{username}"/>
-      <div class="error txt_sec2 color_rojo_1_txt centered_text" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+      <div class="txt_error centered_text" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
     </p>
     <p class="centered_text">
       <label>Contraseña:</label>
       <input class="form_control" type="password" th:field="*{password}"/>
-    <div class="error txt_sec2 color_rojo_1_txt centered_text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    <div class="txt_error centered_text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
     </p>
     <p class="centered_text">
       <input class="boton_principal color_azul_0" type="submit" value="Acceder" />

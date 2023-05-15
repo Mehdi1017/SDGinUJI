@@ -43,7 +43,7 @@ public class MyInitiativeController {
             return "redirect:/login";
         }
 
-        model.addAttribute("CONTENT_TITLE","Mostrando tus Iniciativas");
+        model.addAttribute("CONTENT_TITLE","Mostrando tus Iniciativas 📋");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("myInitiatives", initiativeDao.getMyInitiative(usuario.getMail()));
         return "myInitiative/list";
@@ -53,8 +53,13 @@ public class MyInitiativeController {
     // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping(value="/add")
-    public String addInitiative(Model model) {
-        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa");
+    public String addInitiative(Model model, HttpSession session) {
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null){
+            return "redirect:/login";
+        }
+
+        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("initiative", new Initiative());  // SET MODEL ATTRIBUTE
         model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
@@ -79,15 +84,14 @@ public class MyInitiativeController {
         return "redirect:list";
     }
 
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-//
-@RequestMapping(value="/update/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-public String editInitiative(Model model,
-                      @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
-    model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));  // SET MODEL ATTRIBUTE
-    return "initiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
-}
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @RequestMapping(value="/update/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String editInitiative(Model model, @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
+        model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));  // SET MODEL ATTRIBUTE
+        return "initiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
+    }
 
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public String processUpdateSubmit(
@@ -99,13 +103,17 @@ public String editInitiative(Model model,
         initiativeDao.updateInitiative(initiative);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+
     @RequestMapping(value = "/delete/{nInitiative}")
     public String processDeleteInitiative(@PathVariable String nInitiative) {
         initiativeDao.deleteInitiative(nInitiative);
         return "redirect:../list";
     }
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
 
 }

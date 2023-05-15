@@ -5,35 +5,46 @@
 <head>
   <title>EI1027 - ODS Project</title>
   <meta charset="UTF-8"/>
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
 <div layout:fragment="content">
+
+
 <form action="#" th:action="@{/myInitiative/add}"
       th:object="${initiative}" method="post">
-  <table class="txt">
+  <table class="txt floater_wrapper centered_h">
+
     <tr>
-      <td><label>Nombre de la iniciativa:</label></td>
+      <td class="txt txt_right_align" ><label>Nombre de la iniciativa:   </label></td>
       <td><input type="text" th:field="*{nameIni}" maxlength="50" required/></td>
-      <td th:if="${#fields.hasErrors('nameIni')}" th:errors="*{nameIni}"></td>
+      <td class="txt_error" th:if="${#fields.hasErrors('nameIni')}" th:errors="*{nameIni}"></td>
     </tr>
+
     <tr>
-      <td><label>SDG al que va dirigida:</label></td>
+      <td class="txt txt_right_align"><label>SDG al que va dirigida:   </label></td>
       <td><select type="text" th:field="*{nameOds}">
-        <option th:each="ods : ${odsList}"
+        <option class="txt_sec2 bold"
+                th:each="ods : ${odsList}"
                 th:value="${ods.nameOds}"
-                th:text="${ods.nameOds}"></option>
-      </select></td>
+                th:text="${ods.nameOds}">
+
+        </option></select>
+      </td>
     </tr>
+
     <tr>
-      <td><label>Descripción:</label></td>
+      <td class="txt txt_right_align"><label>Descripción:   </label></td>
       <td><input type="text" th:field="*{description}" maxlength="500" required/></td>
     </tr>
-      <td colspan="2"><input class="txt btn btn-success" type="submit" value="ENVIAR" /></td>
+
+    <tr class="centered_text">
+      <td colspan="2"><input class="txt boton_principal color_verde" type="submit" value="ENVIAR" /></td>
     </tr>
+
   </table>
 </form>
+
+
 </div>
 </body>
 </html>

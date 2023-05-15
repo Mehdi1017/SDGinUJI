@@ -80,14 +80,20 @@ body {
     margin-right: auto;
 }
 
-.floater {
+.floater_wrapper {
+    overflow: hidden;
+}
+
+.floater_left {
     float: left;
     margin-left: 10pt;
     margin-right: 30pt;
 }
 
-.floater_wrapper {
-    overflow: hidden;
+.floater_right {
+    float: right;
+    margin-left: 10pt;
+    margin-right: 0pt;
 }
 
 .title, h1.title {
@@ -113,6 +119,8 @@ body {
 
 .txt_error {
     color: #F70000;
+    font-weight: 600;
+    font-size: small;
 }
 
 a:link, a {
@@ -151,10 +159,6 @@ a:link, a {
 
 .color_amarillo {
     background-color: #ffd770;
-}
-
-.color_rojo_1_txt {
-    color: #F70000;
 }
 
 .r_corners {
@@ -199,4 +203,18 @@ a.boton_secundario, .boton_secundario {
     margin-left: auto;
     margin-right: auto;
     max-width: 60%;
+}
+
+.table_principal_0 {
+    max-width: 70%;
+    min-width: 500pt;
+}
+
+.top_spacing {
+    position: relative;
+    top: 5pt;
+}
+
+.txt_right_align {
+    text-align: right;
 }
