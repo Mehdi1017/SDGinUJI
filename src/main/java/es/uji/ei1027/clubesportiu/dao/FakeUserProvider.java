@@ -13,16 +13,26 @@ public class FakeUserProvider implements UserDao {
 
     public FakeUserProvider() {
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
-        UserDetails userFrancesc = new UserDetails();
-        
+
         // usuario UJI member
+        // francesc
+        UserDetails userFrancesc = new UserDetails();
         userFrancesc.setUsername("francesc");
         userFrancesc.setMail("francesc@gmail.com");
         userFrancesc.setPassword(passwordEncryptor.encryptPassword("francesc"));
         userFrancesc.setIsAdmin(false);
         knownUsers.put("francesc", userFrancesc);
 
+        // mehdi
+        UserDetails userMehdi = new UserDetails();
+        userMehdi.setUsername("mehdi");
+        userMehdi.setMail("mehdi@gmail.com");
+        userMehdi.setPassword(passwordEncryptor.encryptPassword("mehdi"));
+        userMehdi.setIsAdmin(false);
+        knownUsers.put("mehdi", userMehdi);
+
         // usuario OCDS staff
+        // maria
         UserDetails userMaria = new UserDetails();
         userMaria.setUsername("maria");
         userMaria.setMail("maria@gmail.com");

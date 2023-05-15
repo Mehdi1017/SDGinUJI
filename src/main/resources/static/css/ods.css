@@ -82,6 +82,7 @@ body {
 
 .floater_wrapper {
     overflow: hidden;
+    min-height: 100pt;
 }
 
 .floater_left {
