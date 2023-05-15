@@ -58,6 +58,7 @@ public class LoginController {
         UserValidator userValidator = new UserValidator();
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
+            model.addAttribute("CONTENT_TITLE","Inicia Sesión");
             return "login";
         }
         // Comprova que el login siga correcte
@@ -65,6 +66,7 @@ public class LoginController {
         user = userDao.loadUserByUsername(user.getUsername(), user.getPassword());
         if (user == null) {
             bindingResult.rejectValue("password", "badpw", "Usuario o contraseña incorrectos");
+            model.addAttribute("CONTENT_TITLE","Inicia Sesión");
             return "login";
         }
         // Autenticats correctament.
