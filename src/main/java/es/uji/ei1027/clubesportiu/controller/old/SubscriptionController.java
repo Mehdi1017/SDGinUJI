@@ -1,8 +1,7 @@
-package es.uji.ei1027.clubesportiu.controller;
+package es.uji.ei1027.clubesportiu.controller.old;
 
-
-import es.uji.ei1027.clubesportiu.dao.TargetDao;
-import es.uji.ei1027.clubesportiu.model.Target;
+import es.uji.ei1027.clubesportiu.dao.SubscriptionDao;
+import es.uji.ei1027.clubesportiu.model.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,43 +11,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/target")
-public class TargetController {
+@RequestMapping("/subscription")
+public class SubscriptionController {
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    private TargetDao targetDao;
+    private SubscriptionDao subscriptionDao;
 
     @Autowired
-    public void setTargetDao(TargetDao targetDao) {
-        this.targetDao = targetDao;
+    public void setSubscriptionDao(SubscriptionDao subscriptionDao) {
+        this.subscriptionDao = subscriptionDao;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping("/list")
-    public String listTarget(Model model) {
-        model.addAttribute("allTarget", targetDao.getAllTarget());
-        return "target/list";
+    public String listSubscription(Model model) {
+        model.addAttribute("allSubscription", subscriptionDao.getAllSubscription());
+        return "subscription/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping(value="/add")
-    public String addTarget(Model model) {
-        model.addAttribute("target", new Target());  // SET MODEL ATTRIBUTE
-        return "target/add";
+    public String addSubscription(Model model) {
+        model.addAttribute("subscription", new Subscription());  // SET MODEL ATTRIBUTE
+        return "subscription/add";
     }
-/*
-    @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("target") Target target,  // RETRIEVE MODEL ATTRIBUTE
+
+   /* @RequestMapping(value="/add", method= RequestMethod.POST)
+    public String processAddSubmit(@ModelAttribute("subscription") Subscription subscription,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "target/add";
-        targetDao.addTarget(target);
+            return "subscription/add";
+        subscriptionDao.addSubscription(subscription);
         return "redirect:list";
     }
 */

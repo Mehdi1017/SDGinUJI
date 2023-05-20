@@ -1,4 +1,4 @@
-package es.uji.ei1027.clubesportiu.controller;
+package es.uji.ei1027.clubesportiu.controller.old;
 
 import es.uji.ei1027.clubesportiu.dao.UjiParticipantDao;
 import es.uji.ei1027.clubesportiu.model.UjiParticipant;

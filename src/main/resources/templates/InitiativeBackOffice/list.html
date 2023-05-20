@@ -17,8 +17,8 @@
     <tr><td>
       <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/InitiativeBackOffice/view/{nom}(nom=${initiative.getNameIni()})}"></a> <br>
       <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
-      <a class="boton_secundario color_verde" th:href="@{/InitiativeBackOffice/accept/{nom}(nom=${initiative.getNameIni()})}">Aceptar</a>
-      <a class="boton_secundario color_rojo_0" th:href="@{/InitiativeBackOffice/reject/{nom}(nom=${initiative.getNameIni()})}">Rechazar</a>
+      <a class="boton_secundario color_verde" th:href="@{/InitiativeBackOffice/confirm/accept/{nom}(nom=${initiative.getNameIni()})}">Aceptar</a>
+      <a class="boton_secundario color_rojo_0" th:href="@{/InitiativeBackOffice/confirm/reject/{nom}(nom=${initiative.getNameIni()})}">Rechazar</a>
     </td>
     </tr>
   </table>

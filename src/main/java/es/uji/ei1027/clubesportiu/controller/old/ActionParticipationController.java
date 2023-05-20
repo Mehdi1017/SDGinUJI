@@ -1,7 +1,7 @@
-package es.uji.ei1027.clubesportiu.controller;
+package es.uji.ei1027.clubesportiu.controller.old;
 
-import es.uji.ei1027.clubesportiu.dao.SubscriptionDao;
-import es.uji.ei1027.clubesportiu.model.Subscription;
+import es.uji.ei1027.clubesportiu.dao.ActionParticipationDao;
+import es.uji.ei1027.clubesportiu.model.ActionParticipation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,43 +11,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/subscription")
-public class SubscriptionController {
+@RequestMapping("/actionParticipation")
+public class ActionParticipationController {
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    private SubscriptionDao subscriptionDao;
+    private ActionParticipationDao actionParticipationDao;
 
     @Autowired
-    public void setSubscriptionDao(SubscriptionDao subscriptionDao) {
-        this.subscriptionDao = subscriptionDao;
+    public void setActionParticipationDao(ActionParticipationDao actionParticipationDao) {
+        this.actionParticipationDao = actionParticipationDao;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping("/list")
-    public String listSubscription(Model model) {
-        model.addAttribute("allSubscription", subscriptionDao.getAllSubscription());
-        return "subscription/list";
+    public String listActionParticipation(Model model) {
+        model.addAttribute("allActionParticipation", actionParticipationDao.getAllActionParticipation());
+        return "actionParticipation/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 
-    @RequestMapping(value="/add")
-    public String addSubscription(Model model) {
-        model.addAttribute("subscription", new Subscription());  // SET MODEL ATTRIBUTE
-        return "subscription/add";
+ /*   @RequestMapping(value="/add")
+    public String addActionParticipation(Model model) {
+        model.addAttribute("actionParticipation", new ActionParticipation());  // SET MODEL ATTRIBUTE
+        return "actionParticipation/add";
     }
-
+*/
    /* @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("subscription") Subscription subscription,  // RETRIEVE MODEL ATTRIBUTE
+    public String processAddSubmit(@ModelAttribute("actionParticipation") ActionParticipation actionParticipation,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "subscription/add";
-        subscriptionDao.addSubscription(subscription);
+        //if (bindingResult.hasErrors())
+         //   return "actionParticipation/add";
+        actionParticipationDao.addActionParticipation(actionParticipation);
         return "redirect:list";
     }
 */

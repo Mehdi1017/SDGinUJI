@@ -1,4 +1,4 @@
-package es.uji.ei1027.clubesportiu.controller;
+package es.uji.ei1027.clubesportiu.controller.Initiative;
 
 import es.uji.ei1027.clubesportiu.dao.InitiativeDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/InitiativeBackOffice")
@@ -58,7 +59,6 @@ public class InitiativeBackOffice {
 
         model.addAttribute("CONTENT_TITLE","Iniciativa Aceptada");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-
         model.addAttribute("iniciativa", iniciativa);
         return "InitiativeBackOffice/accept";
     }
@@ -76,10 +76,32 @@ public class InitiativeBackOffice {
 
         model.addAttribute("CONTENT_TITLE","Iniciativa Rechazada");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-
         model.addAttribute("iniciativa", iniciativa);
         return "InitiativeBackOffice/reject";
     }
+    @RequestMapping("/confirm/{action}/{nInitiative}")
+    public String confirmation(Model model, HttpSession session, @PathVariable String nInitiative, @PathVariable String action){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        Initiative iniciativa = initiativeDao.getInitiative(nInitiative);
+        if (usuario == null || !usuario.isAdmin()){
+            return "redirect:/login";
+        }
+        String actionTxt;
+        if (Objects.equals(action, "accept")){
+            actionTxt = "ACEPTAR";
+        } else {
+            actionTxt = "RECHAZAR";
+        }
+        model.addAttribute("accion",action);
+        model.addAttribute("accionTxt",actionTxt);
 
 
+        model.addAttribute("iniciativa",iniciativa);
+        model.addAttribute("prevURL","/InitiativeBackOffice/list");
+
+        model.addAttribute("CONTENT_TITLE","Confirmar ");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        return "InitiativeBackOffice/confirm";
+    }
 }

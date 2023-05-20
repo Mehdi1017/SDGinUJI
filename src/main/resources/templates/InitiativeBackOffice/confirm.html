@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+
+    <div class="centered_text">
+        <p class="txt">Estas seguro de que quieres <b th:text="${accionTxt}"></b> la iniciativa: <i th:text="${iniciativa.nameIni}"></i></p>
+        <a class="boton_principal color_verde" th:href="@{/InitiativeBackOffice/{accion}/{nom}(nom=${iniciativa.getNameIni()}, accion=*{accion})}">ACEPTAR</a>
+        <a class="boton_principal color_rojo_0" th:href="@{*{prevURL != null ? prevURL : '/' }}">CANCELAR</a>
+
+    </div>
+</div>
+</html>

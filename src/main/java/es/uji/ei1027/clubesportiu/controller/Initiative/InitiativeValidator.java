@@ -1,11 +1,9 @@
-package es.uji.ei1027.clubesportiu.controller;
+package es.uji.ei1027.clubesportiu.controller.Initiative;
 
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

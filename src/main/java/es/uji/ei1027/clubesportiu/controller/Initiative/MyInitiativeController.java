@@ -1,5 +1,6 @@
-package es.uji.ei1027.clubesportiu.controller;
+package es.uji.ei1027.clubesportiu.controller.Initiative;
 
+import es.uji.ei1027.clubesportiu.controller.Initiative.InitiativeValidator;
 import es.uji.ei1027.clubesportiu.dao.InitiativeDao;
 import es.uji.ei1027.clubesportiu.dao.OdsDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;

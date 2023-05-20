@@ -1,7 +1,8 @@
-package es.uji.ei1027.clubesportiu.controller;
+package es.uji.ei1027.clubesportiu.controller.old;
 
-import es.uji.ei1027.clubesportiu.dao.ActionParticipationDao;
-import es.uji.ei1027.clubesportiu.model.ActionParticipation;
+
+import es.uji.ei1027.clubesportiu.dao.TargetDao;
+import es.uji.ei1027.clubesportiu.model.Target;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,43 +12,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/actionParticipation")
-public class ActionParticipationController {
+@RequestMapping("/target")
+public class TargetController {
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    private ActionParticipationDao actionParticipationDao;
+    private TargetDao targetDao;
 
     @Autowired
-    public void setActionParticipationDao(ActionParticipationDao actionParticipationDao) {
-        this.actionParticipationDao = actionParticipationDao;
+    public void setTargetDao(TargetDao targetDao) {
+        this.targetDao = targetDao;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping("/list")
-    public String listActionParticipation(Model model) {
-        model.addAttribute("allActionParticipation", actionParticipationDao.getAllActionParticipation());
-        return "actionParticipation/list";
+    public String listTarget(Model model) {
+        model.addAttribute("allTarget", targetDao.getAllTarget());
+        return "target/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 
- /*   @RequestMapping(value="/add")
-    public String addActionParticipation(Model model) {
-        model.addAttribute("actionParticipation", new ActionParticipation());  // SET MODEL ATTRIBUTE
-        return "actionParticipation/add";
+    @RequestMapping(value="/add")
+    public String addTarget(Model model) {
+        model.addAttribute("target", new Target());  // SET MODEL ATTRIBUTE
+        return "target/add";
     }
-*/
-   /* @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("actionParticipation") ActionParticipation actionParticipation,  // RETRIEVE MODEL ATTRIBUTE
+/*
+    @RequestMapping(value="/add", method= RequestMethod.POST)
+    public String processAddSubmit(@ModelAttribute("target") Target target,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
-        //if (bindingResult.hasErrors())
-         //   return "actionParticipation/add";
-        actionParticipationDao.addActionParticipation(actionParticipation);
+        if (bindingResult.hasErrors())
+            return "target/add";
+        targetDao.addTarget(target);
         return "redirect:list";
     }
 */
