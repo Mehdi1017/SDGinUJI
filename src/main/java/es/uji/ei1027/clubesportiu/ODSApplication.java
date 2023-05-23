@@ -7,12 +7,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 
 
 @SpringBootApplication
-public class ODSApplication {  // TODO removed: implements cmdlinerunner
+public class ODSApplication {
 
 	// -----------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------
 
-	private static final Logger log = Logger.getLogger(ODSApplication.class.getName());
+//	private static final Logger log = Logger.getLogger(ODSApplication.class.getName());
 
 	public static void main(String[] args) {
 		// Auto-configura l'aplicació
@@ -21,7 +21,7 @@ public class ODSApplication {  // TODO removed: implements cmdlinerunner
 
 	// -----------------------------------------------------------------------------------------------------------------
 	// -----------------------------------------------------------------------------------------------------------------
-	// TEST CODE ACCESSING DB - TODO all working -> delete¿?
+	// TEST CODE ACCESSING DB
 
 
 //	// Plantilla per a executar operacions sobre la connexió
