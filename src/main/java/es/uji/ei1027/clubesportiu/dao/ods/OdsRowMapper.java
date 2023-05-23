@@ -14,6 +14,7 @@ public class OdsRowMapper implements RowMapper<Ods> {
         ods.setRelevance(rs.getInt("relevance"));
         ods.setDescription(rs.getString("description"));
         ods.setAxis(rs.getString("axis"));
+        ods.setIndex(rs.getInt("ind"));
         return ods;
     }
 }

@@ -59,11 +59,13 @@ public class HomeController {
 
         if (bindingResult.hasErrors())
             return "sdg/update_staff";    // TRY AGAIN, HAD ERRORS
-        System.out.println(ods);
+
         odsDao.updateOds(ods);  // UPDATE
         String prevUrl = (String) session.getAttribute("prevURL");
         if (prevUrl != null){
-            return "redirect:"+prevUrl;
+
+            // return "redirect:"+prevUrl; TODO arreglar problemas con acentos en url
+            return "redirect:/";
         }
         return "redirect:/";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
@@ -71,7 +73,7 @@ public class HomeController {
     @RequestMapping(value="/view/{nOds}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
     public String viewOds(Model model, HttpSession session,
                           @PathVariable String nOds) {
-
+        System.out.println("VIEW ODS: " + nOds);
         Ods ods = odsDao.getOds(nOds);
         model.addAttribute("CONTENT_TITLE","Visualizando SDG: "+ods.getNameOds());
         model.addAttribute("SELECTED_NAVBAR","SDGs");
@@ -89,18 +91,18 @@ public class HomeController {
     }
 
     // TODO
-    @RequestMapping(value="/add}", method = RequestMethod.GET)
+    @RequestMapping(value="/add", method = RequestMethod.GET)
     public String addOds(Model model, HttpSession session) {
-        model.addAttribute("CONTENT_TITLE","Editando SDG");
+        model.addAttribute("CONTENT_TITLE","Añadiendo SDG");
         model.addAttribute("SELECTED_NAVBAR","SDGs");
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
-            return "sdg/list_public";
+            return "redirect:/";
         }
 
-        model.addAttribute("ods", odsDao.getOds(nOds));
-        return "sdg/update_staff";
+        model.addAttribute("ods", new Ods());  // SET MODEL ATTRIBUTE
+        return "sdg/add";
     }
 
     @RequestMapping(value="/add", method = RequestMethod.POST)
@@ -113,13 +115,9 @@ public class HomeController {
         }
 
         if (bindingResult.hasErrors())
-            return "sdg/update_staff";
-        System.out.println(ods);
-        odsDao.updateOds(ods);
-        String prevUrl = (String) session.getAttribute("prevURL");
-        if (prevUrl != null){
-            return "redirect:"+prevUrl;
-        }
+            return "sdg/add";
+
+        odsDao.addOds(ods);
         return "redirect:/";
     }
 

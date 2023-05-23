@@ -6,10 +6,10 @@ public class Ods {
     private Integer relevance;
     private String axis;
     private String description;
+    private Integer index;
 
     public Ods() {
     }
-
 
     public String getNameOds() {
         return nameOds;
@@ -50,6 +50,16 @@ public class Ods {
                 ", relevance=" + relevance +
                 ", axis=" + axis +
                 ", description='" + description + '\'' +
+                ", index='" + index + '\'' +
+
                 '}';
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
     }
 }

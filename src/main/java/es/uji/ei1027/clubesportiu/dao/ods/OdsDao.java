@@ -25,7 +25,7 @@ public class OdsDao {
 
     public Ods getOds(String nameOds) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * from ods WHERE name_ods=?",
+            return jdbcTemplate.queryForObject("SELECT * from ods WHERE name_ods=? ",
                     new OdsRowMapper(),
                     nameOds);
         }
@@ -40,7 +40,7 @@ public class OdsDao {
     public List<Ods> getAllOds() {
         try {
             return jdbcTemplate.query(
-                    "SELECT * FROM ods",
+                    "SELECT * FROM ods ORDER BY ind",
                     new OdsRowMapper());
         }
         catch(EmptyResultDataAccessException e) {
@@ -53,11 +53,12 @@ public class OdsDao {
 
     public void addOds(Ods ods) {
         jdbcTemplate.update(
-                "INSERT INTO ods VALUES(?, ?, CAST(? AS sector_enum), ?)",
+                "INSERT INTO ods VALUES(?, ?, CAST(? AS sector_enum), ?, ?)",
                 ods.getNameOds(),
                 ods.getRelevance(),
                 ods.getAxis(),
-                ods.getDescription());
+                ods.getDescription(),
+                ods.getIndex());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -75,11 +76,13 @@ public class OdsDao {
         jdbcTemplate.update("UPDATE ods " +
                         "SET    relevance = ? ," +
                         "       axis = CAST(? AS sector_enum) ," +
-                        "       description = ? " +
+                        "       description = ?, " +
+                        "       ind = ? " +
                         "WHERE  name_ods = ? ",
                 ods.getRelevance(),
                 ods.getAxis(),
                 ods.getDescription(),
+                ods.getIndex(),
                 ods.getNameOds());
     }
 
