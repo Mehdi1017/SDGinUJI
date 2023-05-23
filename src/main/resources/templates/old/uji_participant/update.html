@@ -9,7 +9,7 @@
 <body>
 <h2>Modifica al membre <span th:text="${ujiParticipant.nameMem}"></span></h2>
 <h3>Amb mail <span th:text="${ujiParticipant.mail}"></span></h3>
-<form action="#" th:action="@{/templates/old/uji_participant/update}"
+<form action="#" th:action="@{/uji_participant/update}"
       th:object="${ujiParticipant}" method="post">
   <input type="hidden" th:field="*{mail}"/>
   <table>

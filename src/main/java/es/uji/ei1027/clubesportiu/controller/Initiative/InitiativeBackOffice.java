@@ -39,7 +39,7 @@ public class InitiativeBackOffice {
         model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas Pendientes");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("iniciativas", initiativeDao.getPendingInitiatives());
-        return "InitiativeBackOffice/list";
+        return "back_office/InitiativeBackOffice/list";
     }
 
     @RequestMapping("/accept/{nInitiative}")
@@ -57,7 +57,7 @@ public class InitiativeBackOffice {
         model.addAttribute("CONTENT_TITLE","Iniciativa Aceptada");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("iniciativa", iniciativa);
-        return "InitiativeBackOffice/accept";
+        return "back_office/InitiativeBackOffice/accept";
     }
 
     @RequestMapping("/reject/{nInitiative}")
@@ -74,7 +74,7 @@ public class InitiativeBackOffice {
         model.addAttribute("CONTENT_TITLE","Iniciativa Rechazada");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("iniciativa", iniciativa);
-        return "InitiativeBackOffice/reject";
+        return "back_office/InitiativeBackOffice/reject";
     }
     @RequestMapping("/confirm/{action}/{nInitiative}")
     public String confirmation(Model model, HttpSession session, @PathVariable String nInitiative, @PathVariable String action){
@@ -99,6 +99,6 @@ public class InitiativeBackOffice {
         model.addAttribute("CONTENT_TITLE","Confirmar ");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
 
-        return "InitiativeBackOffice/confirm";
+        return "back_office/InitiativeBackOffice/confirm";
     }
 }

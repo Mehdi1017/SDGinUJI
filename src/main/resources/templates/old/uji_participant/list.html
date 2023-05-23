@@ -28,8 +28,8 @@
       <td th:text="${ujiParticipant.usrType}"></td>
       <td th:text="${ujiParticipant.gender}"></td>
       <td th:text="${ujiParticipant.phone}"></td>
-      <td> <a th:href="@{/templates/old/uji_participant/update/{mail}(mail=${ujiParticipant.mail})}" class="btn btn-warning" role="button">Edita</a></td>
-      <td><a th:href="@{/templates/old/uji_participant/delete/{mail}(mail=${ujiParticipant.mail})}" class="btn btn-danger" role="button">Esborra</a></td>
+      <td> <a th:href="@{/uji_participant/update/{mail}(mail=${ujiParticipant.mail})}" class="btn btn-warning" role="button">Edita</a></td>
+      <td><a th:href="@{/uji_participant/delete/{mail}(mail=${ujiParticipant.mail})}" class="btn btn-danger" role="button">Esborra</a></td>
     </tr>
     </tbody>
   </table>
