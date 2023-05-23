@@ -31,7 +31,7 @@ public class UjiParticipantController {
     @RequestMapping("/list")
     public String listUjiParticipants(Model model) {
         model.addAttribute("allUjiParticipants", ujiParticipantDao.getAllUjiParticipants());
-        return "uji_participant/list";
+        return "old/uji_participant/list";
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -40,14 +40,14 @@ public class UjiParticipantController {
     @RequestMapping(value="/add")
     public String addUjiParticipant(Model model) {
         model.addAttribute("ujiParticipant", new UjiParticipant());  // SET MODEL ATTRIBUTE
-        return "uji_participant/add";
+        return "old/uji_participant/add";
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("ujiParticipant") UjiParticipant ujiParticipant,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "uji_participant/add";
+            return "old/uji_participant/add";
         ujiParticipantDao.addUjiParticipant(ujiParticipant);
         return "redirect:list";
     }
@@ -59,7 +59,7 @@ public class UjiParticipantController {
     public String editUjiParticipant(Model model,
                           @PathVariable String mail) {  // RETRIEVE PATH VARIABLE
         model.addAttribute("ujiParticipant", ujiParticipantDao.getUjiParticipant(mail));  // SET MODEL ATTRIBUTE
-        return "uji_participant/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
+        return "old/uji_participant/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
     }
 
     @RequestMapping(value="/update", method = RequestMethod.POST)
@@ -67,7 +67,7 @@ public class UjiParticipantController {
             @ModelAttribute("ujiParticipant") UjiParticipant ujiParticipant, // RETRIEVE MODEL ATTRIBUTE
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "uji_participant/update";    // TRY AGAIN, HAD ERRORS
+            return "old/uji_participant/update";    // TRY AGAIN, HAD ERRORS
         System.out.println(ujiParticipant);
         ujiParticipantDao.updateUjiParticipant(ujiParticipant);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED

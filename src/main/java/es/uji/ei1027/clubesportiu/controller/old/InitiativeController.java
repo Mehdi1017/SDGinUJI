@@ -32,7 +32,7 @@ public class InitiativeController {
     @RequestMapping("/list")
     public String listInitiative(Model model) {
         model.addAttribute("allInitiative", initiativeDao.getAllInitiative());
-        return "initiative/list";
+        return "old/initiative/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------
@@ -41,14 +41,14 @@ public class InitiativeController {
     @RequestMapping(value="/add")
     public String addInitiative(Model model) {
         model.addAttribute("initiative", new Initiative());  // SET MODEL ATTRIBUTE
-        return "initiative/add";
+        return "old/initiative/add";
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "initiative/add";
+            return "old/initiative/add";
         initiativeDao.addInitiativeNaif(initiative);
         return "redirect:list";
     }
@@ -60,7 +60,7 @@ public class InitiativeController {
 public String editInitiative(Model model,
                       @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
     model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));  // SET MODEL ATTRIBUTE
-    return "initiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
+    return "old/initiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
 }
 
     @RequestMapping(value="/update", method = RequestMethod.POST)
@@ -68,7 +68,7 @@ public String editInitiative(Model model,
             @ModelAttribute("initiative") Initiative initiative, // RETRIEVE MODEL ATTRIBUTE
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "initiative/update";    // TRY AGAIN, HAD ERRORS
+            return "old/initiative/update";    // TRY AGAIN, HAD ERRORS
         System.out.println(initiative);
         initiativeDao.updateInitiative(initiative);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED

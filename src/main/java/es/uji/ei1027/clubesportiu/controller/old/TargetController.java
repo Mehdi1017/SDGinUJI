@@ -28,7 +28,7 @@ public class TargetController {
     @RequestMapping("/list")
     public String listTarget(Model model) {
         model.addAttribute("allTarget", targetDao.getAllTarget());
-        return "target/list";
+        return "old/target/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ public class TargetController {
     @RequestMapping(value="/add")
     public String addTarget(Model model) {
         model.addAttribute("target", new Target());  // SET MODEL ATTRIBUTE
-        return "target/add";
+        return "old/target/add";
     }
 /*
     @RequestMapping(value="/add", method= RequestMethod.POST)

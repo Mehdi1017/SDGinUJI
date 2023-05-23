@@ -31,7 +31,7 @@ public class OdsController {
     @RequestMapping("/list")
     public String listOds(Model model) {
         model.addAttribute("allOds", odsDao.getAllOds());
-        return "ods/list";
+        return "old/ods/list";
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -40,14 +40,14 @@ public class OdsController {
     @RequestMapping(value="/add")
     public String addOds(Model model) {
         model.addAttribute("ods", new Ods());  // SET MODEL ATTRIBUTE
-        return "ods/add";
+        return "old/ods/add";
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("ods") Ods ods,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "ods/add";
+            return "old/ods/add";
         odsDao.addOds(ods);
         return "redirect:list";
     }
@@ -59,7 +59,7 @@ public class OdsController {
     public String editOds(Model model,
                           @PathVariable String nOds) {  // RETRIEVE PATH VARIABLE
         model.addAttribute("ods", odsDao.getOds(nOds));  // SET MODEL ATTRIBUTE
-        return "ods/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
+        return "old/ods/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
     }
 
     @RequestMapping(value="/update", method = RequestMethod.POST)
@@ -67,7 +67,7 @@ public class OdsController {
             @ModelAttribute("ods") Ods ods, // RETRIEVE MODEL ATTRIBUTE
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "ods/update";    // TRY AGAIN, HAD ERRORS
+            return "old/ods/update";    // TRY AGAIN, HAD ERRORS
         System.out.println(ods);
         odsDao.updateOds(ods);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED

@@ -27,7 +27,7 @@ public class SubscriptionController {
     @RequestMapping("/list")
     public String listSubscription(Model model) {
         model.addAttribute("allSubscription", subscriptionDao.getAllSubscription());
-        return "subscription/list";
+        return "old/subscription/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ public class SubscriptionController {
     @RequestMapping(value="/add")
     public String addSubscription(Model model) {
         model.addAttribute("subscription", new Subscription());  // SET MODEL ATTRIBUTE
-        return "subscription/add";
+        return "old/subscription/add";
     }
 
    /* @RequestMapping(value="/add", method= RequestMethod.POST)

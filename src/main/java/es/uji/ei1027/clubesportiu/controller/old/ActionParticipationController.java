@@ -26,7 +26,7 @@ public class ActionParticipationController {
     @RequestMapping("/list")
     public String listActionParticipation(Model model) {
         model.addAttribute("allActionParticipation", actionParticipationDao.getAllActionParticipation());
-        return "actionParticipation/list";
+        return "old/actionParticipation/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------

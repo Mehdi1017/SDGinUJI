@@ -28,7 +28,7 @@ public class ActionController {
     @RequestMapping("/list")
     public String listTarget(Model model) {
         model.addAttribute("allActionn", actionDao.getAllAction());
-        return "action/list";
+        return "old/action/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ public class ActionController {
     @RequestMapping(value="/add")
     public String addTarget(Model model) {
         model.addAttribute("action", new Action());  // SET MODEL ATTRIBUTE
-        return "action/add";
+        return "/old/action/add";
     }
 /*
     @RequestMapping(value="/add", method= RequestMethod.POST)
