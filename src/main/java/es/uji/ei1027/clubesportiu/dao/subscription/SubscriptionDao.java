@@ -1,6 +1,6 @@
-package es.uji.ei1027.clubesportiu.dao;
+package es.uji.ei1027.clubesportiu.dao.subscription;
 
-import es.uji.ei1027.clubesportiu.model.Action;
+import es.uji.ei1027.clubesportiu.model.Subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ActionDao {
+public class SubscriptionDao {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -23,12 +23,11 @@ public class ActionDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public Action getAction(String nameAction, String nameInitiative) {
+    public Subscription getSubscription(int idSub) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * from Action WHERE name_act=? AND name_ini=?",
-                    new ActionRowMapper(),
-                    nameAction,
-                    nameInitiative);
+            return jdbcTemplate.queryForObject("SELECT * from subscription WHERE id_sub=?",
+                    new SubscriptionRowMapper(),
+                    idSub);
         }
         catch(EmptyResultDataAccessException e) {
             return null;
@@ -38,61 +37,54 @@ public class ActionDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public List<Action> getAllAction() {
+    public List<Subscription> getAllSubscription() {
         try {
             return jdbcTemplate.query(
-                    "SELECT * FROM Action",
-                    new ActionRowMapper());
+                    "SELECT * FROM subscription",
+                    new SubscriptionRowMapper());
         }
         catch(EmptyResultDataAccessException e) {
-            return new ArrayList<Action>();
+            return new ArrayList<Subscription>();
         }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public void addActionn(Action action) {
+    public void addSubscription(Subscription subscription) {
         jdbcTemplate.update(
-                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?,?)",
-                action.getNameAction(),
-                action.getNameInitiative(),
-                action.getNameOds(),
-                action.getNameTarget(),
-                action.getCreationDate(),
-                action.getEndDate(),
-                action.getDescription(),
-                action.getProgress());
+                "INSERT INTO subscription VALUES(?, ?, ?, ?, ?)",
+                subscription.getMail(),
+                subscription.getIdSub(),
+                subscription.getNameOds(),
+                subscription.getInitialDate(),
+                subscription.getEndDate());
     }
 
 
     // -----------------------------------------------------------------------------------------------------------------
-    //-----------------------------------------------------------------------------------------------------------------
-    //TODO delete
-    public void deleteAction(Action action) {
-        jdbcTemplate.update("DELETE FROM Action WHERE name_act=? AND name_ini=? ",
-                action.getNameAction(), action.getNameInitiative());
-    }
+     //-----------------------------------------------------------------------------------------------------------------
+     //TODO delete
+        public void deleteSubscription(Subscription subscription) {
+            jdbcTemplate.update("DELETE FROM subscription WHERE  id_sub = ? ",
+                    subscription.getIdSub());
+        }
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     // TODO update
-    public void updateAction(Action action) {
-        jdbcTemplate.update("UPDATE Action " +
-                        "SET    name_ods = ? ," +
-                        "name_targ = ? ," +
-                        "creation_date = ? ," +
-                        "end_ate = ? ," +
-                        "description = ? ," +
-                        "progress = ? " +
-                        "WHERE  name_act = ?"      +
-                        "WHERE  name_ini = ?",
-                action.getNameOds(),
-                action.getNameTarget(),
-                action.getCreationDate(),
-                action.getEndDate(),
-                action.getDescription(),
-                action.getProgress());
-    }
+        public void updateSubscription(Subscription subscription) {
+            jdbcTemplate.update("UPDATE subscription " +
+                            "SET    mail = ? ," +
+                            "       name_ods = ? ," +
+                            "       initialdate = ? ," +
+                            "       enddate = ? ," +
+                            "WHERE  id_sub = ?",
+                    subscription.getMail(),
+                    subscription.getNameOds(),
+                    subscription.getInitialDate(),
+                    subscription.getEndDate(),
+                    subscription.getIdSub());
+        }
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 

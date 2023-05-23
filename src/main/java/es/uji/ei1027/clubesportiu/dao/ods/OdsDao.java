@@ -1,6 +1,6 @@
-package es.uji.ei1027.clubesportiu.dao;
+package es.uji.ei1027.clubesportiu.dao.ods;
 
-import es.uji.ei1027.clubesportiu.model.UjiParticipant;
+import es.uji.ei1027.clubesportiu.model.Ods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UjiParticipantDao {
+public class OdsDao {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -23,11 +23,11 @@ public class UjiParticipantDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public UjiParticipant getUjiParticipant(String mail) {
+    public Ods getOds(String nameOds) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * from uji_participant WHERE mail=?",
-                    new UjiParticipantRowMapper(),
-                    mail);
+            return jdbcTemplate.queryForObject("SELECT * from ods WHERE name_ods=?",
+                    new OdsRowMapper(),
+                    nameOds);
         }
         catch(EmptyResultDataAccessException e) {
             return null;
@@ -37,56 +37,52 @@ public class UjiParticipantDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public List<UjiParticipant> getAllUjiParticipants() {
+    public List<Ods> getAllOds() {
         try {
             return jdbcTemplate.query(
-                    "SELECT * FROM uji_participant",
-                    new UjiParticipantRowMapper());
+                    "SELECT * FROM ods",
+                    new OdsRowMapper());
         }
         catch(EmptyResultDataAccessException e) {
-            return new ArrayList<UjiParticipant>();
+            return new ArrayList<Ods>();
         }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public void addUjiParticipant(UjiParticipant ujiParticipant) {
+    public void addOds(Ods ods) {
         jdbcTemplate.update(
-                "INSERT INTO uji_participant VALUES(?, ?, CAST(? AS type_enum), CAST(? AS gender_enum), ?)",
-                ujiParticipant.getMail(),
-                ujiParticipant.getNameMem(),
-                ujiParticipant.getUsrType(),
-                ujiParticipant.getGender(),
-                ujiParticipant.getPhone());
+                "INSERT INTO ods VALUES(?, ?, CAST(? AS sector_enum), ?)",
+                ods.getNameOds(),
+                ods.getRelevance(),
+                ods.getAxis(),
+                ods.getDescription());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public void deleteUjiParticipant(String mail) {
-        jdbcTemplate.update("DELETE FROM uji_participant WHERE mail = ? ",
-                    mail);
+    public void deleteOds(String nOds) {
+        jdbcTemplate.update("DELETE FROM ods WHERE name_ods = ? ",
+                    nOds);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public void updateUjiParticipant(UjiParticipant ujiParticipant) {
-        jdbcTemplate.update("UPDATE uji_participant " +
-                        "SET    name_mem = ? ," +
-                        "       usr_type = CAST(? AS type_enum) ," +
-                        "       gender = CAST(? AS gender_enum) ," +
-                        "       phone = ? " +
-                        "WHERE  mail = ? ",
-                ujiParticipant.getNameMem(),
-                ujiParticipant.getUsrType(),
-                ujiParticipant.getGender(),
-                ujiParticipant.getPhone(),
-                ujiParticipant.getMail());
+    public void updateOds(Ods ods) {
+        jdbcTemplate.update("UPDATE ods " +
+                        "SET    relevance = ? ," +
+                        "       axis = CAST(? AS sector_enum) ," +
+                        "       description = ? " +
+                        "WHERE  name_ods = ? ",
+                ods.getRelevance(),
+                ods.getAxis(),
+                ods.getDescription(),
+                ods.getNameOds());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-
 }

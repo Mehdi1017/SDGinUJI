@@ -1,4 +1,4 @@
-package es.uji.ei1027.clubesportiu.dao;
+package es.uji.ei1027.clubesportiu.dao.user;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -9,11 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import es.uji.ei1027.clubesportiu.dao.UserDao;
+import es.uji.ei1027.clubesportiu.dao.user.UserDao;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 
 class UserValidator implements Validator {

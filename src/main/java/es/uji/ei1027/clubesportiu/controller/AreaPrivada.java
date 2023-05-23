@@ -1,8 +1,6 @@
 package es.uji.ei1027.clubesportiu.controller;
 
-import es.uji.ei1027.clubesportiu.dao.OdsDao;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class AreaPrivada {
+
+
     @GetMapping("/area")
     public String index(Model model, HttpSession session) {
 

@@ -1,4 +1,4 @@
-package es.uji.ei1027.clubesportiu.dao;
+package es.uji.ei1027.clubesportiu.dao.initiative_participation;
 
 import es.uji.ei1027.clubesportiu.model.InitiativeParticipation;
 import org.springframework.beans.factory.annotation.Autowired;

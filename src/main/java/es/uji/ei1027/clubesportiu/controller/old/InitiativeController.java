@@ -1,6 +1,6 @@
 package es.uji.ei1027.clubesportiu.controller.old;
 
-import es.uji.ei1027.clubesportiu.dao.InitiativeDao;
+import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 
 import org.springframework.beans.factory.annotation.Autowired;

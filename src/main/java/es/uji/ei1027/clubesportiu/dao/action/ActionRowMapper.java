@@ -1,4 +1,4 @@
-package es.uji.ei1027.clubesportiu.dao;
+package es.uji.ei1027.clubesportiu.dao.action;
 
 import es.uji.ei1027.clubesportiu.model.Action;
 import org.springframework.jdbc.core.RowMapper;

@@ -1,4 +1,4 @@
-package es.uji.ei1027.clubesportiu.dao;
+package es.uji.ei1027.clubesportiu.dao.initiative;
 
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.StatEnum;

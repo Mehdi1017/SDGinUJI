@@ -1,6 +1,6 @@
 package es.uji.ei1027.clubesportiu.controller.old;
 
-import es.uji.ei1027.clubesportiu.dao.OdsDao;
+import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
 import es.uji.ei1027.clubesportiu.model.Ods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

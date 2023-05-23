@@ -1,6 +1,6 @@
 package es.uji.ei1027.clubesportiu.controller.old;
 
-import es.uji.ei1027.clubesportiu.dao.UjiParticipantDao;
+import es.uji.ei1027.clubesportiu.dao.uji_participant.UjiParticipantDao;
 import es.uji.ei1027.clubesportiu.model.UjiParticipant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

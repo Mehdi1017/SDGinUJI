@@ -1,8 +1,6 @@
 package es.uji.ei1027.clubesportiu.controller.Initiative;
 
-import es.uji.ei1027.clubesportiu.dao.InitiativeDao;
-import es.uji.ei1027.clubesportiu.dao.InitiativeParticipationDao;
-import es.uji.ei1027.clubesportiu.model.Initiative;
+import es.uji.ei1027.clubesportiu.dao.initiative_participation.InitiativeParticipationDao;
 import es.uji.ei1027.clubesportiu.model.InitiativeParticipation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
