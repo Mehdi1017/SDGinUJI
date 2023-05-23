@@ -46,7 +46,7 @@ public class ActionParticipationDao {
                     new ActionParticipationRowMapper());
         }
         catch(EmptyResultDataAccessException e) {
-            return new ArrayList<ActionParticipation>();
+            return new ArrayList<>();
         }
     }
 
@@ -68,34 +68,32 @@ public class ActionParticipationDao {
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-     //TODO delete
-        public void deleteActionParticipation(ActionParticipation actionParticipation) {
-            jdbcTemplate.update("DELETE FROM action_participation WHERE name_ini = ? AND name_act=? AND mail=?",
-                    actionParticipation.getNameIni(),
-                    actionParticipation.getNameAct(),
-                    actionParticipation.getMail());
-        }
-     //-----------------------------------------------------------------------------------------------------------------
-     //-----------------------------------------------------------------------------------------------------------------
-     //TODO update
-        public void updateActionParticipation(ActionParticipation actionParticipation) {
-            jdbcTemplate.update("UPDATE action_participation " +
-                            "SET " +
-                            "       stat = ? ," +
-                            "       startDate = ? ," +
-                            "       enddate = ? ," +
-                            "       commentary = ? ," +
-                            "WHERE  name_act = ? AND name_ini=? AND mail = ?",
-                    actionParticipation.getStat().name(),
-                    actionParticipation.getStartDate(),
-                    actionParticipation.getEndDate(),
-                    actionParticipation.getCommentary(),
-                    actionParticipation.getNameAct(),
-                    actionParticipation.getNameIni(),
-                    actionParticipation.getMail());
-        }
-     //-----------------------------------------------------------------------------------------------------------------
-     //-----------------------------------------------------------------------------------------------------------------
+    public void deleteActionParticipation(ActionParticipation actionParticipation) {
+        jdbcTemplate.update("DELETE FROM action_participation WHERE name_ini = ? AND name_act=? AND mail=?",
+                actionParticipation.getNameIni(),
+                actionParticipation.getNameAct(),
+                actionParticipation.getMail());
+    }
+    //-----------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------
+    public void updateActionParticipation(ActionParticipation actionParticipation) {
+        jdbcTemplate.update("UPDATE action_participation " +
+                        "SET " +
+                        "       stat = ? ," +
+                        "       startDate = ? ," +
+                        "       enddate = ? ," +
+                        "       commentary = ? ," +
+                        "WHERE  name_act = ? AND name_ini=? AND mail = ?",
+                actionParticipation.getStat().name(),
+                actionParticipation.getStartDate(),
+                actionParticipation.getEndDate(),
+                actionParticipation.getCommentary(),
+                actionParticipation.getNameAct(),
+                actionParticipation.getNameIni(),
+                actionParticipation.getMail());
+    }
+    //-----------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------------
 
 
 }

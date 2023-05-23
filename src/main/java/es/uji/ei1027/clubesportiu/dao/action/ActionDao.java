@@ -45,7 +45,7 @@ public class ActionDao {
                     new ActionRowMapper());
         }
         catch(EmptyResultDataAccessException e) {
-            return new ArrayList<Action>();
+            return new ArrayList<>();
         }
     }
 
@@ -68,14 +68,12 @@ public class ActionDao {
 
     // -----------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------
-    //TODO delete
     public void deleteAction(Action action) {
         jdbcTemplate.update("DELETE FROM Action WHERE name_act=? AND name_ini=? ",
                 action.getNameAction(), action.getNameInitiative());
     }
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-    // TODO update
     public void updateAction(Action action) {
         jdbcTemplate.update("UPDATE Action " +
                         "SET    name_ods = ? ," +
