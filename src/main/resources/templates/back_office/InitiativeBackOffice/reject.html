@@ -8,7 +8,7 @@
     <div class="centered_text">
         <p class="txt">La Iniciativa <i th:text="${iniciativa.nameIni}"></i> ha sido<br><b>RECHAZADA</b></p>
         <p class="txt_sec">La Iniciativa no sera eliminada pero pasará a figurar como rechazada</p>
-        <a class="boton_principal color_verde" th:href="@{/InitiativeBackOffice/view/{nom}(nom=${iniciativa.getNameIni()})}">IR A LA INICIATIVA</a>
+        <a class="boton_principal color_verde" th:href="@{/templates/back_office/InitiativeBackOffice/view/{nom}(nom=${iniciativa.getNameIni()})}">IR A LA INICIATIVA</a>
     </div>
 
 </div>>

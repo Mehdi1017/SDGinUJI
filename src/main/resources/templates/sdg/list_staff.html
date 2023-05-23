@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>EI1027 - ODS Project</title>
+    <meta charset="UTF-8"/>
 </head>
 <body>
-
+<div layout:fragment="content">
+    <img class="img_principal" th:src="@{/imagenes/bannerval.jpg}">
+    <br>
+    <div class="floater_wrapper centered_text">
+        <ol >
+            <li th:each="ods: ${allOds}">
+                <a class="txt spaced_txt" th:text="${ods.getNameOds()}" th:href="@{/view/{nom}(nom=${ods.getNameOds()})}"></a> <br>
+            </li>
+        </ol>
+        <p>
+            <a th:href="@{/add}" class="txt_sec2 color_verde boton_principal">AÑADIR SDG</a></p>
+    </div>
+</div>
 </body>
 </html>

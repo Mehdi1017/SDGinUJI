@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+    <table class="centered_h">
+        <tr>
+            <td>Título:</td>
+            <td  th:text="*{ods.nameOds}" ></td>
+        </tr>
+        <tr>
+            <td>Axis:</td>
+            <td th:text="*{ods.axis}" ></td>
+        </tr>
+        <tr>
+            <td>Relevancia:</td>
+            <td  th:text="*{ods.relevance}" ></td>
+        </tr>
+        <tr>
+            <td>Descripción:</td>
+            <td th:text="*{ods.description}"> </td>
+        </tr>
+        <tr>
+            <td class="centered_h"><a th:href="@{/}" class="txt_sec2 color_rojo_0 boton_principal">Volver atrás</a></td>
+            <td class="centered_h"><a th:href="@{/update/{nom}(nom=${ods.getNameOds()})}" class="txt_sec2 color_verde boton_principal">Modificar Ods</a></td>
+
+        </tr>
+    </table>
+</div>
+</html>

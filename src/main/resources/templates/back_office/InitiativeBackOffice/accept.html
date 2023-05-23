@@ -8,7 +8,7 @@
     <div class="centered_text">
         <p class="txt">La Iniciativa <i th:text="${iniciativa.nameIni}"></i> ha sido<br><b>ACEPTADA</b></p>
         <p class="txt_sec">La Iniciativa va a ser hecha pública y a partir de ahora ya se podrán añadir acciones y participantes</p>
-        <a class="boton_principal color_verde" th:href="@{/InitiativeBackOffice/view/{nom}(nom=${iniciativa.getNameIni()})}">IR A LA INICIATIVA</a>
+        <a class="boton_principal color_verde" th:href="@{/templates/back_office/InitiativeBackOffice/view/{nom}(nom=${iniciativa.getNameIni()})}">IR A LA INICIATIVA</a>
     </div>
 </div>
 </html>

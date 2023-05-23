@@ -12,7 +12,7 @@
   <br>
   <div class="floater_wrapper centered_text">
     <ol>
-      <li class="txt" th:each="ods: ${allOds}"><a href="" th:text="${ods.nameOds}"></a></li>
+      <li class="txt" th:each="ods: ${allOds}"><a th:href="@{/view/{nombre}(nombre=${ods.nameOds})}" th:text="${ods.nameOds}"></a></li>
     </ol>
   </div>
 </div>
