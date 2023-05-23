@@ -32,8 +32,8 @@
       <td th:text="${initiativeParticipation.stat}"></td>
       <td th:text="${initiativeParticipation.creationDate}"></td>
       <td th:text="${initiativeParticipation.endDate}"></td>
-      <td> <a th:href="@{/templates/initiative_participation/update/{mail}/{nameIni}(mail=${initiativeParticipation.mail}, nameIni=${initiativeParticipation.nameIni})}" class="btn btn-warning" role="button">Edita</a></td>
-      <td><a th:href="@{/templates/initiative_participation/delete/{mail}/{nameIni}(mail=${initiativeParticipation.mail}, nameIni=${initiativeParticipation.nameIni})}" class="btn btn-danger" role="button">Esborra</a></td>
+      <td> <a th:href="@{/templates/old/initiative_participation/update/{mail}/{nameIni}(mail=${initiativeParticipation.mail}, nameIni=${initiativeParticipation.nameIni})}" class="btn btn-warning" role="button">Edita</a></td>
+      <td><a th:href="@{/templates/old/initiative_participation/delete/{mail}/{nameIni}(mail=${initiativeParticipation.mail}, nameIni=${initiativeParticipation.nameIni})}" class="btn btn-danger" role="button">Esborra</a></td>
     </tr>
     </tbody>
   </table>

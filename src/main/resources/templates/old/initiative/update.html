@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2>Modifica la iniciativa <span th:text="${initiative.nameIni}"> </span></h2>
-<form action="#" th:action="@{/initiative/update}"
+<form action="#" th:action="@{/templates/old/initiative/update}"
       th:object="${initiative}" method="post">
   <input type="hidden" th:field="*{nameIni}"/>
   <table>

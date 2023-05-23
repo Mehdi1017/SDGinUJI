@@ -8,7 +8,7 @@
 </head>
 <body>
 <h2>Modifica al Ods <span th:text="${ods.nameOds}"> </span></h2>
-<form action="#" th:action="@{/ods/update}"
+<form action="#" th:action="@{/templates/old/ods/update}"
       th:object="${ods}" method="post">
   <input type="hidden" th:field="*{nameOds}"/>
   <table>

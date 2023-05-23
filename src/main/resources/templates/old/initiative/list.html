@@ -36,8 +36,8 @@
       <td th:text="${initiative.progress}"></td>
       <td th:text="${initiative.mail}"></td>
       <td th:text="${initiative.nameOds}"></td>
-      <td> <a th:href="@{/initiative/update/{nom}(nom=${initiative.nameIni})}" class="btn btn-warning" role="button">Edita</a></td>
-      <td><a th:href="@{/initiative/delete/{nom}(nom=${initiative.nameIni})}" class="btn btn-danger" role="button">Esborra</a></td>
+      <td> <a th:href="@{/templates/old/initiative/update/{nom}(nom=${initiative.nameIni})}" class="btn btn-warning" role="button">Edita</a></td>
+      <td><a th:href="@{/templates/old/initiative/delete/{nom}(nom=${initiative.nameIni})}" class="btn btn-danger" role="button">Esborra</a></td>
     </tr>
     </tbody>
   </table>

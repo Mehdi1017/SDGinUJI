@@ -26,8 +26,8 @@
       <td th:text="${ods.axis}"></td>
       <td th:text="${ods.relevance}"></td>
       <td th:text="${ods.description}"></td>
-      <td> <a th:href="@{/ods/update/{nom}(nom=${ods.nameOds})}" class="btn btn-warning" role="button">Edita</a></td>
-      <td><a th:href="@{/ods/delete/{nom}(nom=${ods.nameOds})}" class="btn btn-danger" role="button">Esborra</a></td>
+      <td> <a th:href="@{/templates/old/ods/update/{nom}(nom=${ods.nameOds})}" class="btn btn-warning" role="button">Edita</a></td>
+      <td><a th:href="@{/templates/old/ods/delete/{nom}(nom=${ods.nameOds})}" class="btn btn-danger" role="button">Esborra</a></td>
     </tr>
     </tbody>
   </table>
