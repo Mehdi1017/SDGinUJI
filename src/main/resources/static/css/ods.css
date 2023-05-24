@@ -219,3 +219,16 @@ a.boton_secundario, .boton_secundario {
 .txt_right_align {
     text-align: right;
 }
+
+.table-container {
+    display: flex;
+    justify-content: center;
+}
+
+.description-input {
+    width: 100ch; /* Set the desired width of the input field */
+    height: 40ch; /* Set the desired height of the input field */
+}
+.align_top {
+    vertical-align:top
+}
