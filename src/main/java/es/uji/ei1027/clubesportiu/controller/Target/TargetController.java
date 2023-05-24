@@ -1,12 +1,16 @@
-package es.uji.ei1027.clubesportiu.controller.old;
+package es.uji.ei1027.clubesportiu.controller.Target;
 
 
+import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
 import es.uji.ei1027.clubesportiu.dao.target.TargetDao;
 import es.uji.ei1027.clubesportiu.model.Target;
+import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/target")
@@ -16,6 +20,9 @@ public class TargetController {
     // -----------------------------------------------------------------------------------------------------------------
 
     private TargetDao targetDao;
+    private OdsDao odsDao;
+    @Autowired
+    public void setOdsDao(OdsDao odsDao){this.odsDao = odsDao;}
 
     @Autowired
     public void setTargetDao(TargetDao targetDao) {
@@ -26,18 +33,35 @@ public class TargetController {
     // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping("/list")
-    public String listTarget(Model model) {
+    public String listTarget(Model model, HttpSession session) {
         model.addAttribute("allTarget", targetDao.getAllTarget());
-        return "old/target/list";
+        model.addAttribute("CONTENT_TITLE","Viendo Targets");
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()) {
+            return "targets/list_public";
+        }
+        else {
+            return "targets/list_staff";
+        }
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 
     @RequestMapping(value="/add")
-    public String addTarget(Model model) {
+    public String addTarget(Model model, HttpSession session) {
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+
+        if (usuario == null || !usuario.isAdmin()) {
+            session.setAttribute("nextUrl","/target/add");
+            return "redirect:/login";
+
+        }
+
+        model.addAttribute("CONTENT_TITLE","Añadiendo Target");
+        model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
         model.addAttribute("target", new Target());  // SET MODEL ATTRIBUTE
-        return "old/target/add";
+        return "targets/add";
     }
 /*
     @RequestMapping(value="/add", method= RequestMethod.POST)

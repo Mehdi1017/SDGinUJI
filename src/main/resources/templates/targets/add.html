@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<body>
+<h2>Nou ODS</h2>
+<div layout:fragment="content">
+    <form action="#" th:action="@{/add}"
+          th:object="${target}" method="post">
+        <table>
+            <tr>
+                <td><label>Nombre</label></td>
+                <td><input type="text" th:field="*{nameTarg}" /></td>
+            </tr>
+            <tr>
+                <td><label>ODS: </label></td>
+                <td><select type="text" th:field="*{nameOds}">
+                <option class="txt_sec2 bold"
+                        th:each="ods : ${odsList}"
+                        th:value="${ods.nameOds}"
+                        th:text="${ods.nameOds}">
+
+                </option></select>
+            </td>
+            </tr>
+            <tr>
+                <td><label>Descripción</label></td>
+                <td><input type="text" th:field="*{description}" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input class="txt_sec2 color_verde boton_principal" type="submit" value="Añadir Target" />
+                 <a th:href="@{/target/list}" class="txt_sec2 color_amarillo boton_principal">VOLVER ATRÁS</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+
+  <div class="centered_text" th:if="${allTarget.isEmpty()}">
+    <p class="txt"><b>No hay targets</b></p>
+  </div>
+  <table class="table " >
+    <tr th:each="target: ${allTarget}"><td>
+      <a class="txt spaced_txt" th:text="${target.nameTarg}" th:href="@{/target/view/{nom}(nom=${target.getNameTarg()})}"></a> <br>
+      <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(target.description,150)}"></span> <br>
+      <a class="boton_principal color_verde" th:href="@{/InitiativeBackOffice/view/{nom}(nom=${iniciativa.getNameIni()})}">Modificar Target</a>
+      <a class="boton_principal color_rojo_0" th:href="@{/InitiativeBackOffice/delete/{nom}(nom=${iniciativa.getNameIni()})}">Eliminar Target</a>
+    </td>
+    </tr>
+    <tr>
+      <td>    <a th:href="@{/target/add}" class="txt_sec2 color_verde boton_principal">AÑADIR TARGET</a>
+    <a th:href="@{/area}" class="txt_sec2 color_amarillo boton_principal">VOLVER ATRÁS</a></td>
+
+    </tr>
+  </table>
+
+
+</div>
+</body>
+</html>
