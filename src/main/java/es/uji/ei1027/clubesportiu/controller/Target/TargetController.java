@@ -90,7 +90,7 @@ public class TargetController {
         if (bindingResult.hasErrors())
             return "targets/add";
         targetDao.addTarget(target);
-        return "redirect:/target/list";
+        return "redirect:/target/view/by_ods/" + target.getNameOds();
     }
 
 /*        @RequestMapping(value="/update/{nNadador}/{nProva}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE

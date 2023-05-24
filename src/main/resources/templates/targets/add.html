@@ -7,6 +7,7 @@
 <div layout:fragment="content">
     <form action="#" th:action="@{/target/add}"
           th:object="${target}" method="post">
+        <input type="hidden" th:field="*{nameOds}" th:value="${nODS}"/>
         <table>
             <tr>
                 <td><label>Nombre</label></td>
