@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+    <table class="centered_h">
+        <tr>
+            <td>SDG:</td>
+            <td  th:text="*{target.nameOds}" ></td>
+        </tr>
+        <tr>
+            <td>Target</td>
+            <td th:text="*{target.nameTarg}"> </td>
+        </tr>
+        <tr>
+            <td>Descripción:</td>
+            <td> <p th:text="*{target.description}"></p></td>
+        </tr>
+        <tr>
+            <td colspan="2" class="centered_h">
+                <a th:href="@{/target/update/{ods}/{targ}(ods=${target.getNameOds()}, targ=${target.getNameTarg()})}" class="txt_sec2 color_azul_0 boton_principal">Modificar target</a>
+                <a th:href="@{/target/view/by_ods/{nom}(nom=${target.getNameOds()})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</html>
