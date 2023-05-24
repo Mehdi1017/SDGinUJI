@@ -53,13 +53,26 @@ public class TargetController {
     public String listTarget(Model model, HttpSession session, @PathVariable String nODS) {
         model.addAttribute("allTarget", targetDao.getTargetByOds(nODS));
        // model.addAttribute("ods",nODS);
-        model.addAttribute("CONTENT_TITLE","Viendo Targets de: "+nODS);
+        model.addAttribute("CONTENT_TITLE","Viendo Targets");
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
             return "targets/list_public";
         }
         else {
             return "targets/list_staff";
+        }
+    }
+    @RequestMapping("/view/{nODS}/{nTarg}")
+    public String viewTarget(Model model, HttpSession session, @PathVariable String nODS, @PathVariable String nTarg) {
+        model.addAttribute("target", targetDao.getTarget(nODS, nTarg));
+        // model.addAttribute("ods",nODS);
+        model.addAttribute("CONTENT_TITLE","Viendo Target");
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()) {
+            return "targets/view_public";
+        }
+        else {
+            return "targets/view_staff";
         }
     }
 

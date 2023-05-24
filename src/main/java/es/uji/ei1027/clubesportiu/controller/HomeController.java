@@ -73,7 +73,6 @@ public class HomeController {
     @RequestMapping(value="/view/{nOds}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
     public String viewOds(Model model, HttpSession session,
                           @PathVariable String nOds) {
-        System.out.println("VIEW ODS: " + nOds);
         Ods ods = odsDao.getOds(nOds);
         model.addAttribute("CONTENT_TITLE","Visualizando SDG: "+ods.getNameOds());
         model.addAttribute("SELECTED_NAVBAR","SDGs");
