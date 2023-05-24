@@ -10,7 +10,10 @@ public class Action {
     private LocalDate creationDate;
     private LocalDate endDate;
     private String description;
-    private Float progress;
+    private String progress;
+    private String resultados;
+    private String valoracion;
+
 
 
     public String getNameAction() {
@@ -69,11 +72,11 @@ public class Action {
         this.description = description;
     }
 
-    public Float getProgress() {
+    public String getProgress() {
         return progress;
     }
 
-    public void setProgress(Float progress) {
+    public void setProgress(String progress) {
         this.progress = progress;
     }
 
@@ -89,5 +92,21 @@ public class Action {
                 ", description='" + description + '\'' +
                 ", progress=" + progress +
                 '}';
+    }
+
+    public String getResultados() {
+        return resultados;
+    }
+
+    public void setResultados(String resultados) {
+        this.resultados = resultados;
+    }
+
+    public String getValoracion() {
+        return valoracion;
+    }
+
+    public void setValoracion(String valoracion) {
+        this.valoracion = valoracion;
     }
 }

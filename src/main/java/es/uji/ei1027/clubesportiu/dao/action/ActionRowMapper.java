@@ -18,7 +18,9 @@ public class ActionRowMapper implements RowMapper<Action> {
         action.setCreationDate(rs.getObject("creation_date", LocalDate.class));
         action.setEndDate(rs.getObject("end_ate", LocalDate.class));
         action.setDescription(rs.getString("description"));
-        action.setProgress(rs.getFloat("progress"));
+        action.setProgress(rs.getString("progress"));
+        action.setResultados(rs.getString("resultados"));
+        action.setValoracion(rs.getString("valoracion"));
         return action;
     }
 }

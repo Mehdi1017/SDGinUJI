@@ -54,15 +54,14 @@ public class ActionDao {
 
     public void addActionn(Action action) {
         jdbcTemplate.update(
-                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?,?)",
+                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?)",
                 action.getNameAction(),
                 action.getNameInitiative(),
                 action.getNameOds(),
                 action.getNameTarget(),
                 action.getCreationDate(),
                 action.getEndDate(),
-                action.getDescription(),
-                action.getProgress());
+                action.getDescription());
     }
 
 
@@ -81,6 +80,8 @@ public class ActionDao {
                         "creation_date = ? ," +
                         "end_ate = ? ," +
                         "description = ? ," +
+                        "resultados = ? ," +
+                        "valoracion = ? ," +
                         "progress = ? " +
                         "WHERE  name_act = ?"      +
                         "WHERE  name_ini = ?",
@@ -89,6 +90,8 @@ public class ActionDao {
                 action.getCreationDate(),
                 action.getEndDate(),
                 action.getDescription(),
+                action.getResultados(),
+                action.getValoracion(),
                 action.getProgress());
     }
     // -----------------------------------------------------------------------------------------------------------------
