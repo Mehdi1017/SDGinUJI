@@ -83,8 +83,7 @@ public class ActionDao {
                         "resultados = ? ," +
                         "valoracion = ? ," +
                         "progress = ? " +
-                        "WHERE  name_act = ?"      +
-                        "WHERE  name_ini = ?",
+                        "WHERE  name_act = ?",
                 action.getNameOds(),
                 action.getNameTarget(),
                 action.getCreationDate(),
@@ -92,7 +91,8 @@ public class ActionDao {
                 action.getDescription(),
                 action.getResultados(),
                 action.getValoracion(),
-                action.getProgress());
+                action.getProgress(),
+                action.getNameAction());
     }
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
