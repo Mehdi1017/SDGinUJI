@@ -25,8 +25,11 @@ public class TargetController {
 
     private TargetDao targetDao;
     private OdsDao odsDao;
+
     @Autowired
-    public void setOdsDao(OdsDao odsDao){this.odsDao = odsDao;}
+    public void setOdsDao(OdsDao odsDao) {
+        this.odsDao = odsDao;
+    }
 
     @Autowired
     public void setTargetDao(TargetDao targetDao) {
@@ -39,12 +42,11 @@ public class TargetController {
     @RequestMapping("/list")
     public String listTarget(Model model, HttpSession session) {
         model.addAttribute("allTarget", targetDao.getAllTarget());
-        model.addAttribute("CONTENT_TITLE","Viendo Targets");
+        model.addAttribute("CONTENT_TITLE", "Viendo Targets");
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
             return "targets/list_public";
-        }
-        else {
+        } else {
             return "targets/list_staff";
         }
     }
@@ -52,26 +54,25 @@ public class TargetController {
     @RequestMapping("/view/by_ods/{nODS}")
     public String listTarget(Model model, HttpSession session, @PathVariable String nODS) {
         model.addAttribute("allTarget", targetDao.getTargetByOds(nODS));
-       // model.addAttribute("ods",nODS);
-        model.addAttribute("CONTENT_TITLE","Viendo Targets");
+        // model.addAttribute("ods",nODS);
+        model.addAttribute("CONTENT_TITLE", "Viendo Targets");
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
             return "targets/list_public";
-        }
-        else {
+        } else {
             return "targets/list_staff";
         }
     }
+
     @RequestMapping("/view/{nODS}/{nTarg}")
     public String viewTarget(Model model, HttpSession session, @PathVariable String nODS, @PathVariable String nTarg) {
         model.addAttribute("target", targetDao.getTarget(nODS, nTarg));
         // model.addAttribute("ods",nODS);
-        model.addAttribute("CONTENT_TITLE","Viendo Target");
+        model.addAttribute("CONTENT_TITLE", "Viendo Target");
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
             return "targets/view_public";
-        }
-        else {
+        } else {
             return "targets/view_staff";
         }
     }
@@ -79,17 +80,17 @@ public class TargetController {
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 
-    @RequestMapping(value="/add/{nODS}")
+    @RequestMapping(value = "/add/{nODS}")
     public String addTarget(Model model, HttpSession session, @PathVariable String nODS) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
 
         if (usuario == null || !usuario.isAdmin()) {
-            session.setAttribute("nextUrl","/target/add");
+            session.setAttribute("nextUrl", "/target/add");
             return "redirect:/login";
 
         }
 
-        model.addAttribute("CONTENT_TITLE","Añadiendo Target");
+        model.addAttribute("CONTENT_TITLE", "Añadiendo Target");
         model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
         Target newTarget = new Target();
         newTarget.setNameOds(nODS);
@@ -97,7 +98,7 @@ public class TargetController {
         return "targets/add";
     }
 
-    @RequestMapping(value="/add", method= RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("target") Target target,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -106,58 +107,15 @@ public class TargetController {
         return "redirect:/target/view/by_ods/" + target.getNameOds();
     }
 
-/*        @RequestMapping(value="/update/{nNadador}/{nProva}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-    public String editClassificacio(Model model,
-                                    @PathVariable String nNadador,
-                                    @PathVariable String nProva) {  // RETRIEVE PATH VARIABLE
-        model.addAttribute("classificacio", classificacioDao.getClassificacio(nNadador, nProva));  // SET MODEL ATTRIBUTE
-        return "classificacio/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
-    }*/
-/*
-    @RequestMapping(value="/update", method = RequestMethod.POST)
-    public String processUpdateSubmit(
-            @ModelAttribute("classificacio") Classificacio classificacio, // RETRIEVE MODEL ATTRIBUTE
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "classificacio/update";    // TRY AGAIN, HAD ERRORS
-        System.out.println(classificacio);
-        classificacioDao.updateClassificacio(classificacio);  // UPDATE
-        return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
-    }*/
-
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-//
-//    @RequestMapping(value="/update/{nNadador}/{nProva}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-//    public String editClassificacio(Model model,
-//                                    @PathVariable String nNadador,
-//                                    @PathVariable String nProva) {  // RETRIEVE PATH VARIABLE
-//        model.addAttribute("classificacio", classificacioDao.getClassificacio(nNadador, nProva));  // SET MODEL ATTRIBUTE
-//        return "classificacio/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
-//    }
-//
-//    @RequestMapping(value="/update", method = RequestMethod.POST)
-//    public String processUpdateSubmit(
-//            @ModelAttribute("classificacio") Classificacio classificacio, // RETRIEVE MODEL ATTRIBUTE
-//            BindingResult bindingResult) {
-//        if (bindingResult.hasErrors())
-//            return "classificacio/update";    // TRY AGAIN, HAD ERRORS
-//        System.out.println(classificacio);
-//        classificacioDao.updateClassificacio(classificacio);  // UPDATE
-//        return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
-//    }
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-//
-//    @RequestMapping(value = "/delete/{nNadador}/{nProva}")
-//    public String processDeleteClassif(@PathVariable String nNadador,
-//                                       @PathVariable String nProva) {
-//        classificacioDao.deleteClassificacio(nNadador, nProva);
-//        return "redirect:../../list";
-//    }
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-
+    @RequestMapping(value="/update/{nODS}/{nTarg}", method = RequestMethod.GET)
+    public String updateTarget(Model model, HttpSession session, @PathVariable String nODS, @PathVariable String nTarg) {
+        model.addAttribute("target", targetDao.getTarget(nODS, nTarg));
+        model.addAttribute("CONTENT_TITLE", "Modificando Target");
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()) {
+            return "redirect:/login";
+        } else {
+            return "targets/update_staff";
+        }
+    }
 }
