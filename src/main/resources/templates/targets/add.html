@@ -3,24 +3,21 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <body>
-<h2>Nou ODS</h2>
 <div layout:fragment="content">
+    <b>ODS: </b><span th:text="${nODS}"></span>
     <form action="#" th:action="@{/target/add}"
           th:object="${target}" method="post">
         <input type="hidden" th:field="*{nameOds}" th:value="${nODS}"/>
         <table>
             <tr>
-                <td><label>Nombre</label></td>
-                <td><input type="text" th:field="*{nameTarg}" /></td>
+                <td><label>Nombre Target: </label></td>
+                <td><input type="text" th:field="*{nameTarg}" maxlength="50" class="nombre-input" /></td>
             </tr>
             <tr>
-                <td><label>ODS: </label></td>
-                <td th:text="${nODS}">
-            </td>
-            </tr>
-            <tr>
-                <td><label>Descripción</label></td>
-                <td><input type="text" th:field="*{description}" /></td>
+                <td class="align_top"><label>Descripción: </label></td>
+                <td><label>
+                <textarea class="description-input" th:field="*{description}" ></textarea>
+            </label></td>
             </tr>
             <tr>
                 <td colspan="2"><input class="txt_sec2 color_verde boton_principal" type="submit" value="Añadir Target" />
