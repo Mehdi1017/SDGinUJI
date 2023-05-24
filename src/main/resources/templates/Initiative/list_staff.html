@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 
+<body>
+<div class="container" layout:fragment="content">
+    <h1>Lista de Iniciativas</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nom Iniciatives</th>
+            <th>Descripció</th>
+            <th>Data de inici</th>
+            <th>Data de fi</th>
+            <th>Estat</th>
+            <th>Data de modificació</th>
+            <th>Progrés</th>
+            <th>Responsable</th>
+            <th>ODS relacionat</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="initiative: ${allInitiative}">
+            <td th:text="${initiative.nameIni}"></td>
+            <td th:text="${initiative.description}"></td>
+            <td th:text="${initiative.startDate}"></td>
+            <td th:text="${initiative.endDate}"></td>
+            <td th:text="${initiative.stat}"></td>
+            <td th:text="${initiative.lastModified}"></td>
+            <td th:text="${initiative.progress}"></td>
+            <td th:text="${initiative.mail}"></td>
+            <td th:text="${initiative.nameOds}"></td>
+            <td> <a th:href="@{/initiative/update/{nom}(nom=${initiative.nameIni})}" class="btn btn-warning" role="button">Edita</a></td>
+            <td><a th:href="@{/initiative/delete/{nom}(nom=${initiative.nameIni})}" class="btn btn-danger" role="button">Esborra</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="add" class="btn btn-success" role="button">Afegeix Iniciatives</a>
+    <a href="/" class="btn btn-primary">Tornar</a>
+</div>
 </body>
 </html>
