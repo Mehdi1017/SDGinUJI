@@ -61,20 +61,23 @@ public class MyInitiativeController {
 
         model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        model.addAttribute("myInitiative", new Initiative());  // SET MODEL ATTRIBUTE
+        model.addAttribute("initiative", new Initiative());  // SET MODEL ATTRIBUTE
         model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
         iniciativas = initiativeDao.getAllInitiative();
         return "myInitiative/add";
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("myInitiative") Initiative initiative,  // RETRIEVE MODEL ATTRIBUTE
+    public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult, Model model, HttpSession session) {
+        System.out.println("Empiezo");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         InitiativeValidator initiativeValidator = new InitiativeValidator();
         initiativeValidator.validate(initiative, bindingResult);
+        System.out.println("acabo");
         if (bindingResult.hasErrors()){
             model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
+            model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝");
             return "myInitiative/add";
         }
 

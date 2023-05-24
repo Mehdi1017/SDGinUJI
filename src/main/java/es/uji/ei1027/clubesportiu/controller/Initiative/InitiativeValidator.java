@@ -18,13 +18,21 @@ public class InitiativeValidator implements Validator {
 
     @Override
     public void validate(Object obj, Errors errors) {
+        System.out.println("valor mal");
         Initiative initiative = (Initiative)obj;
+        System.out.println("valor mal");
         List<Initiative> iniciativas = MyInitiativeController.iniciativas;
+        System.out.println("valor mal");
         if (iniciativas != null && iniciativas.size() >0) {
+            System.out.println("valor mal");
             for (Initiative iniciativa : iniciativas) {
-                if (initiative.getNameIni().trim().equals(iniciativa.getNameIni()))
+                System.out.println(errors.getAllErrors());
+
+                if (initiative.getNameIni().trim().equals(iniciativa.getNameIni())){
+                    System.out.println("valor mal");
                     errors.rejectValue("nameIni", "obligatori",
                             "Nombre no correcto");
+                }
             }
         }
         // Afegeix ací la validació per a Edat > 15 anys
