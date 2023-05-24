@@ -62,12 +62,12 @@ public class HomeController {
 
         odsDao.updateOds(ods);  // UPDATE
         String prevUrl = (String) session.getAttribute("prevURL");
-        if (prevUrl != null){
+       // if (prevUrl != null){
 
             // return "redirect:"+prevUrl; TODO arreglar problemas con acentos en url
-            return "redirect:/";
-        }
-        return "redirect:/";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
+         //   return "redirect:/";
+        //}
+        return "redirect:/view/" + ods.getNameOds();     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
 
     @RequestMapping(value="/view/{nOds}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE

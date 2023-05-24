@@ -7,6 +7,7 @@
 <div layout:fragment="content">
     <form action="#" th:action="@{/target/add}"
           th:object="${target}" method="post">
+        <input type="hidden" th:field="*{nameOds}" th:value="${nODS}"/>
         <table>
             <tr>
                 <td><label>Nombre</label></td>
@@ -14,13 +15,7 @@
             </tr>
             <tr>
                 <td><label>ODS: </label></td>
-                <td><select type="text" th:field="*{nameOds}">
-                <option class="txt_sec2 bold"
-                        th:each="ods : ${odsList}"
-                        th:value="${ods.nameOds}"
-                        th:text="${ods.nameOds}">
-
-                </option></select>
+                <td th:text="${nODS}">
             </td>
             </tr>
             <tr>
@@ -29,7 +24,7 @@
             </tr>
             <tr>
                 <td colspan="2"><input class="txt_sec2 color_verde boton_principal" type="submit" value="Añadir Target" />
-                 <a th:href="@{/target/list}" class="txt_sec2 color_amarillo boton_principal">VOLVER ATRÁS</a>
+                    <a th:href="@{/view/{ods}(ods=${nODS})}" class="txt_sec2 color_amarillo boton_principal">Volver Atrás</a>
                 </td>
             </tr>
         </table>
