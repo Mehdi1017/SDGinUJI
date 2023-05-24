@@ -225,6 +225,10 @@ a.boton_secundario, .boton_secundario {
     justify-content: center;
 }
 
+.nombre-input {
+    width: 50ch;
+}
+
 .description-input {
     width: 100ch; /* Set the desired width of the input field */
     height: 40ch; /* Set the desired height of the input field */
