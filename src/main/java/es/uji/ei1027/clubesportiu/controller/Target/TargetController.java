@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -48,11 +49,25 @@ public class TargetController {
         }
     }
 
+    @RequestMapping("/view/by_ods/{nODS}")
+    public String listTarget(Model model, HttpSession session, @PathVariable String nODS) {
+        model.addAttribute("allTarget", targetDao.getTargetByOds(nODS));
+       // model.addAttribute("ods",nODS);
+        model.addAttribute("CONTENT_TITLE","Viendo Targets de: "+nODS);
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()) {
+            return "targets/list_public";
+        }
+        else {
+            return "targets/list_staff";
+        }
+    }
+
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 
-    @RequestMapping(value="/add")
-    public String addTarget(Model model, HttpSession session) {
+    @RequestMapping(value="/add/{nODS}")
+    public String addTarget(Model model, HttpSession session, @PathVariable String nODS) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
 
         if (usuario == null || !usuario.isAdmin()) {
@@ -63,7 +78,9 @@ public class TargetController {
 
         model.addAttribute("CONTENT_TITLE","Añadiendo Target");
         model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
-        model.addAttribute("target", new Target());  // SET MODEL ATTRIBUTE
+        Target newTarget = new Target();
+        newTarget.setNameOds(nODS);
+        model.addAttribute("target", newTarget);  // SET MODEL ATTRIBUTE
         return "targets/add";
     }
 
@@ -75,6 +92,25 @@ public class TargetController {
         targetDao.addTarget(target);
         return "redirect:/target/list";
     }
+
+/*        @RequestMapping(value="/update/{nNadador}/{nProva}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String editClassificacio(Model model,
+                                    @PathVariable String nNadador,
+                                    @PathVariable String nProva) {  // RETRIEVE PATH VARIABLE
+        model.addAttribute("classificacio", classificacioDao.getClassificacio(nNadador, nProva));  // SET MODEL ATTRIBUTE
+        return "classificacio/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
+    }*/
+/*
+    @RequestMapping(value="/update", method = RequestMethod.POST)
+    public String processUpdateSubmit(
+            @ModelAttribute("classificacio") Classificacio classificacio, // RETRIEVE MODEL ATTRIBUTE
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "classificacio/update";    // TRY AGAIN, HAD ERRORS
+        System.out.println(classificacio);
+        classificacioDao.updateClassificacio(classificacio);  // UPDATE
+        return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
+    }*/
 
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------

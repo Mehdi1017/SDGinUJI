@@ -26,8 +26,12 @@
                 <td th:text="*{ods.description}"> </td>
             </tr>
             <tr>
-                <td colspan="2" class="centered_h"><a th:href="@{/}" class="txt_sec2 color_rojo_0 boton_principal">Volver atrás</a></td>
+                <td colspan="2" class="centered_h">
+                    <a th:href="@{/target/view/by_ods/{nom}(nom=${ods.getNameOds()})}" class="txt_sec2 color_verde boton_principal">Targets</a>
+                    <a th:href="@{/}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+                </td>
             </tr>
         </table>
+
 </div>
 </html>
