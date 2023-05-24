@@ -8,7 +8,10 @@ import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 
@@ -63,16 +66,16 @@ public class TargetController {
         model.addAttribute("target", new Target());  // SET MODEL ATTRIBUTE
         return "targets/add";
     }
-/*
+
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("target") Target target,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "target/add";
+            return "targets/add";
         targetDao.addTarget(target);
-        return "redirect:list";
+        return "redirect:/target/list";
     }
-*/
+
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 //

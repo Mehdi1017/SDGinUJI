@@ -17,8 +17,6 @@
     <tr th:each="target: ${allTarget}"><td>
       <a class="txt spaced_txt" th:text="${target.nameTarg}" th:href="@{/target/view/{nom}(nom=${target.getNameTarg()})}"></a> <br>
       <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(target.description,150)}"></span> <br>
-      <a class="boton_principal color_verde" th:href="@{/InitiativeBackOffice/view/{nom}(nom=${iniciativa.getNameIni()})}">Modificar Target</a>
-      <a class="boton_principal color_rojo_0" th:href="@{/InitiativeBackOffice/delete/{nom}(nom=${iniciativa.getNameIni()})}">Eliminar Target</a>
     </td>
     </tr>
     <tr>
