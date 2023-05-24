@@ -99,10 +99,15 @@ public class TargetController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("target") Target target,  // RETRIEVE MODEL ATTRIBUTE
+    public String processAddSubmit(@ModelAttribute("target") Target target, HttpSession session, // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "targets/add";
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()) {
+            return "redirect:/login";
+        }
+
         targetDao.addTarget(target);
         return "redirect:/target/view/by_ods/" + target.getNameOds();
     }
@@ -117,5 +122,19 @@ public class TargetController {
         } else {
             return "targets/update_staff";
         }
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String processUpdateSubmit(@ModelAttribute("target") Target target, HttpSession session, // RETRIEVE MODEL ATTRIBUTE
+                                   BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "targets/update_staff";
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()) {
+            return "redirect:/login";
+        }
+
+        targetDao.updateTarget(target);
+        return "redirect:/target/view/" + target.getNameOds() + "/" + target.getNameTarg();
     }
 }
