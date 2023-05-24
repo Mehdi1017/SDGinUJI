@@ -70,11 +70,9 @@ public class MyInitiativeController {
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,  // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult, Model model, HttpSession session) {
-        System.out.println("Empiezo");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         InitiativeValidator initiativeValidator = new InitiativeValidator();
         initiativeValidator.validate(initiative, bindingResult);
-        System.out.println("acabo");
         if (bindingResult.hasErrors()){
             model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
             model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝");
