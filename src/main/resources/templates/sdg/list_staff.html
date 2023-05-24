@@ -11,11 +11,11 @@
     <img class="img_principal" th:src="@{/imagenes/bannerval.jpg}">
     <br>
     <div class="floater_wrapper centered_text">
-        <ol >
+        <ul >
             <li th:each="ods: ${allOds}">
                 <a class="txt spaced_txt" th:text="${ods.index + '. ' + ods.nameOds}" th:href="@{/view/{nom}(nom=${ods.getNameOds()})}"></a> <br>
             </li>
-        </ol>
+        </ul>
         <br>
         <br>
             <a th:href="@{/add}" class="txt_sec2 color_verde boton_principal">Añadir SDG</a>
