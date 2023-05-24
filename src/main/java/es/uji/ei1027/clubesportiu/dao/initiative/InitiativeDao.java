@@ -126,9 +126,9 @@ public class InitiativeDao {
                             "       lastmodified = ? ," +
                             "       progress = ? ," +
                             "       mail = ? ," +
-                            "       name_ods = ?" +
-                            "       motivacacion = ?" +
-                            "       url = ?" +
+                            "       name_ods = ?," +
+                            "       motivacion = ?," +
+                            "       url = ?," +
                             "       resultados = ?" +
                             "WHERE  name_ini = ? ",
                     initiative.getDescription(),
