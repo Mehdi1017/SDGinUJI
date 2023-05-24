@@ -6,6 +6,7 @@ import es.uji.ei1027.clubesportiu.dao.target.TargetDao;
 import es.uji.ei1027.clubesportiu.model.Target;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -136,5 +137,31 @@ public class TargetController {
 
         targetDao.updateTarget(target);
         return "redirect:/target/view/" + target.getNameOds() + "/" + target.getNameTarg();
+    }
+
+    @RequestMapping("/delete/confirm/{nODS}/{nTarg}")
+    public String deleteConfirm(Model model, HttpSession session, @PathVariable String nODS, @PathVariable String nTarg){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()) {
+            return "redirect:/login";
+        }
+        try {
+            targetDao.deleteTarget(targetDao.getTarget(nODS,nTarg));
+        } catch (DataAccessException e){
+            System.out.println("ERRORRRRRRRRRRRRRRRRR");
+            model.addAttribute("target",targetDao.getTarget(nODS,nTarg));
+            return "targets/error_delete";
+        }
+        return "redirect:/target/view/by_ods/"+nODS;
+    }
+
+    @RequestMapping("/delete/{nODS}/{nTarg}")
+    public String delete(Model model, HttpSession session, @PathVariable String nODS, @PathVariable String nTarg){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()) {
+            return "redirect:/login";
+        }
+        model.addAttribute("target",targetDao.getTarget(nODS,nTarg));
+        return "targets/delete_confirm";
     }
 }
