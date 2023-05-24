@@ -74,7 +74,7 @@ public class HomeController {
     public String viewOds(Model model, HttpSession session,
                           @PathVariable String nOds) {
         Ods ods = odsDao.getOds(nOds);
-        model.addAttribute("CONTENT_TITLE","Visualizando SDG: "+ods.getNameOds());
+        model.addAttribute("CONTENT_TITLE","Visualizando SDG");
         model.addAttribute("SELECTED_NAVBAR","SDGs");
         model.addAttribute("ods", ods);  // SET MODEL ATTRIBUTE
 
