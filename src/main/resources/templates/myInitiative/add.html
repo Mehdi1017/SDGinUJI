@@ -21,6 +21,15 @@
     </tr>
 
     <tr>
+      <td class="txt txt_right_align" ><label>Fecha de inicio:   </label></td>
+      <td><input type="date" th:field="*{startDate}" required/></td>
+    </tr>
+
+    <tr>
+      <td class="txt txt_right_align" ><label>Fecha de finalización:   </label></td>
+      <td><input type="date" th:field="*{endDate}" required/></td>
+    </tr>
+    <tr>
       <td class="txt txt_right_align"><label>SDG al que va dirigida:   </label></td>
       <td><select type="text" th:field="*{nameOds}">
         <option class="txt_sec2 bold"
@@ -33,8 +42,18 @@
     </tr>
 
     <tr>
+      <td class="txt txt_right_align"><label>Motivación:   </label></td>
+      <td><input type="text" th:field="*{motivacion}" maxlength="5000" required/></td>
+    </tr>
+
+    <tr>
       <td class="txt txt_right_align"><label>Descripción:   </label></td>
       <td><input type="text" th:field="*{description}" maxlength="500" required/></td>
+    </tr>
+
+    <tr>
+      <td class="txt txt_right_align"><label>Url:   </label></td>
+      <td><input type="text" th:field="*{url}" maxlength="100"/></td>
     </tr>
 
     <tr class="centered_text">

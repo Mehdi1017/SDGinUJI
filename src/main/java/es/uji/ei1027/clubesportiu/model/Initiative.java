@@ -14,9 +14,12 @@ public class Initiative {
     private String stat;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate lastModified;
-    private double progress;
+    private String progress;
     private String mail;
     private String nameOds;
+    private String motivacion;
+    private String url;
+    private String resultados;
 
     public Initiative() {
     }
@@ -69,12 +72,11 @@ public class Initiative {
     public void setLastModified(LocalDate lastModified) {
         this.lastModified = lastModified;
     }
-
-    public double getProgress() {
+    public String getProgress() {
         return progress;
     }
 
-    public void setProgress(double progress) {
+    public void setProgress(String progress) {
         this.progress = progress;
     }
 
@@ -107,5 +109,29 @@ public class Initiative {
                 ", mail='" + mail + '\'' +
                 ", nameOds='" + nameOds + '\'' +
                 '}';
+    }
+
+    public String getMotivacion() {
+        return motivacion;
+    }
+
+    public void setMotivacion(String motivacion) {
+        this.motivacion = motivacion;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getResultados() {
+        return resultados;
+    }
+
+    public void setResultados(String resultados) {
+        this.resultados = resultados;
     }
 }

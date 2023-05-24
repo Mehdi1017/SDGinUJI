@@ -78,24 +78,30 @@ public class InitiativeDao {
 
     public void addInitiativeNaif(Initiative initiative) {
         jdbcTemplate.update(
-                "INSERT INTO initiative VALUES(?, ?, ?, ?, 'Pending', ?, 0.0, ?, ?)",
+                "INSERT INTO initiative (name_ini, description, startdate, enddate, mail, name_ods, motivacion, url)" +
+                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
                 initiative.getNameIni(),
                 initiative.getDescription(),
                 initiative.getStartDate(),
                 initiative.getEndDate(),
-                initiative.getStartDate(),
                 initiative.getMail(),
-                initiative.getNameOds());
+                initiative.getNameOds(),
+                initiative.getMotivacion(),
+                initiative.getUrl());
     }
 
     public void addInitiative(Initiative initiative) {
         jdbcTemplate.update(
-                "INSERT INTO initiative VALUES(?, ?, null, null, 'Pending', ?, 0.0, ?, ?)",
+                "INSERT INTO initiative (name_ini, description, startdate, enddate, mail, name_ods, motivacion, url)" +
+                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
                 initiative.getNameIni(),
                 initiative.getDescription(),
-                LocalDate.now(),
+                initiative.getStartDate(),
+                initiative.getEndDate(),
                 initiative.getMail(),
-                initiative.getNameOds());
+                initiative.getNameOds(),
+                initiative.getMotivacion(),
+                initiative.getUrl());
     }
 
 
@@ -121,6 +127,9 @@ public class InitiativeDao {
                             "       progress = ? ," +
                             "       mail = ? ," +
                             "       name_ods = ?" +
+                            "       motivacacion = ?" +
+                            "       url = ?" +
+                            "       resultados = ?" +
                             "WHERE  name_ini = ? ",
                     initiative.getDescription(),
                     initiative.getStartDate(),
@@ -130,6 +139,9 @@ public class InitiativeDao {
                     initiative.getProgress(),
                     initiative.getMail(),
                     initiative.getNameOds(),
+                    initiative.getMotivacion(),
+                    initiative.getUrl(),
+                    initiative.getResultados(),
                     initiative.getNameIni());
         }
      //-----------------------------------------------------------------------------------------------------------------
