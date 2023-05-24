@@ -13,7 +13,7 @@
     <span  th:text="*{ods.relevance}" ></span>
     <br>
     <br>
-    <p th:text="*{ods.description}"> </p>
+    <p class="txt" th:text="*{ods.description}"> </p>
     <a th:href="@{/target/view/by_ods/{nom}(nom=${ods.getNameOds()})}" class="txt_sec2 color_verde boton_principal">Targets</a>
     <a th:href="@{/}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
 
