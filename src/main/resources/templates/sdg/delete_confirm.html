@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+
+    <div class="centered_text">
+        <p class="txt">Estas seguro de que quieres <b>ELIMINAR</b> el SDG: <i th:text="${ods.nameOds}"></i></p>
+        <a class="boton_principal color_rojo_0" th:href="@{/delete/confirm/{nom}(nom=${ods.nameOds})}" >ELIMINAR</a>
+        <a class="boton_principal color_amarillo" th:href="@{/view/{nom}(nom=${ods.nameOds})}">CANCELAR</a>
+    </div>
+</div>
+</html>

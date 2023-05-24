@@ -11,9 +11,9 @@
   <img class="img_principal" th:src="@{/imagenes/bannerval.jpg}">
   <br>
   <div class="floater_wrapper centered_text">
-    <ol>
-      <li class="txt" th:each="ods: ${allOds}"><a th:href="@{/view/{nombre}(nombre=${ods.nameOds})}" th:text="${ods.nameOds}"></a></li>
-    </ol>
+    <ul>
+      <li class="txt" th:each="ods: ${allOds}"><a th:href="@{/view/{nombre}(nombre=${ods.nameOds})}" th:text="${ods.index + '. ' + ods.nameOds}"></a></li>
+    </ul>
   </div>
 </div>
 </body>

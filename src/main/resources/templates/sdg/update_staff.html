@@ -4,33 +4,38 @@
       layout:decorate="~{fragments/base}">
 
 <div layout:fragment="content">
-<h2>Modifica al Ods <span th:text="${ods.nameOds}"> </span></h2>
+<h1 th:text="${ods.index + '. '+ ods.nameOds}"></h1>
+
   <form action="#" th:action="@{/update}"
         th:object="${ods}" method="post">
     <input type="hidden" th:field="*{nameOds}"/>
     <table>
       <tr>
-        <td><label>Índice</label></td>
+        <td><label>Índice: </label></td>
         <td><input type="number" th:field="*{index}" /></td>
       </tr>
       <tr>
-        <td><label>Relevancia</label></td>
+        <td><label>Relevancia: </label></td>
         <td><input type="number" th:field="*{relevance}" /></td>
       </tr>
       <tr>
-        <td><label>Axis</label></td>
-        <td>                <select type="text" th:field="*{axis}">
-          <option class="txt_sec2 bold" value="Governance">Governance</option>
-          <option class="txt_sec2 bold" value="Education">Education</option>
-          <option class="txt_sec2 bold" value="Research">Research</option>
-        </select></td></td>
+        <td><label>Axis:</label></td>
+        <td>
+          <select type="text" th:field="*{axis}">
+            <option class="txt_sec2 bold" value="Governance">Governance</option>
+            <option class="txt_sec2 bold" value="Education">Education</option>
+            <option class="txt_sec2 bold" value="Research">Research</option>
+          </select></td>
       </tr>
       <tr>
-        <td><label>Descripció</label></td>
-        <td><input type="text" th:field="*{description}" /></td>
+        <td class="align_top"><label>Descripción: </label></td>
+        <td><label>
+          <textarea class="description-input" th:field="*{description}" ></textarea>
+        </label></td>
       </tr>
       <tr>
-        <td colspan="2"><input type="submit" value="Modifica Ods" /></td>
+        <td colspan="2"><input class="txt_sec2 color_verde boton_principal" type="submit" value="Modificar SDG" />
+          <a th:href="@{/view/{nODS}(nODS=${ods.nameOds})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a></td>
       </tr>
     </table>
   </form>

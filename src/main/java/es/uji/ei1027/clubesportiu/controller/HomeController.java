@@ -4,6 +4,7 @@ import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
 import es.uji.ei1027.clubesportiu.model.Ods;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,7 +75,7 @@ public class HomeController {
     public String viewOds(Model model, HttpSession session,
                           @PathVariable String nOds) {
         Ods ods = odsDao.getOds(nOds);
-        model.addAttribute("CONTENT_TITLE","Visualizando SDG: "+ods.getNameOds());
+        model.addAttribute("CONTENT_TITLE","Visualizando SDG");
         model.addAttribute("SELECTED_NAVBAR","SDGs");
         model.addAttribute("ods", ods);  // SET MODEL ATTRIBUTE
 
@@ -118,6 +119,22 @@ public class HomeController {
 
         odsDao.addOds(ods);
         return "redirect:/";
+    }
+    @RequestMapping("/delete/confirm/{nODS}")
+    public String deleteConfirm(Model model, HttpSession session, @PathVariable String nODS){
+        try {
+            odsDao.deleteOds(nODS);
+        } catch (DataAccessException e){
+            model.addAttribute("ods",odsDao.getOds(nODS));
+            return "sdg/error_delete";
+        }
+        return "redirect:/";
+    }
+
+        @RequestMapping("/delete/{nODS}")
+    public String delete(Model model, HttpSession session, @PathVariable String nODS){
+        model.addAttribute("ods",odsDao.getOds(nODS));
+        return "sdg/delete_confirm";
     }
 
 }

@@ -5,23 +5,23 @@
 <body>
 <h2>Nou ODS</h2>
 <div layout:fragment="content">
-<form action="#" th:action="@{/add}"
+<form action="#" th:action="@{/add}" class="table-container"
       th:object="${ods}" method="post">
     <table>
         <tr>
-            <td><label>Nom</label></td>
+            <td><label>Nombre: </label></td>
             <td><input type="text" th:field="*{nameOds}" /></td>
         </tr>
         <tr>
-            <td><label>Índice</label></td>
+            <td><label>Índice: </label></td>
             <td><input type="number" th:field="*{index}" /></td>
         </tr>
         <tr>
-            <td><label>Relevancia</label></td>
+            <td><label>Relevancia: </label></td>
             <td><input type="number" th:field="*{relevance}" /></td>
         </tr>
         <tr>
-            <td><label>Axis</label></td>
+            <td><label>Axis:</label></td>
             <td>
                 <select type="text" th:field="*{axis}">
                     <option class="txt_sec2 bold" value="Governance">Governance</option>
@@ -30,11 +30,16 @@
                 </select></td>
         </tr>
         <tr>
-            <td><label>Descripció</label></td>
-            <td><input type="text" th:field="*{description}" /></td>
+            <td class="align_top"><label>Descripción: </label></td>
+            <td><label>
+                <textarea class="description-input" th:field="*{description}" ></textarea>
+            </label></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Afegeix ODS" /></td>
+            <td colspan="2"><input class="txt_sec2 color_verde boton_principal" type="submit" value="Añadir SDG" />
+                <a th:href="@{/}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+
+            </td>
         </tr>
     </table>
 </form>
