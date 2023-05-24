@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<body>
+<div layout:fragment="content">
+    <b>SDG: </b><span th:text="${nODS}"></span>
+    <br>
+    <b>Target: </b><span th:text="${nTarg}"></span>
+    <br>
+    <br>
+
+    <form action="#" th:action="@{/target/update}"
+          th:object="${target}" method="post">
+        <input type="hidden" th:field="*{nameOds}" th:value="${nODS}"/>
+        <input type="hidden" th:field="*{nameTarg}" th:value="${nTarg}"/>
+
+        <table>
+            <tr>
+                <td class="align_top"><label>Descripción: </label></td>
+                <td><label>
+                    <textarea class="description-input" th:field="*{description}" ></textarea>
+                </label></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input class="txt_sec2 color_verde boton_principal" type="submit" value="Modificar Target" />
+                    <a th:href="@{/target/view/{ods}/{targ}(ods=${nODS},targ=${nTarg})}" class="txt_sec2 color_amarillo boton_principal">Volver Atrás</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

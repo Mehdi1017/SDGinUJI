@@ -122,6 +122,12 @@ public class HomeController {
     }
     @RequestMapping("/delete/confirm/{nODS}")
     public String deleteConfirm(Model model, HttpSession session, @PathVariable String nODS){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()) {
+            return "redirect:/login";
+        }
+
+
         try {
             odsDao.deleteOds(nODS);
         } catch (DataAccessException e){
@@ -133,6 +139,11 @@ public class HomeController {
 
         @RequestMapping("/delete/{nODS}")
     public String delete(Model model, HttpSession session, @PathVariable String nODS){
+            UserDetails usuario = (UserDetails) session.getAttribute("user");
+            if (usuario == null || !usuario.isAdmin()) {
+                return "redirect:/login";
+            }
+
         model.addAttribute("ods",odsDao.getOds(nODS));
         return "sdg/delete_confirm";
     }

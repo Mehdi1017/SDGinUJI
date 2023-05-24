@@ -4,24 +4,15 @@
       layout:decorate="~{fragments/base}">
 
 <div layout:fragment="content">
-    <table class="centered_h">
-        <tr>
-            <td>SDG:</td>
-            <td  th:text="*{target.nameOds}" ></td>
-        </tr>
-        <tr>
-            <td>Target</td>
-            <td th:text="*{target.nameTarg}"> </td>
-        </tr>
-        <tr>
-            <td>Descripción:</td>
-            <td> <p th:text="*{target.description}"></p></td>
-        </tr>
-        <tr>
-            <td colspan="2" class="centered_h">
-                <a th:href="@{/target/view/by_ods/{nom}(nom=${target.getNameOds()})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
-            </td>
-        </tr>
-    </table>
+    <b>SDG:</b>
+    <span th:text="*{target.nameOds}" ></span>
+    <br>
+    <b>Target:</b>
+    <span  th:text="*{target.nameTarg}" ></span>
+    <br>
+    <br>
+    <p class="txt" th:text="*{target.description}"> </p>
+    <br>
+    <a th:href="@{@{/target/view/by_ods/{nom}(nom=${target.getNameOds()})}}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
 </div>
 </html>
