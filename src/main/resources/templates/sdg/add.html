@@ -21,8 +21,13 @@
             <td><input type="number" th:field="*{relevance}" /></td>
         </tr>
         <tr>
-            <td><label>Axis (Gov/Edu/Res)</label></td>
-            <td><input type="text" th:field="*{axis}" /></td>
+            <td><label>Axis</label></td>
+            <td>
+                <select type="text" th:field="*{axis}">
+                    <option class="txt_sec2 bold" value="Governance">Governance</option>
+                    <option class="txt_sec2 bold" value="Education">Education</option>
+                    <option class="txt_sec2 bold" value="Research">Research</option>
+                </select></td>
         </tr>
         <tr>
             <td><label>Descripció</label></td>
