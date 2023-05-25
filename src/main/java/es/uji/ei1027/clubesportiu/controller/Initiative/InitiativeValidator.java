@@ -18,18 +18,21 @@ public class InitiativeValidator implements Validator {
 
     @Override
     public void validate(Object obj, Errors errors) {
-        Initiative initiative = (Initiative)obj;
+        Initiative initiative = (Initiative) obj;
+
+        if (initiative.getStartDate().compareTo(initiative.getEndDate()) >= 0)
+            errors.rejectValue("endDate", "erroneo", "La fecha de fin no puede ser inferior ni igual a la de inicio");
+
+
+
         List<Initiative> iniciativas = MyInitiativeController.iniciativas;
-        if (iniciativas != null && iniciativas.size() >0) {
+        if (iniciativas != null && !iniciativas.isEmpty()) {
             for (Initiative iniciativa : iniciativas) {
                 System.out.println(errors.getAllErrors());
 
-                if (initiative.getNameIni().trim().equals(iniciativa.getNameIni())){
-                    errors.rejectValue("nameIni", "obligatori",
-                            "Nombre no correcto");
-                }
+                if (initiative.getNameIni().trim().equals(iniciativa.getNameIni()))
+                    errors.rejectValue("nameIni", "obligatori", "Nombre no correcto");
             }
         }
-        // Afegeix ací la validació per a Edat > 15 anys
     }
 }

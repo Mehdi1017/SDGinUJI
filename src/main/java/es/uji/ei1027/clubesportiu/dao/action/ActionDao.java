@@ -1,6 +1,7 @@
 package es.uji.ei1027.clubesportiu.dao.action;
 
 import es.uji.ei1027.clubesportiu.model.Action;
+import es.uji.ei1027.clubesportiu.model.Initiative;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,6 +49,19 @@ public class ActionDao {
             return new ArrayList<>();
         }
     }
+
+    public List<Action> getActions(Initiative initiative) {
+        try {
+            return jdbcTemplate.query(
+                    "SELECT * FROM Action WHERE name_ini = ?",
+                    new ActionRowMapper(),
+                    initiative.getNameIni());
+        }
+        catch(EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
+
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
