@@ -77,7 +77,7 @@ public class MyInitiativeController {
         model.addAttribute("initiative", new Initiative());  // data to fill
         model.addAttribute("action", new Action());
 
-        System.out.println("Ejecuta add controller");
+//        System.out.println("Ejecuta add controller");
 
         return "myInitiative/add";
     }
@@ -105,12 +105,14 @@ public class MyInitiativeController {
 //            return "myInitiative/add";
 //        }
 
-        // set initiative as session parameter
+        // complete initiative with user
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        initiative.setMail(usuario.getMail());
+
+        // set initiative as session parameter for persistance
         session.setAttribute("tmp_initiative", initiative);
         model.addAttribute("action", new Action());
 
-//        UserDetails usuario = (UserDetails) session.getAttribute("user");
-//        initiative.setMail(usuario.getMail());
 //        initiativeDao.addInitiative(initiative);
 //        model.addAttribute("CONTENT_TITLE","Iniciativa Enviada! 😁📤");
 
@@ -118,6 +120,11 @@ public class MyInitiativeController {
         model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
         return "myInitiative/addAction";
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+
+
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -134,7 +141,7 @@ public class MyInitiativeController {
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "initiative/update";    // TRY AGAIN, HAD ERRORS
-        System.out.println(initiative);
+//        System.out.println(initiative);
         initiativeDao.updateInitiative(initiative);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }

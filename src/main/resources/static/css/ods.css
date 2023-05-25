@@ -124,6 +124,10 @@ body {
     font-size: small;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 a:link, a {
     color: #B70000;
     text-decoration: underline;
