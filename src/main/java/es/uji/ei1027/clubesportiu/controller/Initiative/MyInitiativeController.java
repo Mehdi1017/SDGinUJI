@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/myInitiative")
@@ -68,19 +67,26 @@ public class MyInitiativeController {
             return "redirect:/login";
         }
 
-        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝");
+        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝"); // page data
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        model.addAttribute("initiative", new Initiative());  // SET MODEL ATTRIBUTE
-        model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
-        model.addAttribute("actions", new HashSet<Action>());
+
+        model.addAttribute("odsList", odsDao.getAllOds());  // needed data
+
+        model.addAttribute("initiative", new Initiative());  // data to fill
+        model.addAttribute("action", new Action());
+
+        System.out.println("Ejecuta add controller");
+
         return "myInitiative/add";
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,
-                                   @ModelAttribute("actions") HashSet<Action> actions,
                                    BindingResult bindingResult, Model model, HttpSession session) {
+
         model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        // validate basic initiative data
         InitiativeValidator initiativeValidator = new InitiativeValidator(initiativeDao.getAllInitiative());
         initiativeValidator.validate(initiative, bindingResult);
 
@@ -90,21 +96,25 @@ public class MyInitiativeController {
             return "myInitiative/add";
         }
 
-        // validate actions
+//        // validate actions - inside initiative
+//        if (initiative.getActions().isEmpty()) {
+//            model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
+//            model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝 - Faltan Acciones");
+//            return "myInitiative/add";
+//        }
 
-        if (actions.isEmpty()) {
-            model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
-            model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝 - Faltan Acciones");
-            return "myInitiative/add";
-        }
+        // set initiative as session parameter
+        session.setAttribute("tmp_initiative", initiative);
+        model.addAttribute("action", new Action());
 
-        // create initiative
+//        UserDetails usuario = (UserDetails) session.getAttribute("user");
+//        initiative.setMail(usuario.getMail());
+//        initiativeDao.addInitiative(initiative);
+//        model.addAttribute("CONTENT_TITLE","Iniciativa Enviada! 😁📤");
 
-        UserDetails usuario = (UserDetails) session.getAttribute("user");
-        initiative.setMail(usuario.getMail());
-        initiativeDao.addInitiative(initiative);
-        model.addAttribute("CONTENT_TITLE","Iniciativa Enviada! 😁📤");
-        return "myInitiative/iniciativa_creada";
+        // redirect to action creation - page with tmp info + form for action creation
+        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
+        return "myInitiative/addAction";
     }
 
     // -----------------------------------------------------------------------------------------------------------------

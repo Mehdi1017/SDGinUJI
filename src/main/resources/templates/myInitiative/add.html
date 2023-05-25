@@ -56,20 +56,8 @@
       <td><input type="text" th:field="*{url}" maxlength="100"/></td>
     </tr>
 
-    <tr th:each="action : ${actions}">
-      <td th:value="${action.nameAction}"></td>
-      <td th:value="${action.nameTarget}"></td>
-      <td th:value="${#strings.abbreviate(action.description,100)}"></td>
-    </tr>
-
     <tr class="centered_text">
-      <td colspan="2">
-        <a class="txt boton_principal color_amarillo" th:href="@{/actions/add.html}" value="AÑADIR ACCION"></a>
-      </td>
-    </tr>
-
-    <tr class="centered_text">
-      <td colspan="2"><input class="txt boton_principal color_verde" type="submit" value="ENVIAR" /></td>
+      <td colspan="2"><input class="txt boton_principal color_verde" type="submit" value="CONTINUAR A AÑADIR ACCIONES" /></td>
     </tr>
 
   </table>
