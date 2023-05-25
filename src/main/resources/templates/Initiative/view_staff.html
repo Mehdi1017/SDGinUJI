@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+    <h1 th:text="*{initiative.nameIni}"></h1>
+
+    <b>Fecha Inicio:</b>
+    <span th:text="*{initiative.startDate}" ></span>
+    <br>
+    <b>Fecha fin:</b>
+    <span  th:text="*{initiative.endDate}" ></span>
+    <br>
+    <b>Fecha ultima modificación:</b>
+    <span  th:text="*{initiative.lastModified}" ></span>
+    <br>
+    <b>Estado:</b>
+    <span  th:text="*{initiative.stat}" ></span>
+    <br>
+    <b>Progreso:</b>
+    <span  th:text="*{initiative.progress}" ></span>
+    <br>
+    <b>Responsable:</b>
+    <span  th:text="*{initiative.mail}" ></span>
+    <br>
+    <b>SDG asignado:</b>
+    <span  th:text="*{initiative.nameOds}" ></span>
+    <br>
+    <b>Motivacion:</b>
+    <span  th:text="*{initiative.motivacion}" ></span>
+    <br>
+    <b>Url:</b>
+    <span  th:text="*{initiative.url}" ></span>
+    <br>
+    <br>
+    <b>Descripcion:</b>
+    <p class="txt" th:text="*{initiative.description}"> </p>
+    <b>Resultados:</b>
+    <p class="txt" th:text="*{initiative.resultados}"> </p>
+
+    <a th:href="@{/initiative/update/{nom}(nom=${initiative.getNameIni()})}" class="txt_sec2 color_azul_0 boton_principal">Modificar Iniciativa</a>
+    <a th:href="@{/initiative/delete/{nom}(nom=${initiative.getNameIni()})}" class="txt_sec2 color_rojo_0 boton_principal">Eliminar Iniciativa</a>
+    <a th:href="@{/initiative/list}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+
+
+</div>
+</html>

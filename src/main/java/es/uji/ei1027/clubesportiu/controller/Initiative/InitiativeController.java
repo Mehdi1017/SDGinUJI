@@ -34,7 +34,7 @@ public class InitiativeController {
 
     @RequestMapping("/list")
     public String listInitiative(Model model, HttpSession session) {
-        model.addAttribute("CONTENT_TITLE","Viendo las Initiatives");
+        model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
         model.addAttribute("allInitiative", initiativeDao.getAllInitiative());
@@ -95,5 +95,21 @@ public String editInitiative(Model model,
 //
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
+@RequestMapping(value="/view/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+public String viewInitiative(Model model, HttpSession session,
+                             @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
+    model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));
+    model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
+    model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+    UserDetails usuario = (UserDetails) session.getAttribute("user");
+    if (usuario == null) {
+        return "Initiative/view_public";
+    } else if (!usuario.isAdmin()){
+        return "Initiative/view_user";
+    } else {
+        return "Initiative/view_staff";
+    }
+}
+
 
 }
