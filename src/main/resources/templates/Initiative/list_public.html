@@ -2,44 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-
+<head>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+</head>
 <body>
-<div class="container" layout:fragment="content">
-  <h1>Lista de Iniciativas</h1>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Nom Iniciatives</th>
-      <th>Descripció</th>
-      <th>Data de inici</th>
-      <th>Data de fi</th>
-      <th>Estat</th>
-      <th>Data de modificació</th>
-      <th>Progrés</th>
-      <th>Responsable</th>
-      <th>ODS relacionat</th>
-      <th></th>
-      <th></th>
+<div layout:fragment="content">
+  <div class="centered_text" th:if="${allInitiative.isEmpty()}">
+    <p class="txt"><b>No hay Iniciativas</b></p>
+  </div>
+  <table class="table " >
+    <tr th:each="initiative: ${allInitiative}"><td>
+      <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/initiative/view/{nIni}/(nIni=${initiative.getNameIni()})}"></a> <br>
+      <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
+    </td>
     </tr>
-    </thead>
-    <tbody>
-    <tr th:each="initiative: ${allInitiative}">
-      <td th:text="${initiative.nameIni}"></td>
-      <td th:text="${initiative.description}"></td>
-      <td th:text="${initiative.startDate}"></td>
-      <td th:text="${initiative.endDate}"></td>
-      <td th:text="${initiative.stat}"></td>
-      <td th:text="${initiative.lastModified}"></td>
-      <td th:text="${initiative.progress}"></td>
-      <td th:text="${initiative.mail}"></td>
-      <td th:text="${initiative.nameOds}"></td>
-      <td> <a th:href="@{/initiative/update/{nom}(nom=${initiative.nameIni})}" class="btn btn-warning" role="button">Edita</a></td>
-      <td><a th:href="@{/initiative/delete/{nom}(nom=${initiative.nameIni})}" class="btn btn-danger" role="button">Esborra</a></td>
-    </tr>
-    </tbody>
   </table>
-  <a href="add" class="btn btn-success" role="button">Afegeix Iniciatives</a>
-  <a href="/" class="btn btn-primary">Tornar</a>
+
+
 </div>
 </body>
 </html>
