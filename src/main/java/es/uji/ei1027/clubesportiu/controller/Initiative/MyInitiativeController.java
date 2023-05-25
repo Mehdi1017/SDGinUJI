@@ -40,6 +40,7 @@ public class MyInitiativeController {
     public String listInitiative(Model model, HttpSession session) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null){
+            session.setAttribute("nextUrl", "/myInitiative/list");
             return "redirect:/login";
         }
 
@@ -56,6 +57,7 @@ public class MyInitiativeController {
     public String addInitiative(Model model, HttpSession session) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null){
+            session.setAttribute("nextUrl", "/myInitiative/add");
             return "redirect:/login";
         }
 

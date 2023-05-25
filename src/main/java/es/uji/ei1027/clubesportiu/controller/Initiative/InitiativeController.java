@@ -101,6 +101,8 @@ public String viewInitiative(Model model, HttpSession session,
     model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));
     model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
     model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+    session.setAttribute("nextUrl", "/initiative/view/"+nInitiative);
+
     UserDetails usuario = (UserDetails) session.getAttribute("user");
     if (usuario == null) {
         return "Initiative/view_public";
