@@ -26,6 +26,7 @@ public class HomeController {
         model.addAttribute("CONTENT_TITLE","Viendo SDGs");
         model.addAttribute("allOds", odsDao.getAllOds());
         model.addAttribute("SELECTED_NAVBAR","SDGs");
+        session.setAttribute("nextUrl", "/");
         if (usuario == null || !usuario.isAdmin()) {
             return "sdg/list_public";
         }
@@ -80,7 +81,7 @@ public class HomeController {
         model.addAttribute("ods", ods);  // SET MODEL ATTRIBUTE
 
         session.setAttribute("prevURL","/view/"+nOds);
-
+        session.setAttribute("nextUrl", "/view/"+nOds);
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
