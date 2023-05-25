@@ -2,6 +2,7 @@ package es.uji.ei1027.clubesportiu.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 public class Initiative {
 

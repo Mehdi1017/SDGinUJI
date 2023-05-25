@@ -37,7 +37,6 @@
                 th:each="ods : ${odsList}"
                 th:value="${ods.nameOds}"
                 th:text="${ods.nameOds}">
-
         </option></select>
       </td>
     </tr>
@@ -48,13 +47,25 @@
     </tr>
 
     <tr>
-      <td class="txt txt_right_align"><label>Descripción:   </label></td>
-      <td><input type="text" th:field="*{description}" maxlength="500" required/></td>
+      <td class="txt txt_right_align align_top"><label>Descripción:   </label></td>
+      <td><textarea th:field="*{description}" rows="5" cols="50" maxlength="500" required></textarea></td>
     </tr>
 
     <tr>
       <td class="txt txt_right_align"><label>Url:   </label></td>
       <td><input type="text" th:field="*{url}" maxlength="100"/></td>
+    </tr>
+
+    <tr th:each="action : ${actions}">
+      <td th:value="${action.nameAction}"></td>
+      <td th:value="${action.nameTarget}"></td>
+      <td th:value="${#strings.abbreviate(action.description,100)}"></td>
+    </tr>
+
+    <tr class="centered_text">
+      <td colspan="2">
+        <a class="txt boton_principal color_amarillo" th:href="@{/actions/add.html}" value="AÑADIR ACCION"></a>
+      </td>
     </tr>
 
     <tr class="centered_text">

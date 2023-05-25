@@ -1,7 +1,9 @@
 package es.uji.ei1027.clubesportiu.controller.Initiative;
 
+import es.uji.ei1027.clubesportiu.dao.action.ActionDao;
 import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
 import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
+import es.uji.ei1027.clubesportiu.model.Action;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -25,7 +28,8 @@ public class MyInitiativeController {
 
     private InitiativeDao initiativeDao;
     private OdsDao odsDao;
-    public static List<Initiative> iniciativas;
+
+    private ActionDao actionDao;
 
     @Autowired
     public void setInitiativeDao(InitiativeDao initiativeDao) {
@@ -33,6 +37,11 @@ public class MyInitiativeController {
     }
     @Autowired
     public void setOdsDao(OdsDao odsDao){this.odsDao = odsDao;}
+    @Autowired
+    public void setActionDao(ActionDao actionDao) {
+        this.actionDao = actionDao;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -63,21 +72,33 @@ public class MyInitiativeController {
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("initiative", new Initiative());  // SET MODEL ATTRIBUTE
         model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
-        iniciativas = initiativeDao.getAllInitiative();
+        model.addAttribute("actions", new HashSet<Action>());
         return "myInitiative/add";
     }
 
     @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,  // RETRIEVE MODEL ATTRIBUTE
+    public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,
+                                   @ModelAttribute("actions") HashSet<Action> actions,
                                    BindingResult bindingResult, Model model, HttpSession session) {
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        InitiativeValidator initiativeValidator = new InitiativeValidator();
+        InitiativeValidator initiativeValidator = new InitiativeValidator(initiativeDao.getAllInitiative());
         initiativeValidator.validate(initiative, bindingResult);
+
         if (bindingResult.hasErrors()){
             model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
             model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝");
             return "myInitiative/add";
         }
+
+        // validate actions
+
+        if (actions.isEmpty()) {
+            model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
+            model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝 - Faltan Acciones");
+            return "myInitiative/add";
+        }
+
+        // create initiative
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         initiative.setMail(usuario.getMail());
@@ -114,6 +135,8 @@ public class MyInitiativeController {
         initiativeDao.deleteInitiative(nInitiative);
         return "redirect:../list";
     }
+
+
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
