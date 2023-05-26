@@ -50,8 +50,16 @@
         <h2 class="underline">Acciones creadas:</h2>
 
         <div th:if="*{!session.tmp_initiative.getActions().isEmpty()}">
-          <div th:each="action : *{session.tmp_initiative.getActions()}">
-            <span th:text="*{action.nameAction}"></span>
+          <div th:each="action : *{session.tmp_initiative.getActions()}" class="r_border">
+            <br><b>Accion:</b><span th:text="*{action.nameAction}"></span>
+            <br><b>Ini:</b><span th:text="*{action.nameInitiative}"></span>  <span>REMOVE</span>
+            <br><b>SDG:</b><span th:text="*{action.nameOds}"></span>  <span>REMOVE</span>
+            <br><b>Target:</b><span th:text="*{action.nameTarget}"></span>
+            <br><b>Fecha Inicio:</b><span th:text="*{action.creationDate}" ></span>
+            <br><b>Fecha fin:</b><span  th:text="*{action.endDate}" ></span>
+            <br><b>Descripcion:</b><p class="txt_sec description_tiny_display"><span th:text="*{action.description}"></span></p>
+            <b>Resultados Esperados:</b><p class="txt_sec description_tiny_display"><span th:text="*{action.resultados}"></span></p>
+            <br>
           </div>
         </div>
 
@@ -100,13 +108,19 @@
           </tr>
 
           <tr>
-            <td class="txt txt_right_align align_top"><label>Descripción:   </label></td>
-            <td><textarea th:field="*{description}" rows="6" cols="50" maxlength="500" required></textarea></td>
+            <td class="txt txt_right_align align_top"><label>Descripción Breve:   </label></td>
+            <td><textarea class="txt_sec" th:field="*{description}" rows="6" cols="50" maxlength="500" required></textarea></td>
           </tr>
+
+          <tr>
+            <td class="txt txt_right_align align_top"><label>Resultados Esperados:   </label></td>
+            <td><textarea class="txt_sec" th:field="*{resultados}" rows="10" cols="50" maxlength="10000" required></textarea></td>
+          </tr>
+          <tr>
 
           <tr class="centered_text">
             <td><input class="txt boton_principal color_verde" type="submit" value="AÑADIR ACCION" /></td>
-            <td><a class="txt boton_principal color_rojo_0" th:href="@{myInitiative/submitInitiative}"></a></td>
+            <td><a class="txt boton_principal color_rojo_0" th:href="@{/myInitiative/submitInitiative}" onclick="if(!(confirm('Finalizar la edición y enviar?'))) return false">ENVIAR INICIATIVA</a></td>
           </tr>
 
         </table>
