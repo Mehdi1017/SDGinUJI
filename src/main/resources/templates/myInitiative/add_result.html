@@ -8,14 +8,18 @@
 </head>
 <body>
 <div layout:fragment="content">
-  <h1 th:text="*{updatedInitiative.nameIni}"></h1>
+  <h4 class="centered_text" th:text="*{updatedInitiative.nameIni}"></h4>
 <form action="#" th:action="@{/myInitiative/addResult}"
       th:object="${updatedInitiative}" method="post">
-
-  <label>Resultados:   </label>
-  <input type="text" th:field="*{resultados}" maxlength="10000" required/>
-  <input class="txt boton_principal color_verde" type="submit" value="AÑADIR" />
-
+<table class="txt floater_wrapper centered_h">
+  <tr>
+    <td class="txt txt_right_align align_top"><label><b>Resultados:   </b></label></td>
+    <td><textarea th:field="*{resultados}" rows="20" cols="70" maxlength="10000" required></textarea></td>
+  </tr>
+  <tr class="centered_text">
+    <td colspan="2"><input class="txt boton_principal color_verde" type="submit" value="AÑADIR" /></td>
+  </tr>
+</table>
 </form>
   <a th:href="@{/myInitiative/list}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
 
