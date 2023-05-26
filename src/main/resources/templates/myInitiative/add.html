@@ -28,6 +28,7 @@
     <tr>
       <td class="txt txt_right_align" ><label>Fecha de finalización:   </label></td>
       <td><input type="text" th:field="*{endDate}" required/></td>
+      <td class="txt_error" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></td>
     </tr>
     <tr>
       <td class="txt txt_right_align"><label>SDG al que va dirigida:   </label></td>

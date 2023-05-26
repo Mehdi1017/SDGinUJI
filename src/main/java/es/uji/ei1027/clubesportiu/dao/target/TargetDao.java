@@ -49,6 +49,18 @@ public class TargetDao {
         }
     }
 
+    public List<Target> getTargetByOds(String nODS) {
+        try {
+            return jdbcTemplate.query(
+                    "SELECT * FROM Target WHERE name_ods=?",
+                    new TargetRowMapper(),
+                    nODS);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return new ArrayList<Target>();
+        }
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -75,7 +87,7 @@ public class TargetDao {
         jdbcTemplate.update("UPDATE Target " +
                         "SET    description = ? " +
                         "WHERE  name_ods = ?"      +
-                        "WHERE  name_targ = ?",
+                        "AND  name_targ = ?",
                 target.getDescription(),
                 target.getNameOds(),
                 target.getNameTarg());

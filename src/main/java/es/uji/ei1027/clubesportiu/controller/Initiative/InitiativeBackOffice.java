@@ -33,6 +33,7 @@ public class InitiativeBackOffice {
     public String listInitiative(Model model, HttpSession session) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()){
+            session.setAttribute("nextUrl", "/InitiativeBackOffice/list");
             return "redirect:/login";
         }
 
@@ -48,6 +49,7 @@ public class InitiativeBackOffice {
         Initiative iniciativa = initiativeDao.getInitiative(nInitiative);
 
         if (usuario == null || !usuario.isAdmin()){
+            session.setAttribute("nextUrl", "/area");
             return "redirect:/login";
         }
 
@@ -65,6 +67,7 @@ public class InitiativeBackOffice {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         Initiative iniciativa = initiativeDao.getInitiative(nInitiative);
         if (usuario == null || !usuario.isAdmin()){
+            session.setAttribute("nextUrl", "/area");
             return "redirect:/login";
         }
 
@@ -81,6 +84,7 @@ public class InitiativeBackOffice {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         Initiative iniciativa = initiativeDao.getInitiative(nInitiative);
         if (usuario == null || !usuario.isAdmin()){
+            session.setAttribute("nextUrl", "/area");
             return "redirect:/login";
         }
         String actionTxt;

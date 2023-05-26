@@ -4,6 +4,7 @@ import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
 import es.uji.ei1027.clubesportiu.model.Ods;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ public class HomeController {
         model.addAttribute("CONTENT_TITLE","Viendo SDGs");
         model.addAttribute("allOds", odsDao.getAllOds());
         model.addAttribute("SELECTED_NAVBAR","SDGs");
+        session.setAttribute("nextUrl", "/");
         if (usuario == null || !usuario.isAdmin()) {
             return "sdg/list_public";
         }
@@ -62,25 +64,24 @@ public class HomeController {
 
         odsDao.updateOds(ods);  // UPDATE
         String prevUrl = (String) session.getAttribute("prevURL");
-        if (prevUrl != null){
+       // if (prevUrl != null){
 
             // return "redirect:"+prevUrl; TODO arreglar problemas con acentos en url
-            return "redirect:/";
-        }
-        return "redirect:/";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
+         //   return "redirect:/";
+        //}
+        return "redirect:/view/" + ods.getNameOds();     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
 
     @RequestMapping(value="/view/{nOds}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
     public String viewOds(Model model, HttpSession session,
                           @PathVariable String nOds) {
-        System.out.println("VIEW ODS: " + nOds);
         Ods ods = odsDao.getOds(nOds);
-        model.addAttribute("CONTENT_TITLE","Visualizando SDG: "+ods.getNameOds());
+        model.addAttribute("CONTENT_TITLE","Visualizando SDG");
         model.addAttribute("SELECTED_NAVBAR","SDGs");
         model.addAttribute("ods", ods);  // SET MODEL ATTRIBUTE
 
         session.setAttribute("prevURL","/view/"+nOds);
-
+        session.setAttribute("nextUrl", "/view/"+nOds);
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
@@ -119,6 +120,33 @@ public class HomeController {
 
         odsDao.addOds(ods);
         return "redirect:/";
+    }
+    @RequestMapping("/delete/confirm/{nODS}")
+    public String deleteConfirm(Model model, HttpSession session, @PathVariable String nODS){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()) {
+            return "redirect:/login";
+        }
+
+
+        try {
+            odsDao.deleteOds(nODS);
+        } catch (DataAccessException e){
+            model.addAttribute("ods",odsDao.getOds(nODS));
+            return "sdg/error_delete";
+        }
+        return "redirect:/";
+    }
+
+        @RequestMapping("/delete/{nODS}")
+    public String delete(Model model, HttpSession session, @PathVariable String nODS){
+            UserDetails usuario = (UserDetails) session.getAttribute("user");
+            if (usuario == null || !usuario.isAdmin()) {
+                return "redirect:/login";
+            }
+
+        model.addAttribute("ods",odsDao.getOds(nODS));
+        return "sdg/delete_confirm";
     }
 
 }

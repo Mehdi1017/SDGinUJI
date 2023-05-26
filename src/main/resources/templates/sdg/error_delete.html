@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+
+    <div class="centered_text">
+        <p class="txt">Error intentando eliminar el SDG: <i th:text="${ods.nameOds}"></i></p>
+        <p>Tienes que eliminar los objetos dependientes primero (Targets, Iniciativas...)</p>
+        <a class="boton_principal color_amarillo" th:href="@{/view/{nom}(nom=${ods.nameOds})}">Volver Atrás</a>
+    </div>
+</div>
+</html>

@@ -4,30 +4,19 @@
       layout:decorate="~{fragments/base}">
 
 <div layout:fragment="content">
-        <table class="centered_h">
-            <tr>
-                <td>Título:</td>
-                <td  th:text="*{ods.nameOds}" ></td>
-            </tr>
-            <tr>
-                <td>Índice</td>
-                <td th:text="*{ods.index}"> </td>
-            </tr>
-            <tr>
-                <td>Axis:</td>
-                <td th:text="*{ods.axis}" ></td>
-            </tr>
-            <tr>
-                <td>Relevancia:</td>
-                <td  th:text="*{ods.relevance}" ></td>
-            </tr>
-            <tr>
-                <td>Descripción:</td>
-                <td th:text="*{ods.description}"> </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="centered_h"><a th:href="@{/}" class="txt_sec2 color_rojo_0 boton_principal">Volver atrás</a></td>
-            </tr>
-        </table>
+    <h1 th:text="*{ods.index + '. ' + ods.nameOds}"></h1>
+
+    <b>Axis:</b>
+    <span th:text="*{ods.axis}" ></span>
+    <br>
+    <b>Relevancia:</b>
+    <span  th:text="*{ods.relevance}" ></span>
+    <br>
+    <br>
+    <p class="txt" th:text="*{ods.description}"> </p>
+    <a th:href="@{/target/view/by_ods/{nom}(nom=${ods.getNameOds()})}" class="txt_sec2 color_verde boton_principal">Targets</a>
+    <a th:href="@{/}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+
+
 </div>
 </html>

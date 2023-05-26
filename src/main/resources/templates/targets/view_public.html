@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+    <b>SDG:</b>
+    <span th:text="*{target.nameOds}" ></span>
+    <br>
+    <b>Target:</b>
+    <span  th:text="*{target.nameTarg}" ></span>
+    <br>
+    <br>
+    <p class="txt" th:text="*{target.description}"> </p>
+    <br>
+    <a th:href="@{@{/target/view/by_ods/{nom}(nom=${target.getNameOds()})}}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+</div>
+</html>

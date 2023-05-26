@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="centered_text" th:if="${allInitiative.isEmpty()}">
+    <p class="txt"><b>No hay Iniciativas</b></p>
+  </div>
+  <table class="table " >
+    <tr th:each="initiative: ${allInitiative}"><td>
+      <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/initiative/view/{nIni}/(nIni=${initiative.getNameIni()})}"></a> <br>
+      <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
+    </td>
+    </tr>
+  </table>
+
+
+</div>
+</body>
+</html>

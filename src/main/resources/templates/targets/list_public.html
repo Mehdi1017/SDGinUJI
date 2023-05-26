@@ -9,18 +9,18 @@
 </head>
 <body>
 <div layout:fragment="content">
-
+  <h1 th:text="${nODS}"></h1>
   <div class="centered_text" th:if="${allTarget.isEmpty()}">
     <p class="txt"><b>No hay targets</b></p>
   </div>
   <table class="table " >
     <tr th:each="target: ${allTarget}"><td>
-      <a class="txt spaced_txt" th:text="${target.nameTarg}" th:href="@{/target/view/{nom}(nom=${target.getNameTarg()})}"></a> <br>
+      <a class="txt spaced_txt" th:text="${target.nameTarg}" th:href="@{/target/view/{nODS}/{nom}(nom=${target.getNameTarg()},nODS=${nODS})}"></a> <br>
       <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(target.description,150)}"></span> <br>
     </td>
     </tr>
     <tr>
-      <td>    <a th:href="@{/area}" class="txt_sec2 color_amarillo boton_principal">VOLVER ATRÁS</a></td>
+      <td>    <a th:href="@{/view/{ods}(ods=${nODS})}" class="txt_sec2 color_amarillo boton_principal">Volver Atrás</a></td>
     </tr>
   </table>
 
