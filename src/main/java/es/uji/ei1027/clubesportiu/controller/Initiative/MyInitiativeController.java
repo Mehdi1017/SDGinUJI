@@ -24,6 +24,7 @@ public class MyInitiativeController {
     // -----------------------------------------------------------------------------------------------------------------
 
     private InitiativeDao initiativeDao;
+    private Initiative initiative;
     private OdsDao odsDao;
     public static List<Initiative> iniciativas;
 
@@ -115,6 +116,31 @@ public class MyInitiativeController {
     public String processDeleteInitiative(@PathVariable String nInitiative) {
         initiativeDao.deleteInitiative(nInitiative);
         return "redirect:../list";
+    }
+
+    @RequestMapping(value="/addResult/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String addResult(Model model, HttpSession session,
+                                 @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
+        initiative = initiativeDao.getInitiative(nInitiative);
+        model.addAttribute("updatedInitiative", initiativeDao.getInitiative(nInitiative));
+        model.addAttribute("CONTENT_TITLE", "Añadiendo resultados");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        session.setAttribute("nextUrl", "/myInitiative/addResult/"+nInitiative);
+        return "myInitiative/add_result";
+    }
+
+    @RequestMapping(value="/addResult", method = RequestMethod.POST)
+    public String processAddResultSubmit(
+            Model model,
+            @ModelAttribute("updatedInitiative") Initiative updatedInitiative,// RETRIEVE MODEL ATTRIBUTE
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "myInitiative/addResult";    // TRY AGAIN, HAD ERRORS
+
+        System.out.println(initiative.getNameIni());
+        initiative.setResultados(updatedInitiative.getResultados());
+        initiativeDao.updateInitiative(initiative);  // UPDATE
+        return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
 
     // -----------------------------------------------------------------------------------------------------------------

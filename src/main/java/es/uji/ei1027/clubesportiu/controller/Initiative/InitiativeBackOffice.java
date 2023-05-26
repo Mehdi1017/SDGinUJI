@@ -21,6 +21,7 @@ public class InitiativeBackOffice {
 
     private InitiativeDao initiativeDao;
 
+
     @Autowired
     public void setInitiativeDao(InitiativeDao initiativeDao) {
         this.initiativeDao = initiativeDao;

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+  <h1 th:text="*{updatedInitiative.nameIni}"></h1>
+<form action="#" th:action="@{/myInitiative/addResult}"
+      th:object="${updatedInitiative}" method="post">
+
+  <label>Resultados:   </label>
+  <input type="text" th:field="*{resultados}" maxlength="10000" required/>
+  <input class="txt boton_principal color_verde" type="submit" value="AÑADIR" />
+
+</form>
+  <a th:href="@{/myInitiative/list}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+
+</div>
+</body>
+</html>
