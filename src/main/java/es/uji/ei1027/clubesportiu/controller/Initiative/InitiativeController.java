@@ -114,7 +114,7 @@ public String viewInitiative(Model model, HttpSession session,
     @RequestMapping("/delete/confirm/{nInitiative}")
     public String deleteConfirm(Model model, HttpSession session, @PathVariable String nInitiative){
         UserDetails usuario = (UserDetails) session.getAttribute("user");
-        if (usuario == null || !usuario.isAdmin()) {
+        if (usuario == null) {
             return "redirect:/login";
         }
         try {
@@ -129,10 +129,11 @@ public String viewInitiative(Model model, HttpSession session,
     @RequestMapping("/delete/{nInitiative}")
     public String delete(Model model, HttpSession session, @PathVariable String nInitiative){
         UserDetails usuario = (UserDetails) session.getAttribute("user");
-        if (usuario == null || !usuario.isAdmin()) {
+        if (usuario == null) {
             return "redirect:/login";
         }
         model.addAttribute("initiative",initiativeDao.getInitiative(nInitiative));
+        model.addAttribute("usario", usuario);
         return "Initiative/delete_confirm";
     }
 

@@ -110,7 +110,10 @@ public class InitiativeDao {
     // -----------------------------------------------------------------------------------------------------------------
      //TODO delete
         public void deleteInitiative(String nameIni) {
-            jdbcTemplate.update("DELETE FROM initiative WHERE name_ini = ? ",
+            jdbcTemplate.update("UPDATE initiative " +
+                            "SET " +
+                            "stat = 'Ended'" +
+                            " WHERE name_ini = ? ",
                     nameIni);
         }
      //-----------------------------------------------------------------------------------------------------------------
