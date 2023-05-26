@@ -156,7 +156,9 @@ public class MyInitiativeController {
             return "myInitiative/addAction";
         }
 
-        // add action to persistent initiative
+        // complete & add action to persistent initiative
+        action.setNameInitiative(initiative.getNameIni());
+        action.setNameOds(initiative.getNameOds());
         initiative.getActions().add(action);
         session.setAttribute("tmp_initiative", initiative);
 
@@ -174,7 +176,7 @@ public class MyInitiativeController {
 
     @RequestMapping(value="/submitInitiative")
     public String processAddFinal(@SessionAttribute("tmp_initiative") Initiative initiative,
-                                  BindingResult bindingResult, Model model, HttpSession session) {
+                                  Model model, HttpSession session) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null) {
             session.setAttribute("nextUrl", "/myInitiative/add");
@@ -187,11 +189,15 @@ public class MyInitiativeController {
             model.addAttribute("SELECTED_NAVBAR","Área privada");
             model.addAttribute("targList", targetDao.getAllTarget());  // needed data
             session.setAttribute("tmp_initiative", initiative);
+            model.addAttribute("action", new Action());
             return "myInitiative/addAction";
         }
 
-        // save initiative
+        // save initiative & actions
         initiativeDao.addInitiative(initiative);
+        for (Action action : initiative.getActions()) actionDao.addActionn(action);
+
+        // prepare & redirect to feedback template
         model.addAttribute("CONTENT_TITLE","Iniciativa Enviada! 😁📤");
         model.addAttribute("initiative", initiative);
         session.removeAttribute("tmp_initiative");
