@@ -1,49 +1,73 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
-  <title>Modifica una Iniciativa</title>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
 </head>
 <body>
-<h2>Modifica la iniciativa <span th:text="${initiative.nameIni}"> </span></h2>
-<form action="#" th:action="@{/templates/old/initiative/update}"
-      th:object="${initiative}" method="post">
-  <input type="hidden" th:field="*{nameIni}"/>
-  <table>
-    <tr>
-      <td><label>Descripció</label></td>
-      <td><input type="text" th:field="*{description}" /></td>
-    </tr>
-    <tr>
-      <td><label>Data de inici</label></td>
-      <td><input type="text" th:field="*{startDate}" /></td>
-    </tr>
-    <tr>
-      <td><label>Data de fi</label></td>
-      <td><input type="text" th:field="*{endDate}" /></td>
-    </tr>
-    <tr>
-      <td><label>Estat</label></td>
-      <td><input type="text" th:field="*{stat}" /></td>
-    </tr>
-    <tr>
-      <td><label>Progrés</label></td>
-      <td><input type="number" th:field="*{progress}" /></td>
-    </tr>
-    <tr>
-      <td><label>Mail</label></td>
-      <td><input type="text" th:field="*{mail}" /></td>
-    </tr>
-    <tr>
-      <td><label>ODS relacionat</label></td>
-      <td><input type="text" th:field="*{nameOds}" /></td>
-    </tr>
-    <tr>
-      <td colspan="2"><input type="submit" value="Modifica Iniciativa" /></td>
-    </tr>
-  </table>
-</form>
+<div layout:fragment="content">
+
+
+  <form action="#" th:action="@{/myInitiative/update}"
+        th:object="${initiative}" method="post">
+    <table class="txt floater_wrapper centered_h">
+
+      <tr>
+        <td class="txt txt_right_align" ><label>Nombre de la iniciativa:   </label></td>
+        <td><input type="text" th:field="*{nameIni}" maxlength="50" required/></td>
+        <td class="txt_error" th:if="${#fields.hasErrors('nameIni')}" th:errors="*{nameIni}"></td>
+      </tr>
+
+      <tr>
+        <td class="txt txt_right_align" ><label>Fecha de inicio:   </label></td>
+        <td><input type="text" th:field="*{startDate}" required/></td>
+      </tr>
+
+      <tr>
+        <td class="txt txt_right_align" ><label>Fecha de finalización:   </label></td>
+        <td><input type="text" th:field="*{endDate}" required/></td>
+        <td class="txt_error" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></td>
+      </tr>
+      <tr>
+        <td class="txt txt_right_align"><label>SDG al que va dirigida:   </label></td>
+        <td><select type="text" th:field="*{nameOds}">
+          <option class="txt_sec2 bold"
+                  th:each="ods : ${odsList}"
+                  th:value="${ods.nameOds}"
+                  th:text="${ods.nameOds}">
+          </option></select>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="txt txt_right_align"><label>Motivación:   </label></td>
+        <td><input type="text" th:field="*{motivacion}" maxlength="5000" required/></td>
+      </tr>
+
+      <tr>
+        <td class="txt txt_right_align align_top"><label>Descripción:   </label></td>
+        <td><textarea th:field="*{description}" rows="5" cols="50" maxlength="500" required></textarea></td>
+      </tr>
+
+      <tr>
+        <td class="txt txt_right_align"><label>Url:   </label></td>
+        <td><input type="text" th:field="*{url}" maxlength="100"/></td>
+      </tr>
+      <tr>
+        <td class="txt txt_right_align align_top"><label>Progreso:   </label></td>
+        <td><textarea th:field="*{progress}" rows="5" cols="50" maxlength="500" required></textarea></td>
+      </tr>
+
+      <tr class="centered_text">
+        <td colspan="2"><input class="txt boton_principal color_verde" type="submit" value="Guardar" /></td>
+      </tr>
+
+    </table>
+  </form>
+  <a th:href="@{/myInitiative/list}" class="txt_sec2 color_amarillo boton_principal">Cancelar</a>
+
+</div>
 </body>
 </html>

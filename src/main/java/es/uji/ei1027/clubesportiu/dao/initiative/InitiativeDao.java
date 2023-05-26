@@ -123,26 +123,23 @@ public class InitiativeDao {
                             "       description = ? ," +
                             "       startDate = ? ," +
                             "       enddate = ? ," +
-                            "       stat = CAST(? AS stat_enum) ," +
+                            "       stat = 'Approved'," +
                             "       lastmodified = ? ," +
                             "       progress = ? ," +
                             "       mail = ? ," +
                             "       name_ods = ?," +
                             "       motivacion = ?," +
-                            "       url = ?," +
-                            "       resultados = ?" +
+                            "       url = ?" +
                             "WHERE  name_ini = ? ",
                     initiative.getDescription(),
                     initiative.getStartDate(),
                     initiative.getEndDate(),
-                    initiative.getStat(),
                     LocalDate.now(),
                     initiative.getProgress(),
                     initiative.getMail(),
                     initiative.getNameOds(),
                     initiative.getMotivacion(),
                     initiative.getUrl(),
-                    initiative.getResultados(),
                     initiative.getNameIni());
         }
      //-----------------------------------------------------------------------------------------------------------------

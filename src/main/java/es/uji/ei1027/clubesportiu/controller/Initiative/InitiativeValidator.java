@@ -31,7 +31,10 @@ public class InitiativeValidator implements Validator {
         if (initiative.getStartDate().compareTo(initiative.getEndDate()) >= 0)
             errors.rejectValue("endDate", "erroneo", "La fecha de fin no puede ser inferior ni igual a la de inicio");
 
-        if (initiatives != null && !initiatives.isEmpty()) {
+        Initiative toBeUpdated = MyInitiativeController.getOldInitiative();
+
+        if (initiatives != null && !initiatives.isEmpty() &&
+                (toBeUpdated == null || !initiative.getNameIni().equals(toBeUpdated.getNameIni()))) { // para evitar dar como incorrecto el mismo nombre al actualizar iniciativa
             for (Initiative iniciativa : initiatives) {
                 System.out.println(errors.getAllErrors());
 
