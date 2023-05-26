@@ -247,6 +247,10 @@ a.boton_secundario, .boton_secundario {
     height: 40ch; /* Set the desired height of the input field */
 }
 
+.description_tiny_display, p.description_tiny_display {
+    max-width: 320pt;
+}
+
 .align_top {
     vertical-align:top
 }

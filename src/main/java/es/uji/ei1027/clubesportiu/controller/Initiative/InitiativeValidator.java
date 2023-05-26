@@ -33,8 +33,6 @@ public class InitiativeValidator implements Validator {
 
         if (initiatives != null && !initiatives.isEmpty()) {
             for (Initiative iniciativa : initiatives) {
-                System.out.println(errors.getAllErrors());
-
                 if (initiative.getNameIni().trim().equals(iniciativa.getNameIni()))
                     errors.rejectValue("nameIni", "obligatori", "Nombre no correcto");
             }

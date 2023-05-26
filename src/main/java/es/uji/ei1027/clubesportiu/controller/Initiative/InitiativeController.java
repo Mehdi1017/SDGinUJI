@@ -92,26 +92,25 @@ public String editInitiative(Model model,
         initiativeDao.deleteInitiative(nInitiative);
         return "redirect:../list";
     }
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-@RequestMapping(value="/view/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-public String viewInitiative(Model model, HttpSession session,
-                             @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
-    model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));
-    model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
-    model.addAttribute("SELECTED_NAVBAR","Iniciativas");
-    session.setAttribute("nextUrl", "/initiative/view/"+nInitiative);
 
-    UserDetails usuario = (UserDetails) session.getAttribute("user");
-    if (usuario == null) {
-        return "Initiative/view_public";
-    } else if (!usuario.isAdmin()){
-        return "Initiative/view_user";
-    } else {
-        return "Initiative/view_staff";
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+    @RequestMapping(value="/view/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String viewInitiative(Model model, HttpSession session,
+                                 @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
+        model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));
+        model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
+        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+        session.setAttribute("nextUrl", "/initiative/view/"+nInitiative);
+
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null) {
+            return "Initiative/view_public";
+        } else if (!usuario.isAdmin()){
+            return "Initiative/view_user";
+        } else {
+            return "Initiative/view_staff";
+        }
     }
-}
-
 
 }
