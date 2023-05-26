@@ -148,7 +148,6 @@ public class TargetController {
         try {
             targetDao.deleteTarget(targetDao.getTarget(nODS,nTarg));
         } catch (DataAccessException e){
-            System.out.println("ERRORRRRRRRRRRRRRRRRR");
             model.addAttribute("target",targetDao.getTarget(nODS,nTarg));
             return "targets/error_delete";
         }

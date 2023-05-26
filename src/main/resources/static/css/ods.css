@@ -124,6 +124,10 @@ body {
     font-size: small;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 a:link, a {
     color: #B70000;
     text-decoration: underline;
@@ -212,9 +216,17 @@ a.boton_secundario, .boton_secundario {
     min-width: 500pt;
 }
 
-.top_spacing {
+.top_pinned {
     position: relative;
     top: 5pt;
+}
+
+.top_spacing {
+    margin-top: 4pt;
+}
+
+.table_top_spacing {
+    margin-top: 6pt;
 }
 
 .txt_right_align {
@@ -234,6 +246,7 @@ a.boton_secundario, .boton_secundario {
     width: 100ch; /* Set the desired width of the input field */
     height: 40ch; /* Set the desired height of the input field */
 }
+
 .align_top {
     vertical-align:top
 }

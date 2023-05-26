@@ -2,6 +2,9 @@ package es.uji.ei1027.clubesportiu.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class Initiative {
 
@@ -21,7 +24,11 @@ public class Initiative {
     private String url;
     private String resultados;
 
+    // coleccion util
+    private List<Action> actions;
+
     public Initiative() {
+        actions = new ArrayList<>();
     }
 
 
@@ -133,5 +140,13 @@ public class Initiative {
 
     public void setResultados(String resultados) {
         this.resultados = resultados;
+    }
+
+    public List<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
     }
 }

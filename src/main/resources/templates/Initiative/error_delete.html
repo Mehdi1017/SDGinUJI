@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+
+    <div class="centered_text">
+        <p class="txt">Error intentando eliminar la Iniciativa: <i th:text="${initiative.nameIni}"></i></p>
+        <p>Tienes que eliminar los objetos dependientes primero (Acciones...)</p>
+        <a class="boton_principal color_amarillo" th:href="@{/Initiative/view/{nIni}(nIni=${initiative.getNameIni()})}">Volver Atrás</a>
+    </div>
+</div>
+</html>
