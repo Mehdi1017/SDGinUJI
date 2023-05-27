@@ -39,11 +39,13 @@ public class InitiativeParticipationDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public List<InitiativeParticipation> getAllInitiativeParticipations() {
+    public List<InitiativeParticipation> getAllInitiativeParticipations(String nameIni) {
         try {
             return jdbcTemplate.query(
-                    "SELECT * FROM initiative_participation",
-                    new InitiativeParticipationRowMapper());
+                    "SELECT * FROM initiative_participation " +
+                            "WHERE name_ini = ?",
+                    new InitiativeParticipationRowMapper(),
+                    nameIni);
         }
         catch(EmptyResultDataAccessException e) {
             return new ArrayList<InitiativeParticipation>();
@@ -55,7 +57,7 @@ public class InitiativeParticipationDao {
 
     public void addInitiativeParticipation(InitiativeParticipation initiativeParticipation) {
         jdbcTemplate.update(
-                "INSERT INTO initiative_participation VALUES(?, ?, ?, ?, 'Pending', ?, ?)",
+                "INSERT INTO initiative_participation VALUES(?, ?, ?, ?, 'Approved', ?, ?)",
                 initiativeParticipation.getMail(),
                 initiativeParticipation.getNameIni(),
                 initiativeParticipation.getRequestMessage(),
@@ -67,10 +69,11 @@ public class InitiativeParticipationDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-        public void deleteInitiativeParticipation(InitiativeParticipation initiativeParticipation) {
+        public void deleteInitiativeParticipation(InitiativeParticipation participation) {
+            System.out.println("se borra");
             jdbcTemplate.update("DELETE FROM initiative_participation WHERE mail = ? AND name_ini = ?",
-                    initiativeParticipation.getMail(),
-                    initiativeParticipation.getNameIni());
+                    participation.getMail(),
+                    participation.getNameIni());
         }
      //-----------------------------------------------------------------------------------------------------------------
      //-----------------------------------------------------------------------------------------------------------------

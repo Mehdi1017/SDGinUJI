@@ -2,11 +2,11 @@ package es.uji.ei1027.clubesportiu.controller.Initiative;
 
 import es.uji.ei1027.clubesportiu.dao.action.ActionDao;
 import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
+import es.uji.ei1027.clubesportiu.dao.initiative_participation.InitiativeParticipationDao;
 import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
 import es.uji.ei1027.clubesportiu.dao.target.TargetDao;
-import es.uji.ei1027.clubesportiu.model.Action;
-import es.uji.ei1027.clubesportiu.model.Initiative;
-import es.uji.ei1027.clubesportiu.model.UserDetails;
+import es.uji.ei1027.clubesportiu.dao.uji_participant.UjiParticipantDao;
+import es.uji.ei1027.clubesportiu.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -270,17 +270,17 @@ public class MyInitiativeController {
 
     @RequestMapping(value="/addResult", method = RequestMethod.POST)
     public String processAddResultSubmit(
-            Model model,
             @ModelAttribute("updatedInitiative") Initiative updatedInitiative,// RETRIEVE MODEL ATTRIBUTE
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "myInitiative/addResult";    // TRY AGAIN, HAD ERRORS
 
-        System.out.println(initiative.getNameIni());
+        //System.out.println(initiative.getNameIni());
         initiative.setResultados(updatedInitiative.getResultados());
         initiativeDao.updateInitiative(initiative);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
+
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
