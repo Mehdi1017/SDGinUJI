@@ -175,7 +175,11 @@ a:link, a {
 .r_border {
     border-radius: 10pt;
     border: 2pt solid #E5E5E5;
-    padding: 10pt;
+    padding: 0 20pt;
+}
+
+.added_bottom_spacing {
+    margin-bottom: 4pt;
 }
 
 a.boton_link, .boton_link, .link_camuflado, a.link_camuflado {

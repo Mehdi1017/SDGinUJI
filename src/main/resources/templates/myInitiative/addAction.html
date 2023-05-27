@@ -24,9 +24,6 @@
         <b>Fecha fin:</b>
         <span  th:text="*{session.tmp_initiative.endDate}" ></span>
         <br>
-        <b>Fecha ultima modificación:</b>
-        <span  th:text="*{session.tmp_initiative.lastModified}" ></span>
-        <br>
         <b>Responsable:</b>
         <span  th:text="*{session.tmp_initiative.mail}" ></span>
         <br>
@@ -35,9 +32,11 @@
         <br>
         <b>Motivacion:</b>
         <span  th:text="*{session.tmp_initiative.motivacion}" ></span>
-        <br>
-        <b>Url:</b>
-        <span  th:text="*{session.tmp_initiative.url}" ></span>
+        <span th:if="*{!session.tmp_initiative.url.isEmpty()}">
+          <br>
+          <b>Url:</b>
+          <span  th:text="*{session.tmp_initiative.url}" ></span>
+        </span>
         <br>
         <br>
         <b>Descripcion:</b>
@@ -50,7 +49,7 @@
         <h2 class="underline">Acciones creadas:</h2>
 
         <div th:if="*{!session.tmp_initiative.getActions().isEmpty()}">
-          <div th:each="action : *{session.tmp_initiative.getActions()}" class="r_border">
+          <div th:each="action : *{session.tmp_initiative.getActions()}" class="r_border added_bottom_spacing">
             <br><b>Accion:</b><span th:text="*{action.nameAction}"></span>
             <br><b>Ini:</b><span th:text="*{action.nameInitiative}"></span>  <span>REMOVE</span>
             <br><b>SDG:</b><span th:text="*{action.nameOds}"></span>  <span>REMOVE</span>
@@ -60,6 +59,14 @@
             <br><b>Descripcion:</b><p class="txt_sec description_tiny_display"><span th:text="*{action.description}"></span></p>
             <b>Resultados Esperados:</b><p class="txt_sec description_tiny_display"><span th:text="*{action.resultados}"></span></p>
             <br>
+
+            <a class="txt_sec2 boton_secundario color_amarillo"
+               th:href="@{/myInitiative/updateAction/{nameAction}(nameAction=${action.nameAction})}">EDITAR ACCION</a>
+            <span>  </span>
+            <a class="txt_sec2 boton_secundario color_rojo_0"
+               th:href="@{/myInitiative/deleteAction/{nameAction}(nameAction=${action.nameAction})}"
+               onclick="if(!(confirm('Estas seguro de borrar esta acción?'))) return false">BORRAR ACCION</a>
+
           </div>
         </div>
 
