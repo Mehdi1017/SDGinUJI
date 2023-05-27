@@ -5,7 +5,6 @@ import es.uji.ei1027.clubesportiu.model.Initiative;
 
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,7 +38,6 @@ public class InitiativeController {
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
         model.addAttribute("allInitiative", initiativeDao.getAllInitiative());
-        session.setAttribute("nextUrl", "/initiative/list");
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null) {
@@ -89,53 +87,30 @@ public String editInitiative(Model model,
         initiativeDao.updateInitiative(initiative);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
-
-//
-//    // -----------------------------------------------------------------------------------------------------------------
-//    // -----------------------------------------------------------------------------------------------------------------
-@RequestMapping(value="/view/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-public String viewInitiative(Model model, HttpSession session,
-                             @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
-    model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));
-    model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
-    model.addAttribute("SELECTED_NAVBAR","Iniciativas");
-    session.setAttribute("nextUrl", "/initiative/view/"+nInitiative);
-
-    UserDetails usuario = (UserDetails) session.getAttribute("user");
-    if (usuario == null) {
-        return "Initiative/view_public";
-    } else if (!usuario.isAdmin()){
-        return "Initiative/view_user";
-    } else {
-        return "Initiative/view_staff";
+    @RequestMapping(value = "/delete/{nInitiative}")
+    public String processDeleteInitiative(@PathVariable String nInitiative) {
+        initiativeDao.deleteInitiative(nInitiative);
+        return "redirect:../list";
     }
-}
 
-    @RequestMapping("/delete/confirm/{nInitiative}")
-    public String deleteConfirm(Model model, HttpSession session, @PathVariable String nInitiative){
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+    @RequestMapping(value="/view/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String viewInitiative(Model model, HttpSession session,
+                                 @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
+        model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));
+        model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
+        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+        session.setAttribute("nextUrl", "/initiative/view/"+nInitiative);
+
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null) {
-            return "redirect:/login";
+            return "Initiative/view_public";
+        } else if (!usuario.isAdmin()){
+            return "Initiative/view_user";
+        } else {
+            return "Initiative/view_staff";
         }
-        try {
-            initiativeDao.deleteInitiative(nInitiative);
-        } catch (DataAccessException e){
-            model.addAttribute("initiative",initiativeDao.getInitiative(nInitiative));
-            return "Initiative/error_delete";
-        }
-        return "redirect:/initiative/list";
     }
-
-    @RequestMapping("/delete/{nInitiative}")
-    public String delete(Model model, HttpSession session, @PathVariable String nInitiative){
-        UserDetails usuario = (UserDetails) session.getAttribute("user");
-        if (usuario == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("initiative",initiativeDao.getInitiative(nInitiative));
-        model.addAttribute("usario", usuario);
-        return "Initiative/delete_confirm";
-    }
-
 
 }

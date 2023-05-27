@@ -13,65 +13,114 @@
   <div class="floater_wrapper">
 
     <div class="floater_left">
-      <h2 class="underline">Datos actuales:</h2>
-      <b>Titulo:</b>
-      <span th:text="*{initiative.nameIni}"></span>
-      <br>
-      <b>Fecha Inicio:</b>
-      <span th:text="*{initiative.startDate}" ></span>
-      <br>
-      <b>Fecha fin:</b>
-      <span  th:text="*{initiative.endDate}" ></span>
-      <br>
-      <b>Fecha ultima modificación:</b>
-      <span  th:text="*{initiative.lastModified}" ></span>
-      <br>
-      <b>Responsable:</b>
-      <span  th:text="*{initiative.mail}" ></span>
-      <br>
-      <b>SDG asignado:</b>
-      <span  th:text="*{initiative.nameOds}" ></span>
-      <br>
-      <b>Motivacion:</b>
-      <span  th:text="*{initiative.motivacion}" ></span>
-      <br>
-      <b>Url:</b>
-      <span  th:text="*{initiative.url}" ></span>
-      <br>
-      <br>
-      <b>Descripcion:</b>
-      <p class="txt" th:text="*{initiative.description}"> </p>
-      <br>
-
-      <h2 class="underline">Acciones creadas:</h2>
-
-      <div th:if="*{!initiative.getActions().isEmpty()}">
-        <div th:each="action : *{initiative.getActions()}">
-          <span th:text="*{action.nameAction}"></span>
-        </div>
+      <div>
+        <h2 class="underline">Datos actuales:</h2>
+        <b>Titulo:</b>
+        <span th:text="*{session.tmp_initiative.nameIni}"></span>
+        <br>
+        <b>Fecha Inicio:</b>
+        <span th:text="*{session.tmp_initiative.startDate}" ></span>
+        <br>
+        <b>Fecha fin:</b>
+        <span  th:text="*{session.tmp_initiative.endDate}" ></span>
+        <br>
+        <b>Fecha ultima modificación:</b>
+        <span  th:text="*{session.tmp_initiative.lastModified}" ></span>
+        <br>
+        <b>Responsable:</b>
+        <span  th:text="*{session.tmp_initiative.mail}" ></span>
+        <br>
+        <b>SDG asignado:</b>
+        <span  th:text="*{session.tmp_initiative.nameOds}" ></span>
+        <br>
+        <b>Motivacion:</b>
+        <span  th:text="*{session.tmp_initiative.motivacion}" ></span>
+        <br>
+        <b>Url:</b>
+        <span  th:text="*{session.tmp_initiative.url}" ></span>
+        <br>
+        <br>
+        <b>Descripcion:</b>
+        <p class="txt description_tiny_display">
+          <span th:text="*{session.tmp_initiative.description}"></span>
+        </p>
+        <br>
       </div>
+      <div>
+        <h2 class="underline">Acciones creadas:</h2>
 
-      <div th:if="*{initiative.getActions().isEmpty()}">
-        <b>No hay acciones creadas, añade al menos una</b>
+        <div th:if="*{!session.tmp_initiative.getActions().isEmpty()}">
+          <div th:each="action : *{session.tmp_initiative.getActions()}" class="r_border">
+            <br><b>Accion:</b><span th:text="*{action.nameAction}"></span>
+            <br><b>Ini:</b><span th:text="*{action.nameInitiative}"></span>  <span>REMOVE</span>
+            <br><b>SDG:</b><span th:text="*{action.nameOds}"></span>  <span>REMOVE</span>
+            <br><b>Target:</b><span th:text="*{action.nameTarget}"></span>
+            <br><b>Fecha Inicio:</b><span th:text="*{action.creationDate}" ></span>
+            <br><b>Fecha fin:</b><span  th:text="*{action.endDate}" ></span>
+            <br><b>Descripcion:</b><p class="txt_sec description_tiny_display"><span th:text="*{action.description}"></span></p>
+            <b>Resultados Esperados:</b><p class="txt_sec description_tiny_display"><span th:text="*{action.resultados}"></span></p>
+            <br>
+          </div>
+        </div>
+
+        <div th:if="*{session.tmp_initiative.getActions().isEmpty()}">
+          <b>No hay acciones creadas, añade al menos una</b>
+        </div>
+
+        <br><br>
       </div>
     </div>
 
     <div class="floater_left">
-
       <h2 class="underline">Nueva Acción:</h2>
 
-      <form action="#" th:action="@{/initiativeAction/add}"
-            th:object="${action}" method="post">
+      <form action="#" th:action="@{/myInitiative/addAction}" th:object="${action}" method="post">
         <table class="txt floater_wrapper centered_h">
 
           <tr>
             <td class="txt txt_right_align" ><label>Nombre de la accion:   </label></td>
-            <td><input type="text" th:field="*{nameAction}" maxlength="50" required/></td>
-            <td class="txt_error" th:if="${#fields.hasErrors('nameAction')}" th:errors="*{nameAction}"></td>
+            <td><input type="text" th:field="*{nameAction}" maxlength="50" required/>
+              <span>  <span class="txt_error" th:if="${#fields.hasErrors('nameAction')}" th:errors="*{nameAction}"></span></span></td>
           </tr>
 
+          <tr>
+            <td class="txt txt_right_align"><label>Target al que va dirigida:   </label></td>
+            <td><select type="text" th:field="*{nameTarget}">
+              <option class="txt_sec2 bold"
+                      th:each="target : ${targList}"
+                      th:value="${target.nameTarg}"
+                      th:text="${target.nameTarg}">
+              </option></select>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="txt txt_right_align" ><label>Fecha de inicio:   </label></td>
+            <td><input type="text" th:field="*{creationDate}" required/>
+              <span>  <span class="txt_error" th:if="${#fields.hasErrors('creationDate')}" th:errors="*{creationDate}"></span></span>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="txt txt_right_align" ><label>Fecha de finalización:   </label></td>
+            <td><input type="text" th:field="*{endDate}" required/>
+              <span>  <span class="txt_error" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></span></span></td>
+          </tr>
+
+          <tr>
+            <td class="txt txt_right_align align_top"><label>Descripción Breve:   </label></td>
+            <td><textarea class="txt_sec" th:field="*{description}" rows="6" cols="50" maxlength="500" required></textarea></td>
+          </tr>
+
+          <tr>
+            <td class="txt txt_right_align align_top"><label>Resultados Esperados:   </label></td>
+            <td><textarea class="txt_sec" th:field="*{resultados}" rows="10" cols="50" maxlength="10000" required></textarea></td>
+          </tr>
+          <tr>
+
           <tr class="centered_text">
-            <td colspan="2"><input class="txt boton_principal color_verde" type="submit" value="ENVIAR" /></td>
+            <td><input class="txt boton_principal color_verde" type="submit" value="AÑADIR ACCION" /></td>
+            <td><a class="txt boton_principal color_rojo_0" th:href="@{/myInitiative/submitInitiative}" onclick="if(!(confirm('Finalizar la edición y enviar?'))) return false">ENVIAR INICIATIVA</a></td>
           </tr>
 
         </table>

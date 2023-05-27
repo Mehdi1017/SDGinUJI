@@ -36,8 +36,6 @@ public class InitiativeValidator implements Validator {
         if (initiatives != null && !initiatives.isEmpty() &&
                 (toBeUpdated == null || !initiative.getNameIni().equals(toBeUpdated.getNameIni()))) { // para evitar dar como incorrecto el mismo nombre al actualizar iniciativa
             for (Initiative iniciativa : initiatives) {
-                System.out.println(errors.getAllErrors());
-
                 if (initiative.getNameIni().trim().equals(iniciativa.getNameIni()))
                     errors.rejectValue("nameIni", "obligatori", "Nombre no correcto");
             }

@@ -3,6 +3,7 @@ package es.uji.ei1027.clubesportiu.controller.Initiative;
 import es.uji.ei1027.clubesportiu.dao.action.ActionDao;
 import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
 import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
+import es.uji.ei1027.clubesportiu.dao.target.TargetDao;
 import es.uji.ei1027.clubesportiu.model.Action;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
@@ -10,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -29,6 +27,7 @@ public class MyInitiativeController {
     private static Initiative initiative;
     private OdsDao odsDao;
 
+    private TargetDao targetDao;
     private ActionDao actionDao;
 
     @Autowired
@@ -40,6 +39,10 @@ public class MyInitiativeController {
     @Autowired
     public void setActionDao(ActionDao actionDao) {
         this.actionDao = actionDao;
+    }
+    @Autowired
+    public void setTargetDao(TargetDao targetDao) {
+        this.targetDao = targetDao;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -62,6 +65,7 @@ public class MyInitiativeController {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
+    // prepare model - redirecto to form
     @RequestMapping(value="/add")
     public String addInitiative(Model model, HttpSession session) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
@@ -83,11 +87,15 @@ public class MyInitiativeController {
         return "myInitiative/add";
     }
 
+    // retrieve initial form values - save persistent model data - redirect to action creation form
     @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("initiative") Initiative initiative,
+    public String processAddInitiative(@ModelAttribute("initiative") Initiative initiative,
                                    BindingResult bindingResult, Model model, HttpSession session) {
-
-        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null){
+            session.setAttribute("nextUrl", "/myInitiative/add");
+            return "redirect:/login";
+        }
 
         // validate basic initiative data
         InitiativeValidator initiativeValidator = new InitiativeValidator(initiativeDao.getAllInitiative());
@@ -107,20 +115,97 @@ public class MyInitiativeController {
 //        }
 
         // complete initiative with user
-        UserDetails usuario = (UserDetails) session.getAttribute("user");
         initiative.setMail(usuario.getMail());
 
         // set initiative as session parameter for persistance
         session.setAttribute("tmp_initiative", initiative);
+
+        // prepare model for action form page
+        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        model.addAttribute("targList", targetDao.getAllTarget());  // needed data
+
         model.addAttribute("action", new Action());
 
 //        initiativeDao.addInitiative(initiative);
 //        model.addAttribute("CONTENT_TITLE","Iniciativa Enviada! 😁📤");
 
         // redirect to action creation - page with tmp info + form for action creation
-        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
         return "myInitiative/addAction";
     }
+
+    @RequestMapping(value="/addAction", method= RequestMethod.POST)
+    public String processAddAction(@ModelAttribute("action") Action action,
+                                   @SessionAttribute("tmp_initiative") Initiative initiative,
+                                   BindingResult bindingResult, Model model, HttpSession session) {
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null){
+            session.setAttribute("nextUrl", "/myInitiative/add");
+            return "redirect:/login";
+        }
+
+        // validate new action
+        ActionValidator actionValidator = new ActionValidator(initiative);
+        actionValidator.validate(action, bindingResult);
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
+            model.addAttribute("SELECTED_NAVBAR","Área privada");
+            model.addAttribute("targList", targetDao.getAllTarget());  // needed data
+            session.setAttribute("tmp_initiative", initiative);
+            return "myInitiative/addAction";
+        }
+
+        // complete & add action to persistent initiative
+        action.setNameInitiative(initiative.getNameIni());
+        action.setNameOds(initiative.getNameOds());
+        initiative.getActions().add(action);
+        session.setAttribute("tmp_initiative", initiative);
+
+        // prepare model for new action
+        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        model.addAttribute("targList", targetDao.getTargetByOds(initiative.getNameOds()));  // needed data
+
+        model.addAttribute("action", new Action());
+
+        // redirect to action creation - page with tmp info + form for action creation
+        return "myInitiative/addAction";
+    }
+
+    @RequestMapping(value="/submitInitiative")
+    public String processAddFinal(@SessionAttribute("tmp_initiative") Initiative initiative,
+                                  Model model, HttpSession session) {
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null) {
+            session.setAttribute("nextUrl", "/myInitiative/add");
+            return "redirect:/login";
+        }
+
+        // validate actions - inside initiative
+        if (initiative.getActions().isEmpty()) {
+            model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añade al menos Una Acción ❌");
+            model.addAttribute("SELECTED_NAVBAR","Área privada");
+            model.addAttribute("targList", targetDao.getAllTarget());  // needed data
+            session.setAttribute("tmp_initiative", initiative);
+            model.addAttribute("action", new Action());
+            return "myInitiative/addAction";
+        }
+
+        // save initiative & actions
+        initiativeDao.addInitiative(initiative);
+        for (Action action : initiative.getActions()) actionDao.addActionn(action);
+
+        // prepare & redirect to feedback template
+        model.addAttribute("CONTENT_TITLE","Iniciativa Enviada! 😁📤");
+        model.addAttribute("initiative", initiative);
+        session.removeAttribute("tmp_initiative");
+
+        return "myInitiative/iniciativa_creada";
+    }
+
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------

@@ -9,7 +9,8 @@
     <p class="txt">Tu nueva Iniciativa ha sido enviada correctamente y ya esta siendo analizada.<br><b>INICIATIVA PENDIENTE DE ACEPTACION!😄</b></p>
     <p class="txt_sec">Si quieres ver su estado puedes consultarlo en el área <b>gestionar mis iniciativas</b> en tu <b>área privada</b>.
       <br>Espera un poco mientras nuestros profesionales la revisan y llegan a un acuerdo...</p>
-    <a class="boton_principal color_verde" href="/myInitiative/list">IR A LA INICIATIVA</a>
+    <a class="boton_principal color_verde" th:href="@{/initiative/view/{nameIni}(nameIni=${initiative.getNameIni()})}">IR A LA INICIATIVA</a>
+    <a class="boton_principal color_azul_0" href="/myInitiative/list">VER MIS INICIATIVAS</a>
   </div>
 </div>
 </html>

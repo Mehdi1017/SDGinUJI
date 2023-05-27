@@ -1,5 +1,7 @@
 package es.uji.ei1027.clubesportiu.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Action {
@@ -7,7 +9,9 @@ public class Action {
     private String nameInitiative;
     private String nameOds;
     private String nameTarget;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate creationDate;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
     private String description;
     private String progress;

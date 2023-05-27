@@ -172,6 +172,12 @@ a:link, a {
     margin: 4pt;
 }
 
+.r_border {
+    border-radius: 10pt;
+    border: 2pt solid #E5E5E5;
+    padding: 10pt;
+}
+
 a.boton_link, .boton_link, .link_camuflado, a.link_camuflado {
     color: black;
     text-decoration: none;
@@ -245,6 +251,10 @@ a.boton_secundario, .boton_secundario {
 .description-input {
     width: 100ch; /* Set the desired width of the input field */
     height: 40ch; /* Set the desired height of the input field */
+}
+
+.description_tiny_display, p.description_tiny_display {
+    max-width: 320pt;
 }
 
 .align_top {
