@@ -1,8 +1,10 @@
 package es.uji.ei1027.clubesportiu.controller.Initiative;
 
 import es.uji.ei1027.clubesportiu.dao.initiative_participation.InitiativeParticipationDao;
+import es.uji.ei1027.clubesportiu.dao.uji_participant.UjiParticipantDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.InitiativeParticipation;
+import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +24,17 @@ public class InitiativeParticipationController {
     // -----------------------------------------------------------------------------------------------------------------
 
     private InitiativeParticipationDao initiativeParticipationDao;
+    private UjiParticipantDao ujiParticipantDao;
     private String nInitiative;
 
     @Autowired
     public void setInitiativeParticipationDao(InitiativeParticipationDao initiativeParticipationDao) {
         this.initiativeParticipationDao = initiativeParticipationDao;
+    }
+
+    @Autowired
+    public void setUjiParticipantDao(UjiParticipantDao ujiParticipantDao) {
+        this.ujiParticipantDao = ujiParticipantDao;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -49,14 +57,26 @@ public class InitiativeParticipationController {
             Model model, HttpSession session,
             @ModelAttribute("partcipation") InitiativeParticipation participation,// RETRIEVE MODEL ATTRIBUTE
             BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
-            model.addAttribute("CONTENT_TITLE", "Gestionando participantes");
-            model.addAttribute("SELECTED_NAVBAR","Área privada");
-            return "myInitiative/add_participant"; // TRY AGAIN, HAD ERRORS
+
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null){
+            session.setAttribute("nextUrl", "/myInitiative/add");
+            return "redirect:/login";
         }
+
+        InitiativeParticiapantValidator validator = new InitiativeParticiapantValidator(ujiParticipantDao.getAllUjiParticipants(),
+                this.initiativeParticipationDao.getAllInitiativeParticipations(nInitiative), usuario.getMail());
 
         session.setAttribute("nextUrl", "/myInitiative/addParticipant/"+nInitiative);
         participation.setNameIni(nInitiative);
+
+        validator.validate(participation, bindingResult);
+
+        if (bindingResult.hasErrors()){
+            setAtributes(model, session);
+            return "myInitiative/add_participant"; // TRY AGAIN, HAD ERRORS
+        }
+
         initiativeParticipationDao.addInitiativeParticipation(participation);
 
         setAtributes(model, session);
@@ -82,7 +102,7 @@ public class InitiativeParticipationController {
         model.addAttribute("participation", new InitiativeParticipation());
         model.addAttribute("CONTENT_TITLE", "Gestionando participantes");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        session.setAttribute("nextUrl", "/myInitiative/addParticipant/"+nInitiative);
+        //session.setAttribute("nextUrl", "/myInitiative/addParticipant/"+nInitiative);
     }
 
 }
