@@ -38,11 +38,14 @@ public class InitiativeBackOffice {
 
     @RequestMapping("/list")
     public String listInitiative(Model model, HttpSession session) {
+
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()){
             session.setAttribute("nextUrl", "/InitiativeBackOffice/list");
             return "redirect:/login";
         }
+        session.setAttribute("prevUrl", "/InitiativeBackOffice/list");
+
 
         model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas Pendientes");
         model.addAttribute("SELECTED_NAVBAR","Área privada");

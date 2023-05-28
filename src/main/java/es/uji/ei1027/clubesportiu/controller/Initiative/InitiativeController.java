@@ -1,5 +1,6 @@
 package es.uji.ei1027.clubesportiu.controller.Initiative;
 
+import es.uji.ei1027.clubesportiu.dao.action.ActionDao;
 import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 
@@ -28,6 +29,9 @@ public class InitiativeController {
     private InitiativeDao initiativeDao;
 
     @Autowired
+    private ActionDao actionDao;
+
+    @Autowired
     private InitiativeFilter iniFilter;
 
     @Autowired
@@ -53,12 +57,17 @@ public class InitiativeController {
         model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por SDG");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
+        session.setAttribute("prevUrl", "/initiative/list");
+
+
         model.addAttribute("allInitiative", iniFilter.getActualInitiativesByODS());
         return "Initiative/list_by_ods";
 
     }
     @RequestMapping("/list/by-target")
     public String listInitiativeByTarget(Model model, HttpSession session) {
+        session.setAttribute("prevUrl", "/initiative/list/by-target");
+
         model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por Target");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
@@ -69,7 +78,9 @@ public class InitiativeController {
 
     @RequestMapping("/list/ended")
     public String listInitiativeByOdsEnded(Model model, HttpSession session) {
-        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por SDG");
+        session.setAttribute("prevUrl", "/initiative/list/ended");
+
+        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas finalizadas por SDG");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
         model.addAttribute("allInitiative", iniFilter.getEndedInitiativesByODS());
@@ -78,7 +89,9 @@ public class InitiativeController {
     }
     @RequestMapping("/list/by-target/ended")
     public String listInitiativeByTargetEnded(Model model, HttpSession session) {
-        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por Target");
+        session.setAttribute("prevUrl", "/initiative/list/by-target/ended");
+
+        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas finalizadas por Target");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
         model.addAttribute("allInitiative", iniFilter.getEndedInitiativesByTarget());
@@ -136,6 +149,7 @@ public String editInitiative(Model model,
     public String viewInitiative(Model model, HttpSession session,
                                  @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
         Initiative ini = initiativeDao.getInitiative(nInitiative);
+        ini.setActions(actionDao.getActions(ini.getNameIni()));
         model.addAttribute("initiative", ini);
         model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
