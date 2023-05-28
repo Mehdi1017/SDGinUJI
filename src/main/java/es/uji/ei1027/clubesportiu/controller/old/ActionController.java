@@ -10,6 +10,7 @@ import es.uji.ei1027.clubesportiu.model.Action;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -224,6 +225,38 @@ public class ActionController {
         model.addAttribute("actions", actionDao.getActions(session.getAttribute("nIni").toString()));
         return "action/list";
 
+    }
+
+    @RequestMapping("/delete/{nAct}")
+    public String delete(Model model, HttpSession session, @PathVariable String nAct){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("CONTENT_TITLE","Confirmar finalizacion 📋");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        model.addAttribute("nAct", nAct);
+        model.addAttribute("usuario", usuario);
+        return "action/delete_confirm";
+    }
+
+    @RequestMapping("/delete/confirm/{nAct}")
+    public String deleteConfirm(Model model, HttpSession session, @PathVariable String nAct){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        Action action = new Action();
+        action.setNameAction(nAct);
+        String nIni = session.getAttribute("nIni").toString();
+        action.setNameInitiative(nIni);
+        actionDao.deleteAction(action);
+
+        model.addAttribute("CONTENT_TITLE","Mostrando Acciones 📋");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        model.addAttribute("actions", actionDao.getActions(nIni));
+        return "action/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------

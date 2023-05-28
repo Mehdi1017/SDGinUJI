@@ -188,6 +188,8 @@ public String editInitiative(Model model,
         if (usuario == null) {
             return "redirect:/login";
         }
+        model.addAttribute("CONTENT_TITLE","Confirmar finalizacion");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("initiative",initiativeDao.getInitiative(nInitiative));
         model.addAttribute("usuario", usuario);
         return "Initiative/delete_confirm";
