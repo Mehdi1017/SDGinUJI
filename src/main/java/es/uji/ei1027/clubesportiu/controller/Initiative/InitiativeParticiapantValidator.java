@@ -31,21 +31,32 @@ public class InitiativeParticiapantValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         InitiativeParticipation participation = (InitiativeParticipation) obj;
 
-        if (participation.getMail().equals(owner))
+        boolean mail_error = false;
+
+        if (participation.getMail().equals(owner)) {
             errors.rejectValue("mail", "erroneo", "El responsable no se puede inscribir como participante");
-        for (InitiativeParticipation participation1 : participations){
-            if (participation1.getMail().equals(participation.getMail()))
-                errors.rejectValue("mail", "erroneo", "El participante ya existe");
+            mail_error = true;
         }
-        boolean encontrado = false;
-        for (UjiParticipant ujiParticipant : ujiParticipants){
-            if (ujiParticipant.getMail().equals(participation.getMail())){
-                encontrado = true;
-                break;
+
+        if (!mail_error) {
+            for (InitiativeParticipation participation1 : participations){
+                if (participation1.getMail().equals(participation.getMail())) {
+                    errors.rejectValue("mail", "erroneo", "El participante ya existe");
+                    mail_error = true;
+                    break;
+                }
             }
         }
-        if (!encontrado)
-            errors.rejectValue("mail", "erroneo", "El mail introducido no pertenece a un miembro de la UJI");
+
+        if (!mail_error) {
+            boolean encontrado = false;
+            for (UjiParticipant ujiParticipant : ujiParticipants)
+                if (ujiParticipant.getMail().equals(participation.getMail())) {
+                    encontrado = true;
+                    break;
+                }
+            if (!encontrado) errors.rejectValue("mail", "erroneo", "El mail introducido no pertenece a un miembro de la UJI");
+        }
 
     }
 }

@@ -2,7 +2,6 @@ package es.uji.ei1027.clubesportiu.controller.Initiative;
 
 import es.uji.ei1027.clubesportiu.dao.initiative_participation.InitiativeParticipationDao;
 import es.uji.ei1027.clubesportiu.dao.uji_participant.UjiParticipantDao;
-import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.InitiativeParticipation;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +54,7 @@ public class InitiativeParticipationController {
     @RequestMapping(value="/addParticipant", method = RequestMethod.POST)
     public String processAddParticipantSubmit(
             Model model, HttpSession session,
-            @ModelAttribute("partcipation") InitiativeParticipation participation,// RETRIEVE MODEL ATTRIBUTE
+            @ModelAttribute("participation") InitiativeParticipation participation,// RETRIEVE MODEL ATTRIBUTE
             BindingResult bindingResult) {
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
@@ -73,7 +72,11 @@ public class InitiativeParticipationController {
         validator.validate(participation, bindingResult);
 
         if (bindingResult.hasErrors()){
-            setAtributes(model, session);
+            model.addAttribute("nInitiative", this.nInitiative);
+            model.addAttribute("particpants", this.initiativeParticipationDao.getAllInitiativeParticipations(nInitiative));
+            model.addAttribute("CONTENT_TITLE", "Gestionando participantes");
+            model.addAttribute("SELECTED_NAVBAR","Área privada");
+
             return "myInitiative/add_participant"; // TRY AGAIN, HAD ERRORS
         }
 
