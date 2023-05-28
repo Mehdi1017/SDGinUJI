@@ -56,8 +56,9 @@
             <br>
         </div>
     </div>
-    <a th:href="@{/initiative/update/{nom}(nom=${initiative.getNameIni()})}" class="txt_sec2 color_azul_0 boton_principal">Modificar Iniciativa</a>
-    <a th:href="@{/initiative/delete/{nom}(nom=${initiative.getNameIni()})}" class="txt_sec2 color_rojo_0 boton_principal">Eliminar Iniciativa</a>
+    <a class="boton_secundario color_amarillo" th:href="@{/initiative_participation/addParticipant/{nIni}/(nIni=${initiative.getNameIni()})}">Gestionar participantes</a>
+    <a th:href="@{/initiative/update/{nom}(nom=${initiative.getNameIni()})}" class="txt_sec2 color_azul_0 boton_secundario">Modificar Iniciativa</a>
+    <a th:href="@{/initiative/delete/{nom}(nom=${initiative.getNameIni()})}" class="txt_sec2 color_rojo_0 boton_secundario">Eliminar Iniciativa</a>
     <a th:href="@{{path}(path=*{session.get('prevUrl') != null ? session.get('prevUrl') : '/initiative/list' })}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
 
 

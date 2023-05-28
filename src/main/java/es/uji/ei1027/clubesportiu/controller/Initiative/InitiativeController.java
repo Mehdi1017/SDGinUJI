@@ -154,6 +154,7 @@ public String editInitiative(Model model,
         model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
         session.setAttribute("nextUrl", "/initiative/view/"+ UriUtils.encodePath(nInitiative, "UTF-8"));
+        session.setAttribute("prevUrl2", "/initiative/view/"+nInitiative);
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null) {
