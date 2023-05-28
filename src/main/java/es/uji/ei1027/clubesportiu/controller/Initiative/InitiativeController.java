@@ -5,6 +5,7 @@ import es.uji.ei1027.clubesportiu.model.Initiative;
 
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -87,11 +88,11 @@ public String editInitiative(Model model,
         initiativeDao.updateInitiative(initiative);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
-    @RequestMapping(value = "/delete/{nInitiative}")
+   /* @RequestMapping(value = "/delete/{nInitiative}")
     public String processDeleteInitiative(@PathVariable String nInitiative) {
         initiativeDao.deleteInitiative(nInitiative);
         return "redirect:../list";
-    }
+    }*/
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
@@ -111,6 +112,34 @@ public String editInitiative(Model model,
         } else {
             return "Initiative/view_staff";
         }
+    }
+
+    @RequestMapping("/delete/confirm/{nInitiative}")
+    public String deleteConfirm(Model model, HttpSession session, @PathVariable String nInitiative){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+        try {
+            initiativeDao.deleteInitiative(nInitiative);
+        } catch (DataAccessException e){
+            model.addAttribute("initiative",initiativeDao.getInitiative(nInitiative));
+            return "Initiative/error_delete";
+        }
+        if (usuario.isAdmin())
+            return "redirect:/initiative/list";
+        return "redirect:/myInitiative/list";
+    }
+
+    @RequestMapping("/delete/{nInitiative}")
+    public String delete(Model model, HttpSession session, @PathVariable String nInitiative){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("initiative",initiativeDao.getInitiative(nInitiative));
+        model.addAttribute("usuario", usuario);
+        return "Initiative/delete_confirm";
     }
 
 }
