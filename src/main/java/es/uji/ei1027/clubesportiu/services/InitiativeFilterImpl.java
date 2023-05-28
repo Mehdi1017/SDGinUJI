@@ -1,5 +1,6 @@
 package es.uji.ei1027.clubesportiu.services;
 
+import es.uji.ei1027.clubesportiu.dao.action.ActionDao;
 import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
 import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
 import es.uji.ei1027.clubesportiu.dao.target.TargetDao;
@@ -21,6 +22,9 @@ public class InitiativeFilterImpl implements InitiativeFilter{
 
     @Autowired
     TargetDao targetDao;
+
+    @Autowired
+    ActionDao actionDao;
 
 
     @Override
@@ -51,7 +55,8 @@ public class InitiativeFilterImpl implements InitiativeFilter{
                 new HashMap<String,List<Initiative>>();
 
         for (Initiative ini : allInitiative){
-            for (Action a: ini.getActions()){
+
+            for (Action a: actionDao.getActions(ini)){
                 List<Initiative> listaIni = InitiativesByTarget.computeIfAbsent(a.getNameTarget(), k -> new LinkedList<>());
 
                 if (ini.getStat().equals("Approved")){
@@ -90,7 +95,7 @@ public class InitiativeFilterImpl implements InitiativeFilter{
                 new HashMap<String,List<Initiative>>();
 
         for (Initiative ini : allInitiative){
-            for (Action a: ini.getActions()){
+            for (Action a: actionDao.getActions(ini)){
                 List<Initiative> listaIni = InitiativesByTarget.computeIfAbsent(a.getNameTarget(), k -> new LinkedList<>());
 
                 if (ini.getStat().equals("Ended")){
