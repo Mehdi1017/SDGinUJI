@@ -80,11 +80,11 @@ public class MyInitiativeController {
 
         model.addAttribute("odsList", odsDao.getAllOds());  // needed data
 
-        model.addAttribute("initiative", new Initiative());  // data to fill
-        model.addAttribute("action", new Action());
+        if (session.getAttribute("tmp_initiative") != null)
+            model.addAttribute("initiative", session.getAttribute("tmp_initiative"));
 
-//        System.out.println("Ejecuta add controller");
-
+        else
+            model.addAttribute("initiative", new Initiative());  // data to fill
         return "myInitiative/add";
     }
 
@@ -108,17 +108,11 @@ public class MyInitiativeController {
             return "myInitiative/add";
         }
 
-//        // validate actions - inside initiative
-//        if (initiative.getActions().isEmpty()) {
-//            model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
-//            model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝 - Faltan Acciones");
-//            return "myInitiative/add";
-//        }
-
-        // complete initiative with user
+        // complete initiative with user & prev actions if exists
         initiative.setMail(usuario.getMail());
+        if (session.getAttribute("tmp_initiative") != null) initiative.setActions(((Initiative) session.getAttribute("tmp_initiative")).getActions());
 
-        // set initiative as session parameter for persistance
+        // set initiative as session parameter for persistance | overwrite if existing
         session.setAttribute("tmp_initiative", initiative);
 
         // prepare model for action form page
@@ -243,7 +237,6 @@ public class MyInitiativeController {
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "initiative/update";    // TRY AGAIN, HAD ERRORS
-//        System.out.println(initiative);
         initiativeDao.updateInitiative(initiative);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
