@@ -38,6 +38,7 @@ public class InitiativeController {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
+    /*
     @RequestMapping("/list")
     public String listInitiative(Model model, HttpSession session) {
         model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales");
@@ -46,8 +47,8 @@ public class InitiativeController {
         model.addAttribute("allInitiative", initiativeDao.getAllActualInitiative());
         return "Initiative/list_no_filters";
 
-    }
-    @RequestMapping("/list/by-ods")
+    }*/
+    @RequestMapping("/list")
     public String listInitiativeByOds(Model model, HttpSession session) {
         model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por SDG");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
