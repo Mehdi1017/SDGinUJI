@@ -33,6 +33,17 @@
     font-weight: bold;
 }
 
+.reset_button_style {
+    all:unset;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
 /*============================================================================*/
 /*
 Montserrat codes:

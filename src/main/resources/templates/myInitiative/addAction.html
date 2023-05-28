@@ -124,8 +124,11 @@
           <tr>
 
           <tr class="centered_text">
-            <td><input class="txt boton_principal color_verde" type="submit" value="AÑADIR ACCION" /></td>
-            <td><a class="txt boton_principal color_rojo_0" th:href="@{/myInitiative/submitInitiative}" onclick="if(!(confirm('Finalizar la edición y enviar?'))) return false">ENVIAR INICIATIVA</a></td>
+            <td colspan="3" class="centered_text">
+              <input class="reset_button_style txt boton_principal color_verde" type="submit" value="AÑADIR ACCION" /> <span>  </span>
+              <a class="txt boton_principal color_rojo_0" th:href="@{/myInitiative/submitInitiative}" onclick="if(!(confirm('Finalizar la edición y enviar?'))) return false">ENVIAR INICIATIVA</a><span>  </span>
+              <a class="txt boton_principal color_azul_0" th:href="@{/myInitiative/add}">VOLVER A EDITAR INICIATIVA</a>
+            </td>
           </tr>
 
         </table>
