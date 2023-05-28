@@ -197,6 +197,35 @@ public class ActionController {
         return "action/list";
     }
 
+    @RequestMapping(value="/addValoracion/{nAct}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String addValoracion(Model model, HttpSession session,
+                            @PathVariable String nAct) {  // RETRIEVE PATH VARIABLE
+        String nIni = session.getAttribute("nIni").toString();
+        Action action = actionDao.getAction(nAct, nIni);
+        session.setAttribute("actionVal", action);
+        model.addAttribute("nIni", nIni);
+        model.addAttribute("action", action);
+        model.addAttribute("CONTENT_TITLE", "Añadiendo valoracion");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        session.setAttribute("nextUrl", "/action/add_valoracion/"+nAct);
+        return "action/add_valoracion";
+    }
+
+    @RequestMapping(value="/addValoracion", method = RequestMethod.POST)
+    public String processAddValoracionSubmit(
+            @ModelAttribute("action") Action action, HttpSession session, Model model)// RETRIEVE MODEL ATTRIBUTE
+    {
+        Action action1 = (Action) session.getAttribute("actionVal");
+        action1.setValoracion(action.getValoracion());
+        actionDao.updateAction(action1);  // UPDATE
+
+        model.addAttribute("CONTENT_TITLE","Mostrando Acciones 📋");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        model.addAttribute("actions", actionDao.getActions(session.getAttribute("nIni").toString()));
+        return "action/list";
+
+    }
+
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 
