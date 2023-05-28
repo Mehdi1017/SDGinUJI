@@ -9,6 +9,11 @@
 </head>
 <body>
 <div layout:fragment="content">
+  <p>
+    <a class="boton_principal color_azul_0" th:href="@{/InitiativeBackOffice/list/by-target}">Ordenar por Target</a>
+    <a class="boton_principal color_amarillo" th:href="@{/area}">Volver Atrás</a>
+  </p>
+
 
   <div class="centered_text" th:if="${allInitiative.isEmpty()}">
     <p class="txt"><b>No hay Iniciativas</b></p>
@@ -29,10 +34,6 @@
 
 
   </div>
-  <p>
-    <a class="boton_principal color_amarillo" th:href="@{/area}">Volver Atrás</a>
-    <br>
-  </p>
 </div>
 </body>
 </html>
