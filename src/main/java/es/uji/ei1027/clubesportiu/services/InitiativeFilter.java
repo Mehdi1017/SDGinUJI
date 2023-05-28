@@ -15,5 +15,7 @@ public interface InitiativeFilter {
     Map<String, List<Initiative>> getRejectedInitiativesByOds();
     Map<String, List<Initiative>> getRejectedInitiativesByTarget();
 
+    Map<String, List<Initiative>> getPendingInitiativesByOds();
+    Map<String, List<Initiative>> getPendingInitiativesByTarget();
 
 }

@@ -31,13 +31,10 @@
             <tr th:each="initiative: ${allInitiative.get(iniciativas)}"><td>
                 <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/initiative/view/{nIni}/(nIni=${initiative.getNameIni()})}"></a> <br>
                 <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
+
             </td>
             </tr>
         </table>
         </div>
-
-
-
-
 </body>
 </html>

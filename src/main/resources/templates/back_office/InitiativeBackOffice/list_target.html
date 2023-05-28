@@ -10,7 +10,7 @@
 <body>
 <div layout:fragment="content">
     <p>
-        <span class="txt">Visualizar por: </span>
+        <span class="txt">Visualizar: </span>
         <a th:href="@{/initiative/list}" class="txt_sec2 color_verde boton_principal">SDG</a>
         <a th:href="@{/initiative/list/ended}" class="txt_sec2 color_rojo_0 boton_principal">SDG finalizadas</a>
 
@@ -19,24 +19,23 @@
         <br>
     </p>
 
-
-
     <div class="centered_text" th:if="${allInitiative.isEmpty()}">
         <p class="txt"><b>No hay Iniciativas</b></p>
     </div>
 
     <div th:unless="${allInitiative.isEmpty()}" th:each="iniciativas: ${allInitiative.keySet()}">
-        <h4 th:text="${iniciativas}"></h4>
+        <div th:unless="${allInitiative.get(iniciativas).isEmpty()}">
+            <h4  th:text="${allInitiative.get(iniciativas).get(0).nameOds +' - '+ iniciativas}"></h4>
 
-        <table class="table " >
-        <tr th:each="initiative: ${allInitiative.get(iniciativas)}"><td>
-            <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/initiative/view/{nIni}/(nIni=${initiative.getNameIni()})}"></a> <br>
-            <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
-        </td>
-        </tr>
-    </table>
-
-
-</div>
+            <table class="table " >
+                <tr th:each="initiative: ${allInitiative.get(iniciativas)}"><td>
+                    <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/initiative/view/{nIni}/(nIni=${initiative.getNameIni()})}"></a> <br>
+                    <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
+                    <a class="boton_secundario color_verde" th:href="@{/InitiativeBackOffice/confirm/accept/{nom}(nom=${initiative.getNameIni()})}">Aceptar</a>
+                    <a class="boton_secundario color_rojo_0" th:href="@{/InitiativeBackOffice/confirm/reject/{nom}(nom=${initiative.getNameIni()})}">Rechazar</a>
+                </td>
+                </tr>
+            </table>
+        </div>
 </body>
 </html>

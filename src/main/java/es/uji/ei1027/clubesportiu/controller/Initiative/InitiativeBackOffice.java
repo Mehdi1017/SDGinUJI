@@ -50,10 +50,10 @@ public class InitiativeBackOffice {
         session.setAttribute("prevUrl", "/InitiativeBackOffice/list");
 
 
-        model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas Pendientes");
+        model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas Pendientes por SDG");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        model.addAttribute("iniciativas", initiativeDao.getPendingInitiatives());
-        return "back_office/InitiativeBackOffice/list";
+        model.addAttribute("allInitiative", iniFilter.getPendingInitiativesByOds());
+        return "back_office/InitiativeBackOffice/list_ods";
     }
 
     @RequestMapping("/list/rejected")
