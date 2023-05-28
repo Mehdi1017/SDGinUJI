@@ -67,6 +67,25 @@ public class InitiativeController {
 
     }
 
+    @RequestMapping("/list/ended")
+    public String listInitiativeByOdsEnded(Model model, HttpSession session) {
+        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por SDG");
+        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+
+        model.addAttribute("allInitiative", iniFilter.getEndedInitiativesByODS());
+        return "Initiative/list_by_ods";
+
+    }
+    @RequestMapping("/list/by-target/ended")
+    public String listInitiativeByTargetEnded(Model model, HttpSession session) {
+        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por Target");
+        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+
+        model.addAttribute("allInitiative", iniFilter.getEndedInitiativesByTarget());
+        return "Initiative/list_by_target";
+
+    }
+
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 

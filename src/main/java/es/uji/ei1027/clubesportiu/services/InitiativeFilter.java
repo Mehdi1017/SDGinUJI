@@ -9,4 +9,7 @@ public interface InitiativeFilter {
     Map<String, List<Initiative>> getActualInitiativesByODS();
     Map<String, List<Initiative>> getActualInitiativesByTarget();
 
+    Map<String, List<Initiative>> getEndedInitiativesByODS();
+    Map<String, List<Initiative>> getEndedInitiativesByTarget();
+
 }

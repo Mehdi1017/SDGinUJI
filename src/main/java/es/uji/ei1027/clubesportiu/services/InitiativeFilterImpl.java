@@ -61,4 +61,43 @@ public class InitiativeFilterImpl implements InitiativeFilter{
         }
         return InitiativesByTarget;
     }
+
+    @Override
+    public Map<String, List<Initiative>> getEndedInitiativesByODS() {
+
+        List<Initiative> allInitiative =
+                initiativeDao.getAllInitiative();
+
+        HashMap<String,List<Initiative>> InitiativesByODS =
+                new HashMap<String,List<Initiative>>();
+
+        for (Initiative ini : allInitiative){
+            if (ini.getStat().equals("Ended")){
+                List<Initiative> listaIni = InitiativesByODS.computeIfAbsent(ini.getNameOds(), k -> new LinkedList<>());
+                listaIni.add(ini);
+            }
+        }
+
+        return InitiativesByODS;
+    }
+
+    @Override
+    public Map<String, List<Initiative>> getEndedInitiativesByTarget() {
+        List<Initiative> allInitiative =
+                initiativeDao.getAllInitiative();
+
+        HashMap<String,List<Initiative>> InitiativesByTarget =
+                new HashMap<String,List<Initiative>>();
+
+        for (Initiative ini : allInitiative){
+            for (Action a: ini.getActions()){
+                List<Initiative> listaIni = InitiativesByTarget.computeIfAbsent(a.getNameTarget(), k -> new LinkedList<>());
+
+                if (ini.getStat().equals("Ended")){
+                    listaIni.add(ini);
+                }
+            }
+        }
+        return InitiativesByTarget;
+    }
 }
