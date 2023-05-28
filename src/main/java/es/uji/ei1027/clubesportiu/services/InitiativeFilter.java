@@ -12,4 +12,8 @@ public interface InitiativeFilter {
     Map<String, List<Initiative>> getEndedInitiativesByODS();
     Map<String, List<Initiative>> getEndedInitiativesByTarget();
 
+    Map<String, List<Initiative>> getRejectedInitiativesByOds();
+    Map<String, List<Initiative>> getRejectedInitiativesByTarget();
+
+
 }

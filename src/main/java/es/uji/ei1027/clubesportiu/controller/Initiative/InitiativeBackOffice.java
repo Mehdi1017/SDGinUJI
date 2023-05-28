@@ -4,6 +4,7 @@ import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
 import es.uji.ei1027.clubesportiu.external_services.MailManager;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
+import es.uji.ei1027.clubesportiu.services.InitiativeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ public class InitiativeBackOffice {
 
     private InitiativeDao initiativeDao;
     private MailManager mailManager;
+    @Autowired
+    private InitiativeFilter iniFilter;
 
     @Autowired
     public void setMailManager(MailManager mailmanager){
@@ -51,6 +54,23 @@ public class InitiativeBackOffice {
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("iniciativas", initiativeDao.getPendingInitiatives());
         return "back_office/InitiativeBackOffice/list";
+    }
+
+    @RequestMapping("/list/rejected")
+    public String listInitiativeRejected(Model model, HttpSession session) {
+
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null || !usuario.isAdmin()){
+            session.setAttribute("nextUrl", "/InitiativeBackOffice/list/rejected");
+            return "redirect:/login";
+        }
+        session.setAttribute("prevUrl", "/InitiativeBackOffice/list/rejected");
+
+
+        model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas Rechazadas por SDG");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        model.addAttribute("allInitiative", iniFilter.getRejectedInitiativesByOds());
+        return "back_office/InitiativeBackOffice/list_rejected_ods";
     }
 
     @RequestMapping("/accept/{nInitiative}")
