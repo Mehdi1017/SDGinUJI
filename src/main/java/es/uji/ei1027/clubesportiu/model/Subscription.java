@@ -1,4 +1,6 @@
 package es.uji.ei1027.clubesportiu.model;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 public class Subscription {
@@ -6,7 +8,9 @@ public class Subscription {
     private String mail;
     private Integer idSub;
     private String nameOds;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate initialDate;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate endDate;
 
     public Subscription() {

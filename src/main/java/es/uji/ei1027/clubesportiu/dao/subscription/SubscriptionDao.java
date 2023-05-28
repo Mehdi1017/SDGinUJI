@@ -48,14 +48,25 @@ public class SubscriptionDao {
         }
     }
 
+    public List<Subscription> getAllSubscriptionByMem(String mail) {
+        try {
+            return jdbcTemplate.query(
+                    "SELECT * FROM subscription WHERE mail = ? AND enddate IS NULL",
+                    new SubscriptionRowMapper(),
+                    mail);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return new ArrayList<Subscription>();
+        }
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
     public void addSubscription(Subscription subscription) {
         jdbcTemplate.update(
-                "INSERT INTO subscription VALUES(?, ?, ?, ?, ?)",
+                "INSERT INTO subscription VALUES(?, DEFAULT, ?, ?, ?)",
                 subscription.getMail(),
-                subscription.getIdSub(),
                 subscription.getNameOds(),
                 subscription.getInitialDate(),
                 subscription.getEndDate());

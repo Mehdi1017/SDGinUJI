@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+  <br>
+  <div class="floater_wrapper centered_text">
+    <ul>
+      <li class="txt top_spacing" th:each="ods: ${allOds}">
+        <a class="txt_sec2 boton_secundario color_verde"
+           th:if="${!myOds.contains(ods)}"
+           th:href="@{/member_subscription/add/{nombre}(nombre=${ods.nameOds})}">SUBSCRIBE</a>
+        <span>  </span>
+        <a th:href="@{/view/{nombre}(nombre=${ods.nameOds})}" th:text="${ods.index + '. ' + ods.nameOds}"></a>
+      </li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
