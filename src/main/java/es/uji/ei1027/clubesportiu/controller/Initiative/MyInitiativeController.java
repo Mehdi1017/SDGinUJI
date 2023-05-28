@@ -8,6 +8,7 @@ import es.uji.ei1027.clubesportiu.model.Action;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,6 +62,7 @@ public class MyInitiativeController {
         return "myInitiative/list";
     }
 
+    // ADD (3 STEPS - add form - send add + addAction form - save complete initiative)
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -126,9 +128,6 @@ public class MyInitiativeController {
         model.addAttribute("targList", targetDao.getAllTarget());  // needed data
 
         model.addAttribute("action", new Action());
-
-//        initiativeDao.addInitiative(initiative);
-//        model.addAttribute("CONTENT_TITLE","Iniciativa Enviada! 😁📤");
 
         // redirect to action creation - page with tmp info + form for action creation
         return "myInitiative/addAction";
@@ -205,10 +204,29 @@ public class MyInitiativeController {
         return "myInitiative/iniciativa_creada";
     }
 
+    // ADD FUNCTIONALITIES IN addAction Form
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    // delete and update action methods ...
+    // delete, update action methods & edit init
+    @RequestMapping(value = "/deleteAction/{nAction}")
+    public String processDeleteAction(@PathVariable String nAction,
+                                      @SessionAttribute("tmp_initiative") Initiative initiative,
+                                      Model model) {
+        initiative.getActions().removeIf((action) -> action.getNameAction().equals(nAction));
+
+        // prepare model for action form page
+        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        model.addAttribute("targList", targetDao.getAllTarget());  // needed data
+
+        model.addAttribute("action", new Action());
+
+        // redirect to action creation - page with tmp info + form for action creation
+        return "myInitiative/addAction";
+    }
+
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------

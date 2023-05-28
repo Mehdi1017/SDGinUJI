@@ -31,16 +31,14 @@
         <span  th:text="*{session.tmp_initiative.nameOds}" ></span>
         <br>
         <b>Motivacion:</b>
-        <span  th:text="*{session.tmp_initiative.motivacion}" ></span>
+        <p class="txt_sec description_tiny_display" th:text="*{session.tmp_initiative.motivacion}" ></p>
         <span th:if="*{!session.tmp_initiative.url.isEmpty()}">
-          <br>
           <b>Url:</b>
           <span  th:text="*{session.tmp_initiative.url}" ></span>
         </span>
         <br>
-        <br>
         <b>Descripcion:</b>
-        <p class="txt description_tiny_display">
+        <p class="txt_sec description_tiny_display">
           <span th:text="*{session.tmp_initiative.description}"></span>
         </p>
         <br>
@@ -66,7 +64,7 @@
             <a class="txt_sec2 boton_secundario color_rojo_0"
                th:href="@{/myInitiative/deleteAction/{nameAction}(nameAction=${action.nameAction})}"
                onclick="if(!(confirm('Estas seguro de borrar esta acción?'))) return false">BORRAR ACCION</a>
-
+            <p></p>
           </div>
         </div>
 
