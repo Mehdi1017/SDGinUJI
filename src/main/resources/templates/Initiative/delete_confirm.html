@@ -8,8 +8,8 @@
     <div class="centered_text">
         <p class="txt">Estas seguro de que quieres <b>FINALIZAR</b> la Iniciativa: <i th:text="${initiative.nameIni}"></i></p>
         <a class="boton_principal color_rojo_0" th:href="@{/initiative/delete/confirm/{nom}(nom=${initiative.nameIni})}" >FINALIZAR</a>
-        <a class="boton_principal color_amarillo" th:if="${usario.isAdmin()}" th:href="@{/initiative/view/{nom}(nom=${initiative.nameIni})}">CANCELAR</a>
-        <a class="boton_principal color_amarillo" th:unless="${usario.isAdmin()}" th:href="@{/myInitiative/update/{nom}(nom=${initiative.nameIni})}">CANCELAR</a>
+        <a class="boton_principal color_amarillo" th:if="${usuario.isAdmin()}" th:href="@{/initiative/view/{nom}(nom=${initiative.nameIni})}">CANCELAR</a>
+        <a class="boton_principal color_amarillo" th:unless="${usuario.isAdmin()}" th:href="@{/myInitiative/update/{nom}(nom=${initiative.nameIni})}">CANCELAR</a>
     </div>
 </div>
 </html>
