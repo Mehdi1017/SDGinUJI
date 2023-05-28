@@ -50,12 +50,12 @@ public class ActionDao {
         }
     }
 
-    public List<Action> getActions(Initiative initiative) {
+    public List<Action> getActions(String nIni) {
         try {
             return jdbcTemplate.query(
                     "SELECT * FROM Action WHERE name_ini = ?",
                     new ActionRowMapper(),
-                    initiative.getNameIni());
+                    nIni);
         }
         catch(EmptyResultDataAccessException e) {
             return new ArrayList<>();
