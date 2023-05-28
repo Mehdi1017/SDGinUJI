@@ -20,9 +20,9 @@
       <tr><td>
         <a class="txt" th:text="${action.nameAction}"></a>
         <p class="txt-sec" th:text="${#strings.abbreviate(action.description,150)}"></p>
-        <a class="boton_secundario color_verde" >AGREGAR RESULTADOS</a>
+        <a th:href="@{/action/addValoracion/{nAct}(nAct=${action.getNameAction()})}" class="boton_secundario color_verde" >AGREGAR VALORACION</a>
         <a th:href="@{/action/update/{nAct}(nAct=${action.getNameAction()})}" class="boton_secundario color_rojo_0" >EDITAR</a>
-        <a class="boton_secundario color_amarillo" >GESTIONAR PARTICIPANTES</a>
+        <a th:href="@{/actionParticipation/addParticipant/{nAct}(nAct=${action.getNameAction()})}" class="boton_secundario color_amarillo" >GESTIONAR PARTICIPANTES</a>
       </td>
       </tr>
     </table>

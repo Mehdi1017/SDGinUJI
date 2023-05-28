@@ -39,11 +39,14 @@ public class ActionParticipationDao {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    public List<ActionParticipation> getAllActionParticipation() {
+    public List<ActionParticipation> getAllActionParticipation(String nAct, String nIni) {
         try {
             return jdbcTemplate.query(
-                    "SELECT * FROM action_participation",
-                    new ActionParticipationRowMapper());
+                    "SELECT * FROM action_participation " +
+                            "WHERE name_act = ? AND name_ini = ?",
+                    new ActionParticipationRowMapper(),
+                    nAct,
+                    nIni);
         }
         catch(EmptyResultDataAccessException e) {
             return new ArrayList<>();
@@ -55,11 +58,10 @@ public class ActionParticipationDao {
 
     public void addActionParticipation(ActionParticipation actionParticipation) {
         jdbcTemplate.update(
-                "INSERT INTO action_participation VALUES(?, ?, ?, ?, CAST(? AS stat_enum), ?, ?, ?, ?)",
+                "INSERT INTO action_participation VALUES(?, ?, ?, 'Approved', ?, ?, ?)",
                 actionParticipation.getNameAct(),
                 actionParticipation.getNameIni(),
                 actionParticipation.getMail(),
-                actionParticipation.getStat().name(),
                 actionParticipation.getStartDate(),
                 actionParticipation.getEndDate(),
                 actionParticipation.getCommentary());

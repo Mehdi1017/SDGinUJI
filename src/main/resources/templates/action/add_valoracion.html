@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+  <h4 class="centered_text" th:text="*{action.nameAction}"></h4>
+<form action="#" th:action="@{/action/addValoracion}"
+      th:object="${action}" method="post">
+<table class="txt floater_wrapper centered_h">
+  <tr>
+    <td class="txt txt_right_align align_top"><label><b>Valoracion:   </b></label></td>
+    <td><textarea th:field="*{valoracion}" rows="20" cols="70" maxlength="10000" required></textarea></td>
+  </tr>
+  <tr class="centered_text">
+    <td colspan="2"><input class="txt boton_principal color_verde" type="submit" value="AÑADIR" /></td>
+  </tr>
+</table>
+</form>
+  <a th:href="@{/action/list/{nIni}(nIni=${nIni})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+</div>
+</body>
+</html>

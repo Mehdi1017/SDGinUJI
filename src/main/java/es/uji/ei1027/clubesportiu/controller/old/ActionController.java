@@ -10,6 +10,7 @@ import es.uji.ei1027.clubesportiu.model.Action;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -194,6 +195,67 @@ public class ActionController {
         model.addAttribute("actions", actionDao.getActions(nIni));
         session.setAttribute("nIni", nIni);
 
+        return "action/list";
+    }
+
+    @RequestMapping(value="/addValoracion/{nAct}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String addValoracion(Model model, HttpSession session,
+                            @PathVariable String nAct) {  // RETRIEVE PATH VARIABLE
+        String nIni = session.getAttribute("nIni").toString();
+        Action action = actionDao.getAction(nAct, nIni);
+        session.setAttribute("actionVal", action);
+        model.addAttribute("nIni", nIni);
+        model.addAttribute("action", action);
+        model.addAttribute("CONTENT_TITLE", "Añadiendo valoracion");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        session.setAttribute("nextUrl", "/action/add_valoracion/"+nAct);
+        return "action/add_valoracion";
+    }
+
+    @RequestMapping(value="/addValoracion", method = RequestMethod.POST)
+    public String processAddValoracionSubmit(
+            @ModelAttribute("action") Action action, HttpSession session, Model model)// RETRIEVE MODEL ATTRIBUTE
+    {
+        Action action1 = (Action) session.getAttribute("actionVal");
+        action1.setValoracion(action.getValoracion());
+        actionDao.updateAction(action1);  // UPDATE
+
+        model.addAttribute("CONTENT_TITLE","Mostrando Acciones 📋");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        model.addAttribute("actions", actionDao.getActions(session.getAttribute("nIni").toString()));
+        return "action/list";
+
+    }
+
+    @RequestMapping("/delete/{nAct}")
+    public String delete(Model model, HttpSession session, @PathVariable String nAct){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("CONTENT_TITLE","Confirmar finalizacion 📋");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        model.addAttribute("nAct", nAct);
+        model.addAttribute("usuario", usuario);
+        return "action/delete_confirm";
+    }
+
+    @RequestMapping("/delete/confirm/{nAct}")
+    public String deleteConfirm(Model model, HttpSession session, @PathVariable String nAct){
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        Action action = new Action();
+        action.setNameAction(nAct);
+        String nIni = session.getAttribute("nIni").toString();
+        action.setNameInitiative(nIni);
+        actionDao.deleteAction(action);
+
+        model.addAttribute("CONTENT_TITLE","Mostrando Acciones 📋");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        model.addAttribute("actions", actionDao.getActions(nIni));
         return "action/list";
     }
 

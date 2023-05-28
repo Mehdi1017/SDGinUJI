@@ -1,7 +1,11 @@
 package es.uji.ei1027.clubesportiu.controller.Initiative;
 
+import es.uji.ei1027.clubesportiu.dao.action.ActionDao;
+import es.uji.ei1027.clubesportiu.dao.action_participation.ActionParticipationDao;
 import es.uji.ei1027.clubesportiu.dao.initiative_participation.InitiativeParticipationDao;
 import es.uji.ei1027.clubesportiu.dao.uji_participant.UjiParticipantDao;
+import es.uji.ei1027.clubesportiu.model.Action;
+import es.uji.ei1027.clubesportiu.model.ActionParticipation;
 import es.uji.ei1027.clubesportiu.model.InitiativeParticipation;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,9 @@ public class InitiativeParticipationController {
     private InitiativeParticipationDao initiativeParticipationDao;
     private UjiParticipantDao ujiParticipantDao;
     private String nInitiative;
+    private ActionParticipationDao actionParticipationDao;
+
+    private ActionDao actionDao;
 
     @Autowired
     public void setInitiativeParticipationDao(InitiativeParticipationDao initiativeParticipationDao) {
@@ -34,6 +41,14 @@ public class InitiativeParticipationController {
     @Autowired
     public void setUjiParticipantDao(UjiParticipantDao ujiParticipantDao) {
         this.ujiParticipantDao = ujiParticipantDao;
+    }
+    @Autowired
+    public void setActionParticipationDao(ActionParticipationDao actionParticipationDao) {
+        this.actionParticipationDao = actionParticipationDao;
+    }
+    @Autowired
+    public void setActionDao(ActionDao actionDao) {
+        this.actionDao = actionDao;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -81,6 +96,17 @@ public class InitiativeParticipationController {
         }
 
         initiativeParticipationDao.addInitiativeParticipation(participation);
+
+        for (Action action: actionDao.getActions(nInitiative)){
+            ActionParticipation actionParticipation = new ActionParticipation();
+            actionParticipation.setMail(participation.getMail());
+            actionParticipation.setNameIni(participation.getNameIni());
+            actionParticipation.setNameAct(action.getNameAction());
+            actionParticipation.setStartDate(participation.getStartDate());
+            if(actionParticipationDao.getActionParticipation(actionParticipation) == null)
+                actionParticipationDao.addActionParticipation(actionParticipation);
+        }
+
 
         setAtributes(model, session);
 

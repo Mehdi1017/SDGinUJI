@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+
+    <div class="centered_text">
+        <p class="txt">Estas seguro de que quieres <b>FINALIZAR</b> la Accion: <i th:text="${nAct}"></i></p>
+        <a class="boton_principal color_rojo_0" th:href="@{/action/delete/confirm/{nom}(nom=${nAct})}" >FINALIZAR</a>
+        <a class="boton_principal color_amarillo" th:href="@{/action/update/{nom}(nom=${nAct})}">CANCELAR</a>
+    </div>
+</div>
+</html>
