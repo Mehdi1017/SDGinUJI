@@ -8,7 +8,9 @@
 </head>
 <body>
 <div layout:fragment="content">
-
+  <div class="floater_right top_pinned">
+    <a th:href="@{}" ref="" class="txt_sec2 color_azul_0 boton_principal">Acciones</a>
+  </div>
 
   <form action="#" th:action="@{/myInitiative/update}"
         th:object="${initiative}" method="post">
