@@ -21,11 +21,14 @@
         <a class="txt" th:text="${action.nameAction}"></a>
         <p class="txt-sec" th:text="${#strings.abbreviate(action.description,150)}"></p>
         <a class="boton_secundario color_verde" >AGREGAR RESULTADOS</a>
-        <a class="boton_secundario color_rojo_0" >EDITAR</a>
+        <a th:href="@{/action/update/{nAct}(nAct=${action.getNameAction()})}" class="boton_secundario color_rojo_0" >EDITAR</a>
         <a class="boton_secundario color_amarillo" >GESTIONAR PARTICIPANTES</a>
       </td>
       </tr>
     </table>
+    <div>
+      <a th:href="@{/myInitiative/update/{nIni}(nIni=${session.nIni})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+    </div>
   </div>
   <div class="floater_right top_pinned">
     <a th:href="@{/action/add}" class="txt_sec2 color_verde boton_principal">NUEVA ACCION</a>

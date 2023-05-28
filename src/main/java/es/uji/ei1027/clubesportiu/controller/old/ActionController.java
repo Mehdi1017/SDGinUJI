@@ -127,6 +127,31 @@ public class ActionController {
         return "action/list";
     }
 
+    @RequestMapping(value="/update/{nAct}", method = RequestMethod.GET)
+    public String editAction(Model model, HttpSession session, @PathVariable String nAct) {
+
+        String nIni = (String) session.getAttribute("nIni");
+        Action action = actionDao.getAction(nAct, nIni);
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null){
+            session.setAttribute("nextUrl", "/myInitiative/list");
+            return "redirect:/login";
+        }
+
+
+        model.addAttribute("CONTENT_TITLE","Editando una Accion 📝"); // page data
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        Initiative initiative = initiativeDao.getInitiative(nIni);
+        session.setAttribute("tmp_initiative", initiative);
+
+        model.addAttribute("targList", targetDao.getTargetByOds(initiative.getNameOds()));  // needed data
+
+        model.addAttribute("action", action);
+        session.setAttribute("nextUrl", "/action/update/"+nAct);
+        return "action/update";
+    }
+
 //    // -----------------------------------------------------------------------------------------------------------------
 //    // -----------------------------------------------------------------------------------------------------------------
 
