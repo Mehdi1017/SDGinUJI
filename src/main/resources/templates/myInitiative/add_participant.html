@@ -46,7 +46,7 @@
 
 </table>
 </form>
-  <a th:href="@{/myInitiative/list}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+  <a th:href="@{{caden}(caden=${session.get('prevUrl') == null ? '/myInitiative/list' : session.get('prevUrl2')})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
 
 </div>
 </body>
