@@ -58,7 +58,7 @@
     </div>
     <a th:href="@{/initiative/update/{nom}(nom=${initiative.getNameIni()})}" class="txt_sec2 color_azul_0 boton_principal">Modificar Iniciativa</a>
     <a th:href="@{/initiative/delete/{nom}(nom=${initiative.getNameIni()})}" class="txt_sec2 color_rojo_0 boton_principal">Eliminar Iniciativa</a>
-    <a th:href="@{/initiative/list}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+    <a th:href="@{{path}(path=*{session.get('prevUrl') != null ? session.get('prevUrl') : '/initiative/list' })}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
 
 
 
