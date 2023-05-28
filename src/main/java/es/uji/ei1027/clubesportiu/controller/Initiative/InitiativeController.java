@@ -4,6 +4,7 @@ import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 
 import es.uji.ei1027.clubesportiu.model.UserDetails;
+import es.uji.ei1027.clubesportiu.services.InitiativeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class InitiativeController {
     private InitiativeDao initiativeDao;
 
     @Autowired
+    private InitiativeFilter iniFilter;
+
+    @Autowired
     public void setInitiativeDao(InitiativeDao initiativeDao) {
         this.initiativeDao = initiativeDao;
     }
@@ -36,19 +40,30 @@ public class InitiativeController {
 
     @RequestMapping("/list")
     public String listInitiative(Model model, HttpSession session) {
-        model.addAttribute("CONTENT_TITLE","Viendo las Iniciativas");
+        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
-        model.addAttribute("allInitiative", initiativeDao.getAllInitiative());
+        model.addAttribute("allInitiative", initiativeDao.getAllActualInitiative());
+        return "Initiative/list_no_filters";
 
-        UserDetails usuario = (UserDetails) session.getAttribute("user");
-        if (usuario == null) {
-            return "Initiative/list_public";
-        } else if (!usuario.isAdmin()){
-            return "Initiative/list_user";
-        } else {
-            return "Initiative/list_staff";
-        }
+    }
+    @RequestMapping("/list/by-ods")
+    public String listInitiativeByOds(Model model, HttpSession session) {
+        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por SDG");
+        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+
+        model.addAttribute("allInitiative", iniFilter.getActualInitiativesByODS());
+        return "Initiative/list_by_ods";
+
+    }
+    @RequestMapping("/list/by-target")
+    public String listInitiativeByTarget(Model model, HttpSession session) {
+        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por Target");
+        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+
+        model.addAttribute("allInitiative", iniFilter.getActualInitiativesByTarget());
+        return "Initiative/list_by_target";
+
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------

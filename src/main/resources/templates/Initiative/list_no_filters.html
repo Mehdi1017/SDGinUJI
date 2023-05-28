@@ -9,6 +9,13 @@
 </head>
 <body>
 <div layout:fragment="content">
+  <p>
+    <a th:href="@{/initiative/list}" class="txt_sec2 color_rojo_0 boton_principal">No filtrar</a>
+    <a th:href="@{/initiative/list/by-ods}" class="txt_sec2 color_verde boton_principal">Filtrar por SDG</a>
+    <a th:href="@{/initiative/list/by-target}" class="txt_sec2 color_azul_0 boton_principal">Filtrar por Targets</a>
+    <br>
+  </p>
+
   <div class="centered_text" th:if="${allInitiative.isEmpty()}">
     <p class="txt"><b>No hay Iniciativas</b></p>
   </div>

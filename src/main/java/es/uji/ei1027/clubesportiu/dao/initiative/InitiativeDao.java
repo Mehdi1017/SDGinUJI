@@ -62,6 +62,17 @@ public class InitiativeDao {
         }
     }
 
+    public List<Initiative> getAllActualInitiative() {
+        try {
+            return jdbcTemplate.query(
+                    "SELECT * FROM initiative WHERE stat = 'Approved'",
+                    new InitiativeRowMapper());
+        }
+        catch(EmptyResultDataAccessException e) {
+            return new ArrayList<Initiative>();
+        }
+    }
+
     public List<Initiative> getPendingInitiatives() {
         try {
             return jdbcTemplate.query(
