@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>EI1027 - ODS Project</title>
+    <meta charset="UTF-8"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+    <p>
+        <a class="boton_principal color_azul_0" th:href="@{/InitiativeBackOffice/list}">Ordenar por SDG</a>
+        <a class="boton_principal color_amarillo" th:href="@{/area}">Volver Atrás</a>
+    </p>
+
+    <div class="centered_text" th:if="${allInitiative.isEmpty()}">
+        <p class="txt"><b>No hay Iniciativas</b></p>
+    </div>
+
+    <div th:unless="${allInitiative.isEmpty()}" th:each="iniciativas: ${allInitiative.keySet()}">
+        <div th:unless="${allInitiative.get(iniciativas).isEmpty()}">
+            <h4  th:text="${allInitiative.get(iniciativas).get(0).nameOds +' - '+ iniciativas}"></h4>
+
+            <table class="table " >
+                <tr th:each="initiative: ${allInitiative.get(iniciativas)}"><td>
+                    <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/initiative/view/{nIni}/(nIni=${initiative.getNameIni()})}"></a> <br>
+                    <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
+                    <a class="boton_secundario color_verde" th:href="@{/InitiativeBackOffice/confirm/accept/{nom}(nom=${initiative.getNameIni()})}">Aceptar</a>
+                    <a class="boton_secundario color_rojo_0" th:href="@{/InitiativeBackOffice/confirm/reject/{nom}(nom=${initiative.getNameIni()})}">Rechazar</a>
+                </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

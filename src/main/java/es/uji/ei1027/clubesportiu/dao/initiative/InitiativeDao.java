@@ -137,7 +137,7 @@ public class InitiativeDao {
                             "       description = ? ," +
                             "       startDate = ? ," +
                             "       enddate = ? ," +
-                            "       stat = 'Approved'," +
+                            "       stat = CAST(? AS stat_enum)," +
                             "       lastmodified = ? ," +
                             "       progress = ? ," +
                             "       mail = ? ," +
@@ -148,6 +148,7 @@ public class InitiativeDao {
                     initiative.getDescription(),
                     initiative.getStartDate(),
                     initiative.getEndDate(),
+                    initiative.getStat(),
                     LocalDate.now(),
                     initiative.getProgress(),
                     initiative.getMail(),
