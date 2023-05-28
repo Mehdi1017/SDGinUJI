@@ -20,22 +20,30 @@
       </td>
     </tr>
   </table>
+
 <form action="#" th:action="@{/initiative_participation/addParticipant}"
       th:object="${participation}" method="post">
 <table class="txt floater_wrapper centered_h">
+
+
   <tr><td class="txt txt_right_align align_top"><b>Añadir participante:   </b></td></tr>
+
   <tr>
     <td class="txt txt_right_align align_top"><label>mail:</label></td>
     <td><input type="text" th:field="*{mail}" maxlength="50" required/></td>
     <td class="txt_error" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></td>
   </tr>
+
   <tr>
     <td class="txt txt_right_align align_top"><label>Fecha de comienzo de actividad: </label></td>
     <td><input type="text" th:field="*{startDate}" maxlength="50" required/></td>
   </tr>
+
   <tr class="centered_text">
     <td colspan="2"><input class="txt boton_principal color_verde" type="submit" value="AÑADIR" /></td>
   </tr>
+
+
 </table>
 </form>
   <a th:href="@{/myInitiative/list}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>

@@ -55,7 +55,7 @@ public class InitiativeParticipationController {
     @RequestMapping(value="/addParticipant", method = RequestMethod.POST)
     public String processAddParticipantSubmit(
             Model model, HttpSession session,
-            @ModelAttribute("partcipation") InitiativeParticipation participation,// RETRIEVE MODEL ATTRIBUTE
+            @ModelAttribute("participation") InitiativeParticipation participation,// RETRIEVE MODEL ATTRIBUTE
             BindingResult bindingResult) {
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
@@ -73,7 +73,13 @@ public class InitiativeParticipationController {
         validator.validate(participation, bindingResult);
 
         if (bindingResult.hasErrors()){
-            setAtributes(model, session);
+            model.addAttribute("nInitiative", this.nInitiative);
+            model.addAttribute("particpants", this.initiativeParticipationDao.getAllInitiativeParticipations(nInitiative));
+            model.addAttribute("CONTENT_TITLE", "Gestionando participantes");
+            model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+            System.out.println("[InitiPartController] Llama porque hay error en bindingResult");
+            System.out.println("[InitiPartController] Errores: " + bindingResult.getAllErrors());
             return "myInitiative/add_participant"; // TRY AGAIN, HAD ERRORS
         }
 
