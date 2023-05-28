@@ -2,7 +2,6 @@ package es.uji.ei1027.clubesportiu.controller.Initiative;
 
 import es.uji.ei1027.clubesportiu.dao.initiative_participation.InitiativeParticipationDao;
 import es.uji.ei1027.clubesportiu.dao.uji_participant.UjiParticipantDao;
-import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.InitiativeParticipation;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,8 +77,6 @@ public class InitiativeParticipationController {
             model.addAttribute("CONTENT_TITLE", "Gestionando participantes");
             model.addAttribute("SELECTED_NAVBAR","Área privada");
 
-            System.out.println("[InitiPartController] Llama porque hay error en bindingResult");
-            System.out.println("[InitiPartController] Errores: " + bindingResult.getAllErrors());
             return "myInitiative/add_participant"; // TRY AGAIN, HAD ERRORS
         }
 

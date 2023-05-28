@@ -35,7 +35,6 @@ public class InitiativeParticiapantValidator implements Validator {
 
         if (participation.getMail().equals(owner)) {
             errors.rejectValue("mail", "erroneo", "El responsable no se puede inscribir como participante");
-            System.out.println("[InitPartValidator] mal - como owner");
             mail_error = true;
         }
 
