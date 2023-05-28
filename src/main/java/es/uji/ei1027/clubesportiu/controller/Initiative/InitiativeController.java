@@ -140,7 +140,7 @@ public String editInitiative(Model model,
     public String viewInitiative(Model model, HttpSession session,
                                  @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
         Initiative ini = initiativeDao.getInitiative(nInitiative);
-        ini.setActions(actionDao.getActions(ini));
+        ini.setActions(actionDao.getActions(ini.getNameIni()));
         model.addAttribute("initiative", ini);
         model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
