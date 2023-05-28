@@ -222,6 +222,7 @@ public class MyInitiativeController {
         model.addAttribute("CONTENT_TITLE", "Editando iniciativa 📝");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         model.addAttribute("odsList", odsDao.getAllOds());  // needed data
+        session.setAttribute("initiativeUpdate", nInitiative);
         session.setAttribute("nextUrl", "/myInitiative/update/"+nInitiative);// SET MODEL ATTRIBUTE
         return "myInitiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
     }
@@ -233,6 +234,8 @@ public class MyInitiativeController {
         model.addAttribute("SELECTED_NAVBAR","Área privada");
 
         // validate basic initiative data
+        String nIni = session.getAttribute("initiativeUpdate").toString();
+        initiative.setNameIni(nIni);
         InitiativeValidator initiativeValidator = new InitiativeValidator(initiativeDao.getAllInitiative());
         initiativeValidator.validate(initiative, bindingResult);
 

@@ -68,14 +68,15 @@ public class ActionDao {
 
     public void addActionn(Action action) {
         jdbcTemplate.update(
-                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?)",
+                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?, null, ?)",
                 action.getNameAction(),
                 action.getNameInitiative(),
                 action.getNameOds(),
                 action.getNameTarget(),
                 action.getCreationDate(),
                 action.getEndDate(),
-                action.getDescription());
+                action.getDescription(),
+                action.getResultados());
     }
 
 

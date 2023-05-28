@@ -169,6 +169,8 @@ public class ActionController {
 
         // validate new action
 
+        String nAct = session.getAttribute("nAct").toString();
+        action.setNameAction(nAct);
         ActionValidator actionValidator = new ActionValidator(initiative, session);
         actionValidator.validate(action, bindingResult);
 

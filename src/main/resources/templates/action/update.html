@@ -8,17 +8,12 @@
 </head>
 <body>
 <div layout:fragment="content">
-
+  <h4 class="centered_text" th:text="*{action.nameAction}"></h4>
 
 <form action="#" th:action="@{/action/update}"
       th:object="${action}" method="post">
   <table class="txt floater_wrapper centered_h">
 
-    <tr>
-      <td class="txt txt_right_align" ><label>Nombre de la accion:   </label></td>
-      <td><input type="text" th:field="*{nameAction}" maxlength="50" required/></td>
-      <span>  <span class="txt_error" th:if="${#fields.hasErrors('nameAction')}" th:errors="*{nameAction}"></span></span></td>
-    </tr>
     <tr>
       <td class="txt txt_right_align"><label>Target al que va dirigida:   </label></td>
       <td><select type="text" th:field="*{nameTarget}">

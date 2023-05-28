@@ -39,6 +39,7 @@ public class ActionValidator implements Validator {
             errors.rejectValue("endDate", "erroneo", "La fecha de fin no puede ser inferior ni igual a la de inicio");
 
         Object accion = session.getAttribute("nAct");
+        System.out.println(accion);
         if (accion == null || !accion.toString().equals(action.getNameAction())) {
             if (initiative.getActions() != null && !initiative.getActions().isEmpty()) {
                 for (Action action1 : initiative.getActions()) {
