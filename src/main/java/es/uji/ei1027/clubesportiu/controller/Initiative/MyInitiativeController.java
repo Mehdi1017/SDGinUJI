@@ -146,7 +146,7 @@ public class MyInitiativeController {
         }
 
         // validate new action
-        ActionValidator actionValidator = new ActionValidator(initiative);
+        ActionValidator actionValidator = new ActionValidator(initiative, session);
         actionValidator.validate(action, bindingResult);
 
         if (bindingResult.hasErrors()){

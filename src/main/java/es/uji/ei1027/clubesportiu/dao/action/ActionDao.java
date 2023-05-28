@@ -92,7 +92,7 @@ public class ActionDao {
                         "SET    name_ods = ? ," +
                         "name_targ = ? ," +
                         "creation_date = ? ," +
-                        "end_ate = ? ," +
+                        "end_date = ? ," +
                         "description = ? ," +
                         "resultados = ? ," +
                         "valoracion = ? ," +

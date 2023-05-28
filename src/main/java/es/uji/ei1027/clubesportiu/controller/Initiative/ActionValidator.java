@@ -5,15 +5,19 @@ import es.uji.ei1027.clubesportiu.model.Initiative;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
 public class ActionValidator implements Validator {
 
     private Initiative initiative;
+    private HttpSession session;
 
-    public ActionValidator(Initiative initiative) {
+    public ActionValidator(Initiative initiative, HttpSession session) {
+
         this.initiative = initiative;
+        this.session = session;
     }
 
     @Override
@@ -34,10 +38,13 @@ public class ActionValidator implements Validator {
         else if (action.getCreationDate().compareTo(action.getEndDate()) >= 0)
             errors.rejectValue("endDate", "erroneo", "La fecha de fin no puede ser inferior ni igual a la de inicio");
 
-        if (initiative.getActions() != null && !initiative.getActions().isEmpty()) {
-            for (Action action1 : initiative.getActions()) {
-                if (action1.getNameAction().trim().equals(action.getNameAction().trim()))
-                    errors.rejectValue("nameAction", "obligatori", "Nombre no correcto");
+        Object accion = session.getAttribute("nAct");
+        if (accion == null || !accion.toString().equals(action.getNameAction())) {
+            if (initiative.getActions() != null && !initiative.getActions().isEmpty()) {
+                for (Action action1 : initiative.getActions()) {
+                    if (action1.getNameAction().trim().equals(action.getNameAction().trim()))
+                        errors.rejectValue("nameAction", "obligatori", "Nombre no correcto");
+                }
             }
         }
     }

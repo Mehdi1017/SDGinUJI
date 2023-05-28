@@ -102,7 +102,7 @@ public class ActionController {
         model.addAttribute("SELECTED_NAVBAR","Área privada");
 
         // validate new action
-        ActionValidator actionValidator = new ActionValidator(initiative);
+        ActionValidator actionValidator = new ActionValidator(initiative, session);
         actionValidator.validate(action, bindingResult);
 
         if (bindingResult.hasErrors()){
@@ -128,7 +128,7 @@ public class ActionController {
     }
 
     @RequestMapping(value="/update/{nAct}", method = RequestMethod.GET)
-    public String editAction(Model model, HttpSession session, @PathVariable String nAct) {
+    public String updateAction(Model model, HttpSession session, @PathVariable String nAct) {
 
         String nIni = (String) session.getAttribute("nIni");
         Action action = actionDao.getAction(nAct, nIni);
@@ -149,7 +149,50 @@ public class ActionController {
 
         model.addAttribute("action", action);
         session.setAttribute("nextUrl", "/action/update/"+nAct);
+        session.setAttribute("nAct", nAct);
         return "action/update";
+    }
+
+    @RequestMapping(value="/update", method = RequestMethod.POST)
+    public String processUpdateSubmit(
+            @ModelAttribute("action") Action action,
+            @SessionAttribute("tmp_initiative") Initiative initiative,
+            BindingResult bindingResult, Model model, HttpSession session) {
+
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null){
+            session.setAttribute("nextUrl", "/myInitiative/list");
+            return "redirect:/login";
+        }
+
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        // validate new action
+
+        ActionValidator actionValidator = new ActionValidator(initiative, session);
+        actionValidator.validate(action, bindingResult);
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("CONTENT_TITLE","Editando una Accion 📝");
+            model.addAttribute("SELECTED_NAVBAR","Área privada");
+            model.addAttribute("targList", targetDao.getTargetByOds(initiative.getNameOds()));  // needed data
+            session.setAttribute("action", action);
+            session.setAttribute("nextUrl", "/action/update/"+session.getAttribute("nAct").toString());
+            return "action/update";
+        }
+
+        // complete & add action to persistent initiative
+        action.setNameInitiative(initiative.getNameIni());
+        action.setNameOds(initiative.getNameOds());
+        actionDao.updateAction(action);
+
+        model.addAttribute("CONTENT_TITLE","Mostrando Acciones 📋");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        String nIni = initiative.getNameIni();
+        model.addAttribute("actions", actionDao.getActions(nIni));
+        session.setAttribute("nIni", nIni);
+
+        return "action/list";
     }
 
 //    // -----------------------------------------------------------------------------------------------------------------
