@@ -9,7 +9,6 @@
 <body>
 <div layout:fragment="content">
 
-<!--  name_act | name_ini | name_ods | name_targ | creation_date | end_date | description | progress | resultados | valoracion-->
   <div class="floater_wrapper">
 
     <div class="floater_left">
@@ -49,8 +48,8 @@
         <div th:if="*{!session.tmp_initiative.getActions().isEmpty()}">
           <div th:each="action : *{session.tmp_initiative.getActions()}" class="r_border added_bottom_spacing">
             <br><b>Accion:</b><span th:text="*{action.nameAction}"></span>
-            <br><b>Ini:</b><span th:text="*{action.nameInitiative}"></span>  <span>REMOVE</span>
-            <br><b>SDG:</b><span th:text="*{action.nameOds}"></span>  <span>REMOVE</span>
+<!--            <br><b>Ini:</b><span th:text="*{action.nameInitiative}"></span>  <span>REMOVE</span>-->
+<!--            <br><b>SDG:</b><span th:text="*{action.nameOds}"></span>  <span>REMOVE</span>-->
             <br><b>Target:</b><span th:text="*{action.nameTarget}"></span>
             <br><b>Fecha Inicio:</b><span th:text="*{action.creationDate}" ></span>
             <br><b>Fecha fin:</b><span  th:text="*{action.endDate}" ></span>

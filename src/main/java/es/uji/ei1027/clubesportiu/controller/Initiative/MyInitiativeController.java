@@ -119,7 +119,7 @@ public class MyInitiativeController {
         model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
 
-        model.addAttribute("targList", targetDao.getAllTarget());  // needed data
+        model.addAttribute("targList", targetDao.getTargetByOds(initiative.getNameOds()));  // needed data
 
         model.addAttribute("action", new Action());
 
@@ -144,7 +144,7 @@ public class MyInitiativeController {
         if (bindingResult.hasErrors()){
             model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
             model.addAttribute("SELECTED_NAVBAR","Área privada");
-            model.addAttribute("targList", targetDao.getAllTarget());  // needed data
+            model.addAttribute("targList", targetDao.getTargetByOds(initiative.getNameOds()));  // needed data
             session.setAttribute("tmp_initiative", initiative);
             return "myInitiative/addAction";
         }
@@ -180,15 +180,19 @@ public class MyInitiativeController {
         if (initiative.getActions().isEmpty()) {
             model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añade al menos Una Acción ❌");
             model.addAttribute("SELECTED_NAVBAR","Área privada");
-            model.addAttribute("targList", targetDao.getAllTarget());  // needed data
+            model.addAttribute("targList", targetDao.getTargetByOds(initiative.getNameOds()));  // needed data
             session.setAttribute("tmp_initiative", initiative);
             model.addAttribute("action", new Action());
             return "myInitiative/addAction";
         }
 
-        // save initiative & actions
+        // save initiative & prepare and save actions
         initiativeDao.addInitiative(initiative);
-        for (Action action : initiative.getActions()) actionDao.addActionn(action);
+        for (Action action : initiative.getActions()) {
+            action.setNameInitiative(initiative.getNameIni());
+            action.setNameOds(initiative.getNameOds());
+            actionDao.addActionn(action);
+        }
 
         // prepare & redirect to feedback template
         model.addAttribute("CONTENT_TITLE","Iniciativa Enviada! 😁📤");
@@ -213,7 +217,7 @@ public class MyInitiativeController {
         model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
 
-        model.addAttribute("targList", targetDao.getAllTarget());  // needed data
+        model.addAttribute("targList", targetDao.getTargetByOds(initiative.getNameOds()));  // needed data
 
         model.addAttribute("action", new Action());
 
