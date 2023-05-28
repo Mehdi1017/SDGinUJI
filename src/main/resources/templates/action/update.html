@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+  <h4 class="centered_text" th:text="*{action.nameAction}"></h4>
+
+<form action="#" th:action="@{/action/update}"
+      th:object="${action}" method="post">
+  <table class="txt floater_wrapper centered_h">
+
+    <tr>
+      <td class="txt txt_right_align"><label>Target al que va dirigida:   </label></td>
+      <td><select type="text" th:field="*{nameTarget}">
+        <option class="txt_sec2 bold"
+                th:each="target : ${targList}"
+                th:value="${target.nameTarg}"
+                th:text="${target.nameTarg}">
+        </option></select>
+      </td>
+    </tr>
+    <tr>
+      <td class="txt txt_right_align" ><label>Fecha de inicio:   </label></td>
+      <td><input type="text" th:field="*{creationDate}" required/>
+        <span>  <span class="txt_error" th:if="${#fields.hasErrors('creationDate')}" th:errors="*{creationDate}"></span></span>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="txt txt_right_align" ><label>Fecha de finalización:   </label></td>
+      <td><input type="text" th:field="*{endDate}" required/>
+        <span>  <span class="txt_error" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></span></span></td>
+    </tr>
+
+    <tr>
+      <td class="txt txt_right_align align_top"><label>Descripción Breve:   </label></td>
+      <td><textarea class="txt_sec" th:field="*{description}" rows="6" cols="50" maxlength="500" required></textarea></td>
+    </tr>
+
+    <tr>
+      <td class="txt txt_right_align align_top"><label>Resultados Esperados:   </label></td>
+      <td><textarea class="txt_sec" th:field="*{resultados}" rows="10" cols="50" maxlength="10000" required></textarea></td>
+    </tr>
+    <tr>
+    <tr>
+      <td class="txt txt_right_align align_top"><label>Progreso:   </label></td>
+      <td><textarea class="txt_sec" th:field="*{progress}" rows="10" cols="50" maxlength="10000"></textarea></td>
+    </tr>
+    <tr>
+
+    <tr class="centered_text">
+      <td colspan="2"><input class="txt boton_principal color_verde" type="submit" value="GUARDAR" /></td>
+    </tr>
+
+  </table>
+</form>
+  <a th:href="@{/action/list/{nIni}(nIni=${session.nIni})}" class="txt_sec2 color_amarillo boton_principal">Cancelar</a>
+
+</div>
+</body>
+</html>

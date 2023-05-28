@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+
+
+<div class="floater_wrapper">
+  <div class="floater_left table_principal_0">
+    <div th:if="${actions.isEmpty()}">
+      <p class="txt"><b>No tienes acciones 🥺☠</b></p>
+    </div>
+    <table class="table" th:each="action: ${actions}" th:object="${session}">
+      <tr><td>
+        <a class="txt" th:text="${action.nameAction}"></a>
+        <p class="txt-sec" th:text="${#strings.abbreviate(action.description,150)}"></p>
+        <a class="boton_secundario color_verde" >AGREGAR RESULTADOS</a>
+        <a th:href="@{/action/update/{nAct}(nAct=${action.getNameAction()})}" class="boton_secundario color_rojo_0" >EDITAR</a>
+        <a class="boton_secundario color_amarillo" >GESTIONAR PARTICIPANTES</a>
+      </td>
+      </tr>
+    </table>
+    <div>
+      <a th:href="@{/myInitiative/update/{nIni}(nIni=${session.nIni})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+    </div>
+  </div>
+  <div class="floater_right top_pinned">
+    <a th:href="@{/action/add}" class="txt_sec2 color_verde boton_principal">NUEVA ACCION</a>
+  </div>
+</div>
+
+
+</div>
+</body>
+</html>
+

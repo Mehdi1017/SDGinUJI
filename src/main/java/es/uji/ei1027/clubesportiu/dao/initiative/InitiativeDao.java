@@ -131,7 +131,7 @@ public class InitiativeDao {
      //-----------------------------------------------------------------------------------------------------------------
      //TODO update
         public void updateInitiative(Initiative initiative) {
-            System.out.println(initiative.getMail()+initiative.getResultados()+ initiative.getNameIni());
+            //System.out.println(initiative.getMail()+initiative.getResultados()+ initiative.getNameIni());
             jdbcTemplate.update("UPDATE initiative " +
                             "SET " +
                             "       description = ? ," +

@@ -8,17 +8,14 @@
 </head>
 <body>
 <div layout:fragment="content">
-
+  <h4 class="centered_text" th:text="*{initiative.nameIni}"></h4>
+  <div class="floater_right top_pinned">
+    <a th:href="@{/action/list/{nIni}(nIni=${initiative.getNameIni()})}" class="txt_sec2 color_azul_0 boton_principal">Acciones</a>
+  </div>
 
   <form action="#" th:action="@{/myInitiative/update}"
         th:object="${initiative}" method="post">
     <table class="txt floater_wrapper centered_h">
-
-      <tr>
-        <td class="txt txt_right_align" ><label>Nombre de la iniciativa:   </label></td>
-        <td><input type="text" th:field="*{nameIni}" maxlength="50" required/></td>
-        <td class="txt_error" th:if="${#fields.hasErrors('nameIni')}" th:errors="*{nameIni}"></td>
-      </tr>
 
       <tr>
         <td class="txt txt_right_align" ><label>Fecha de inicio:   </label></td>
@@ -57,7 +54,7 @@
       </tr>
       <tr>
         <td class="txt txt_right_align align_top"><label>Progreso:   </label></td>
-        <td><textarea th:field="*{progress}" rows="5" cols="50" maxlength="500" required></textarea></td>
+        <td><textarea th:field="*{progress}" rows="5" cols="50" maxlength="500"></textarea></td>
       </tr>
 
       <tr class="centered_text">

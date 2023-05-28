@@ -50,12 +50,12 @@ public class ActionDao {
         }
     }
 
-    public List<Action> getActions(Initiative initiative) {
+    public List<Action> getActions(String nIni) {
         try {
             return jdbcTemplate.query(
                     "SELECT * FROM Action WHERE name_ini = ?",
                     new ActionRowMapper(),
-                    initiative.getNameIni());
+                    nIni);
         }
         catch(EmptyResultDataAccessException e) {
             return new ArrayList<>();
@@ -68,14 +68,15 @@ public class ActionDao {
 
     public void addActionn(Action action) {
         jdbcTemplate.update(
-                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?)",
+                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?, null, ?)",
                 action.getNameAction(),
                 action.getNameInitiative(),
                 action.getNameOds(),
                 action.getNameTarget(),
                 action.getCreationDate(),
                 action.getEndDate(),
-                action.getDescription());
+                action.getDescription(),
+                action.getResultados());
     }
 
 
@@ -92,7 +93,7 @@ public class ActionDao {
                         "SET    name_ods = ? ," +
                         "name_targ = ? ," +
                         "creation_date = ? ," +
-                        "end_ate = ? ," +
+                        "end_date = ? ," +
                         "description = ? ," +
                         "resultados = ? ," +
                         "valoracion = ? ," +
