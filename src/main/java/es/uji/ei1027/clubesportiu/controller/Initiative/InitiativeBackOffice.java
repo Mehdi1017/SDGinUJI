@@ -1,6 +1,7 @@
 package es.uji.ei1027.clubesportiu.controller.Initiative;
 
 import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
+import es.uji.ei1027.clubesportiu.external_services.MailManager;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,12 @@ public class InitiativeBackOffice {
     // -----------------------------------------------------------------------------------------------------------------
 
     private InitiativeDao initiativeDao;
+    private MailManager mailManager;
 
+    @Autowired
+    public void setMailManager(MailManager mailmanager){
+        this.mailManager = mailmanager;
+    }
 
     @Autowired
     public void setInitiativeDao(InitiativeDao initiativeDao) {
@@ -53,6 +59,7 @@ public class InitiativeBackOffice {
             session.setAttribute("nextUrl", "/area");
             return "redirect:/login";
         }
+        mailManager.sendMail(iniciativa.getMail(),"Propuesta de Iniciativa aceptada","Su iniciativa: "+iniciativa.getNameIni() + "ha sido aceptada. \nJuntos hacemos un mundo mejor");
 
         iniciativa.setStat("Approved");
         initiativeDao.updateInitiative(iniciativa);
@@ -74,6 +81,8 @@ public class InitiativeBackOffice {
 
         iniciativa.setStat("Rejected");
         initiativeDao.updateInitiative(iniciativa);
+
+        mailManager.sendMail(iniciativa.getMail(),"Propuesta de Iniciativa rechazada","Su iniciativa: "+iniciativa.getNameIni() + "ha sido rechazada. \nEsperamos que la próxima vez tengas mas suerte");
 
         model.addAttribute("CONTENT_TITLE","Iniciativa Rechazada");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
