@@ -8,6 +8,7 @@ import es.uji.ei1027.clubesportiu.dao.target.TargetDao;
 import es.uji.ei1027.clubesportiu.dao.uji_participant.UjiParticipantDao;
 import es.uji.ei1027.clubesportiu.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -62,6 +63,7 @@ public class MyInitiativeController {
         return "myInitiative/list";
     }
 
+    // ADD (3 STEPS - add form - send add + addAction form - save complete initiative)
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -79,11 +81,11 @@ public class MyInitiativeController {
 
         model.addAttribute("odsList", odsDao.getAllOds());  // needed data
 
-        model.addAttribute("initiative", new Initiative());  // data to fill
-        model.addAttribute("action", new Action());
+        if (session.getAttribute("tmp_initiative") != null)
+            model.addAttribute("initiative", session.getAttribute("tmp_initiative"));
 
-//        System.out.println("Ejecuta add controller");
-
+        else
+            model.addAttribute("initiative", new Initiative());  // data to fill
         return "myInitiative/add";
     }
 
@@ -107,17 +109,11 @@ public class MyInitiativeController {
             return "myInitiative/add";
         }
 
-//        // validate actions - inside initiative
-//        if (initiative.getActions().isEmpty()) {
-//            model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
-//            model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝 - Faltan Acciones");
-//            return "myInitiative/add";
-//        }
-
-        // complete initiative with user
+        // complete initiative with user & prev actions if exists
         initiative.setMail(usuario.getMail());
+        if (session.getAttribute("tmp_initiative") != null) initiative.setActions(((Initiative) session.getAttribute("tmp_initiative")).getActions());
 
-        // set initiative as session parameter for persistance
+        // set initiative as session parameter for persistance | overwrite if existing
         session.setAttribute("tmp_initiative", initiative);
 
         // prepare model for action form page
@@ -127,9 +123,6 @@ public class MyInitiativeController {
         model.addAttribute("targList", targetDao.getAllTarget());  // needed data
 
         model.addAttribute("action", new Action());
-
-//        initiativeDao.addInitiative(initiative);
-//        model.addAttribute("CONTENT_TITLE","Iniciativa Enviada! 😁📤");
 
         // redirect to action creation - page with tmp info + form for action creation
         return "myInitiative/addAction";
@@ -206,10 +199,28 @@ public class MyInitiativeController {
         return "myInitiative/iniciativa_creada";
     }
 
-
+    // ADD FUNCTIONALITIES IN addAction Form
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
+    // delete, update action methods & edit init
+    @RequestMapping(value = "/deleteAction/{nAction}")
+    public String processDeleteAction(@PathVariable String nAction,
+                                      @SessionAttribute("tmp_initiative") Initiative initiative,
+                                      Model model) {
+        initiative.getActions().removeIf((action) -> action.getNameAction().equals(nAction));
+
+        // prepare model for action form page
+        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        model.addAttribute("targList", targetDao.getAllTarget());  // needed data
+
+        model.addAttribute("action", new Action());
+
+        // redirect to action creation - page with tmp info + form for action creation
+        return "myInitiative/addAction";
+    }
 
 
     // -----------------------------------------------------------------------------------------------------------------
