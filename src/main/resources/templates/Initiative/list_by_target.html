@@ -24,7 +24,7 @@
     </div>
 
     <div th:unless="${allInitiative.isEmpty()}" th:each="iniciativas: ${allInitiative.keySet()}">
-        <h4 th:text="${iniciativas}"></h4>
+        <h4 th:text="${allInitiative.get(iniciativas).get(0).nameOds +' - '+ iniciativas}"></h4>
 
         <table class="table " >
             <tr th:each="initiative: ${allInitiative.get(iniciativas)}"><td>
