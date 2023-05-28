@@ -1,5 +1,6 @@
 package es.uji.ei1027.clubesportiu.controller.Initiative;
 
+import es.uji.ei1027.clubesportiu.dao.action.ActionDao;
 import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 
@@ -26,6 +27,9 @@ public class InitiativeController {
     // -----------------------------------------------------------------------------------------------------------------
 
     private InitiativeDao initiativeDao;
+
+    @Autowired
+    private ActionDao actionDao;
 
     @Autowired
     private InitiativeFilter iniFilter;
@@ -136,6 +140,7 @@ public String editInitiative(Model model,
     public String viewInitiative(Model model, HttpSession session,
                                  @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
         Initiative ini = initiativeDao.getInitiative(nInitiative);
+        ini.setActions(actionDao.getActions(ini));
         model.addAttribute("initiative", ini);
         model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
