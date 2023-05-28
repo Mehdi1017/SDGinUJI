@@ -56,7 +56,7 @@ public class InitiativeFilterImpl implements InitiativeFilter{
 
         for (Initiative ini : allInitiative){
 
-            for (Action a: actionDao.getActions(ini)){
+            for (Action a: actionDao.getActions(ini.getNameIni())){
                 List<Initiative> listaIni = InitiativesByTarget.computeIfAbsent(a.getNameTarget(), k -> new LinkedList<>());
 
                 if (ini.getStat().equals("Approved")){
@@ -95,7 +95,7 @@ public class InitiativeFilterImpl implements InitiativeFilter{
                 new HashMap<String,List<Initiative>>();
 
         for (Initiative ini : allInitiative){
-            for (Action a: actionDao.getActions(ini)){
+            for (Action a: actionDao.getActions(ini.getNameIni())){
                 List<Initiative> listaIni = InitiativesByTarget.computeIfAbsent(a.getNameTarget(), k -> new LinkedList<>());
 
                 if (ini.getStat().equals("Ended")){
