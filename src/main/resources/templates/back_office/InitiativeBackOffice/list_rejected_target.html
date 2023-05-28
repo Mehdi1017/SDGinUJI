@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title>EI1027 - ODS Project</title>
+    <meta charset="UTF-8"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+    <p>
+        <span class="txt">Visualizar: </span>
+        <a th:href="@{/initiative/list}" class="txt_sec2 color_verde boton_principal">SDG</a>
+        <a th:href="@{/initiative/list/ended}" class="txt_sec2 color_rojo_0 boton_principal">SDG finalizadas</a>
+
+        <a th:href="@{/initiative/list/by-target}" class="txt_sec2 color_verde boton_principal">Targets</a>
+        <a th:href="@{/initiative/list/by-target/ended}" class="txt_sec2 color_rojo_0 boton_principal">Targets finalizadas</a>
+        <br>
+    </p>
+
+    <div class="centered_text" th:if="${allInitiative.isEmpty()}">
+        <p class="txt"><b>No hay Iniciativas</b></p>
+    </div>
+
+    <div th:unless="${allInitiative.isEmpty()}" th:each="iniciativas: ${allInitiative.keySet()}">
+        <div th:unless="${allInitiative.get(iniciativas).isEmpty()}">
+        <h4  th:text="${allInitiative.get(iniciativas).get(0).nameOds +' - '+ iniciativas}"></h4>
+
+        <table class="table " >
+            <tr th:each="initiative: ${allInitiative.get(iniciativas)}"><td>
+                <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/initiative/view/{nIni}/(nIni=${initiative.getNameIni()})}"></a> <br>
+                <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
+            </td>
+            </tr>
+        </table>
+        </div>
+
+
+
+
+</body>
+</html>
