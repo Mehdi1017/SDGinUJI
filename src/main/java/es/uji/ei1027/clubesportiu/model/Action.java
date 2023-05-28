@@ -17,8 +17,16 @@ public class Action {
     private String progress;
     private String resultados;
     private String valoracion;
+    private String stat;
 
 
+    public String getStat() {
+        return stat;
+    }
+
+    public void setStat(String stat) {
+        this.stat = stat;
+    }
 
     public String getNameAction() {
         return nameAction;
@@ -93,6 +101,7 @@ public class Action {
                 ", nameTarget='" + nameTarget + '\'' +
                 ", creationDate=" + creationDate +
                 ", endDate=" + endDate +
+                ", stat=" + stat +
                 ", description='" + description + '\'' +
                 ", progress=" + progress +
                 '}';

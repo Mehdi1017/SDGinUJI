@@ -21,6 +21,7 @@ public class ActionRowMapper implements RowMapper<Action> {
         action.setProgress(rs.getString("progress"));
         action.setResultados(rs.getString("resultados"));
         action.setValoracion(rs.getString("valoracion"));
+        action.setStat(rs.getString("stat"));
         return action;
     }
 }
