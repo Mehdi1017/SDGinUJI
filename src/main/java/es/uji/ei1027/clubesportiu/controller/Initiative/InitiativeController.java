@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.util.UriUtils;
 
 import javax.servlet.http.HttpSession;
 
@@ -96,13 +97,14 @@ public String editInitiative(Model model,
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-    @RequestMapping(value="/view/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    @RequestMapping(value="/view/{nInitiative}")  // DEFINE MAPPIGN WITH PATH VARIABLE
     public String viewInitiative(Model model, HttpSession session,
                                  @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
-        model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));
+        Initiative ini = initiativeDao.getInitiative(nInitiative);
+        model.addAttribute("initiative", ini);
         model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
-        session.setAttribute("nextUrl", "/initiative/view/"+nInitiative);
+        session.setAttribute("nextUrl", "/initiative/view/"+ UriUtils.encodePath(nInitiative, "UTF-8"));
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null) {
