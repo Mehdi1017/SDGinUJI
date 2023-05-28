@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+  <title>EI1027 - ODS Project</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="content">
+  <h4 class="centered_text" th:text="${nAct}"></h4>
+  <h5 class="centered_text" >Participantes: </h5>
+  <div th:if="${particpants.isEmpty()}">
+    <p class="txt_sec centered_text"><b>No hay participantes 🥺☠</b></p>
+  </div>
+  <table class="txt centered_h floater_wrapper">
+    <tr th:each="participant: ${particpants}">
+      <td class="txt_right_align" th:text="${participant.mail}"></td>
+      <td>  <a th:href="@{/actionParticipation/delete/{mail}(mail=${participant.getMail()})}" class="txt_sec2 color_rojo_0 boton_secundario txt_right_align">Eliminar</a>
+      </td>
+    </tr>
+  </table>
+
+<form action="#" th:action="@{/actionParticipation/addParticipant}"
+      th:object="${participation}" method="post">
+<table class="txt floater_wrapper centered_h">
+
+
+  <tr><td class="txt txt_right_align align_top"><b>Añadir participante:   </b></td></tr>
+
+  <tr>
+    <td class="txt txt_right_align align_top"><label>mail:</label></td>
+    <td><input type="text" th:field="*{mail}" maxlength="50" required/></td>
+    <td class="txt_error" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></td>
+  </tr>
+
+  <tr>
+    <td class="txt txt_right_align align_top"><label>Fecha de comienzo de actividad: </label></td>
+    <td><input type="text" th:field="*{startDate}" maxlength="50" required/></td>
+  </tr>
+
+  <tr class="centered_text">
+    <td colspan="2"><input class="txt boton_principal color_verde" type="submit" value="AÑADIR" /></td>
+  </tr>
+
+
+</table>
+</form>
+  <a th:href="@{/action/list/{nIni}(nIni=${nIni})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+
+</div>
+</body>
+</html>
