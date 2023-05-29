@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +49,24 @@ public class SubscriptionDao {
         }
     }
 
-    public List<Subscription> getAllSubscriptionByMem(String mail) {
+    public List<Subscription> getAllActiveSubscriptionByMem(String mail) {
         try {
             return jdbcTemplate.query(
                     "SELECT * FROM subscription WHERE mail = ? AND enddate IS NULL",
                     new SubscriptionRowMapper(),
                     mail);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return new ArrayList<Subscription>();
+        }
+    }
+
+    public List<Subscription> getAllActiveSubscriptionByOds(String nOds) {
+        try {
+            return jdbcTemplate.query(
+                    "SELECT * FROM subscription WHERE name_ods = ? AND enddate IS NULL",
+                    new SubscriptionRowMapper(),
+                    nOds);
         }
         catch(EmptyResultDataAccessException e) {
             return new ArrayList<Subscription>();
@@ -96,6 +109,21 @@ public class SubscriptionDao {
                     subscription.getEndDate(),
                     subscription.getIdSub());
         }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public void endSubscription(String mail, String nameOds) {
+        jdbcTemplate.update("UPDATE subscription " +
+                        "SET    enddate = ?" +
+                        "WHERE  mail = ?" +
+                        "  AND  name_ods = ?" +
+                        "  AND  enddate IS NULL",
+                LocalDate.now().plusDays(1), // TODO remove just for tests... OR update db
+                mail,
+                nameOds);
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 

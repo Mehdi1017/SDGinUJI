@@ -1,8 +1,10 @@
 package es.uji.ei1027.clubesportiu.controller.Initiative;
 
 import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
+import es.uji.ei1027.clubesportiu.dao.subscription.SubscriptionDao;
 import es.uji.ei1027.clubesportiu.external_services.MailManager;
 import es.uji.ei1027.clubesportiu.model.Initiative;
+import es.uji.ei1027.clubesportiu.model.Subscription;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import es.uji.ei1027.clubesportiu.services.InitiativeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -22,6 +26,7 @@ public class InitiativeBackOffice {
     // -----------------------------------------------------------------------------------------------------------------
 
     private InitiativeDao initiativeDao;
+    private SubscriptionDao subscriptionDao;
     private MailManager mailManager;
     @Autowired
     private InitiativeFilter iniFilter;
@@ -34,6 +39,10 @@ public class InitiativeBackOffice {
     @Autowired
     public void setInitiativeDao(InitiativeDao initiativeDao) {
         this.initiativeDao = initiativeDao;
+    }
+    @Autowired
+    public void setSubscriptionDao(SubscriptionDao subscriptionDao) {
+        this.subscriptionDao = subscriptionDao;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -118,10 +127,19 @@ public class InitiativeBackOffice {
             session.setAttribute("nextUrl", "/area");
             return "redirect:/login";
         }
-        mailManager.sendMail(iniciativa.getMail(),"Propuesta de Iniciativa aceptada","Su iniciativa: "+iniciativa.getNameIni() + "ha sido aceptada. \nJuntos hacemos un mundo mejor");
 
         iniciativa.setStat("Approved");
         initiativeDao.updateInitiative(iniciativa);
+
+        // member && send mails to subscribers
+        mailManager.sendMail(iniciativa.getMail(),"Propuesta de Iniciativa aceptada","Su iniciativa: "+iniciativa.getNameIni() + "ha sido aceptada. \nJuntos hacemos un mundo mejor");
+        for (Subscription subscription : subscriptionDao.getAllActiveSubscriptionByOds(iniciativa.getNameOds()))
+            mailManager.sendMail(subscription.getMail(),
+                    "New initiative posted relative to " + iniciativa.getNameOds(),
+                    "Buenas tardes! \n" +
+                            "Una nueva iniciativa referente a tu ODS favorita " + iniciativa.getNameOds() + " ha sido publicada.\n" +
+                            "Si deseas consultar más información ya está disponible en nuestra página.\n" +
+                            "Un saludo.");
 
         model.addAttribute("CONTENT_TITLE","Iniciativa Aceptada");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
@@ -141,6 +159,7 @@ public class InitiativeBackOffice {
         iniciativa.setStat("Rejected");
         initiativeDao.updateInitiative(iniciativa);
 
+        // send mail to member
         mailManager.sendMail(iniciativa.getMail(),"Propuesta de Iniciativa rechazada","Su iniciativa: "+iniciativa.getNameIni() + "ha sido rechazada. \nEsperamos que la próxima vez tengas mas suerte");
 
         model.addAttribute("CONTENT_TITLE","Iniciativa Rechazada");
