@@ -293,8 +293,6 @@ public class MyInitiativeController {
     public String processAddResultSubmit(
             @ModelAttribute("updatedInitiative") Initiative updatedInitiative,// RETRIEVE MODEL ATTRIBUTE
             BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "myInitiative/addResult";    // TRY AGAIN, HAD ERRORS
 
         //System.out.println(initiative.getNameIni());
         initiative.setResultados(updatedInitiative.getResultados());

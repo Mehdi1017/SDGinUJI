@@ -143,7 +143,8 @@ public class InitiativeDao {
                             "       mail = ? ," +
                             "       name_ods = ?," +
                             "       motivacion = ?," +
-                            "       url = ?" +
+                            "       url = ?, " +
+                            "resultados = ? " +
                             "WHERE  name_ini = ? ",
                     initiative.getDescription(),
                     initiative.getStartDate(),
@@ -155,6 +156,7 @@ public class InitiativeDao {
                     initiative.getNameOds(),
                     initiative.getMotivacion(),
                     initiative.getUrl(),
+                    initiative.getResultados(),
                     initiative.getNameIni());
         }
      //-----------------------------------------------------------------------------------------------------------------
