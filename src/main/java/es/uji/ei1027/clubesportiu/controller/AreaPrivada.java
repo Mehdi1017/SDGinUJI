@@ -23,11 +23,11 @@ public class AreaPrivada {
 
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         if(!usuario.isAdmin()) {
-            model.addAttribute("CONTENT_TITLE", "Bienvenido " + nombre + " 😆");
+            model.addAttribute("CONTENT_TITLE", "Bienvenid@ " + nombre + " 😆");
             return "front_office/area_privada";
         }
         else {
-            model.addAttribute("CONTENT_TITLE", "Bienvenido " + nombre);
+            model.addAttribute("CONTENT_TITLE", "Bienvenid@ " + nombre);
             return "back_office/area_privada";
         }
     }
