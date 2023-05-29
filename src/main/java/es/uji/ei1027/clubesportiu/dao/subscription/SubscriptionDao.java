@@ -119,7 +119,7 @@ public class SubscriptionDao {
                         "WHERE  mail = ?" +
                         "  AND  name_ods = ?" +
                         "  AND  enddate IS NULL",
-                LocalDate.now().plusDays(1), // TODO remove just for tests... OR update db
+                LocalDate.now(),
                 mail,
                 nameOds);
     }
