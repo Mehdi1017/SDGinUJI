@@ -16,13 +16,14 @@
     <div th:if="${actions.isEmpty()}">
       <p class="txt"><b>No tienes acciones 🥺☠</b></p>
     </div>
-    <table class="table" th:each="action: ${actions}" th:object="${session}">
+    <table class="table" th:unless="${actions.isEmpty()}" th:each="action: ${actions}" th:object="${session}">
       <tr><td>
         <a class="txt" th:text="${action.nameAction}"></a>
+        <span class="txt" th:if="${action.stat == 'Ended'}"><b>(FINALIZADA)</b></span>
         <p class="txt-sec" th:text="${#strings.abbreviate(action.description,150)}"></p>
-        <a th:href="@{/action/addValoracion/{nAct}(nAct=${action.getNameAction()})}" class="boton_secundario color_verde" >AGREGAR VALORACION</a>
-        <a th:href="@{/action/update/{nAct}(nAct=${action.getNameAction()})}" class="boton_secundario color_rojo_0" >EDITAR</a>
-        <a th:href="@{/actionParticipation/addParticipant/{nAct}(nAct=${action.getNameAction()})}" class="boton_secundario color_amarillo" >GESTIONAR PARTICIPANTES</a>
+        <a th:href="@{/action/addValoracion/{nAct}(nAct=${action.getNameAction()})}" th:if="${action.stat == 'Approved'}" class="boton_secundario color_verde" >AGREGAR VALORACION</a>
+        <a th:href="@{/action/update/{nAct}(nAct=${action.getNameAction()})}" th:if="${action.stat == 'Approved'}" class="boton_secundario color_rojo_0" >EDITAR</a>
+        <a th:href="@{/actionParticipation/addParticipant/{nAct}(nAct=${action.getNameAction()})}" th:if="${action.stat == 'Approved'}" class="boton_secundario color_amarillo" >GESTIONAR PARTICIPANTES</a>
       </td>
       </tr>
     </table>
@@ -34,8 +35,6 @@
     <a th:href="@{/action/add}" class="txt_sec2 color_verde boton_principal">NUEVA ACCION</a>
   </div>
 </div>
-
-
 </div>
 </body>
 </html>
