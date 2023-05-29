@@ -21,9 +21,9 @@
 
         <h2><a th:text="${ods.getIndex() + '. '+ods.getNameOds()}" th:href="@{/view/{nombre}(nombre=${ods.nameOds})}"></a></h2>
         <div th:each="target: ${OdsByTarget.get(ods.getNameOds())}">
-            <h5 th:text="${target.getNameTarg()}" th:unless="${allInitiative.get(target.getNameTarg()) == null}"></h5>
+            <h5 th:text="${target.getNameTarg()}" th:unless="${allInitiative.get(target.getNameTarg()) == null || allInitiative.get(target.getNameTarg()).isEmpty() }"></h5>
 
-        <table class="table " th:unless="${allInitiative.get(target.getNameTarg()) == null}" >
+        <table class="table " th:unless="${allInitiative.get(target.getNameTarg()) == null || allInitiative.get(target.getNameTarg()).isEmpty() }" >
             <tr th:each="initiative: ${allInitiative.get(target.getNameTarg())}"><td>
                 <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/initiative/view/{nIni}/(nIni=${initiative.getNameIni()})}"></a> <br>
                 <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
