@@ -10,25 +10,21 @@
 <body>
 <div layout:fragment="content">
     <p>
-        <span class="txt">Visualizar por: </span>
-        <a th:href="@{/initiative/list}" class="txt_sec2 color_verde boton_principal">SDG</a>
-        <a th:href="@{/initiative/list/ended}" class="txt_sec2 color_rojo_0 boton_principal">SDG finalizadas</a>
-
-        <a th:href="@{/initiative/list/by-target}" class="txt_sec2 color_verde boton_principal">Targets</a>
-        <a th:href="@{/initiative/list/by-target/ended}" class="txt_sec2 color_rojo_0 boton_principal">Targets finalizadas</a>
+        <a th:href="@{/initiative/list/ended}" class="txt_sec2 color_azul_0 boton_principal">Ver Iniciativas Finalizadas</a>
         <br>
     </p>
 
     <div class="centered_text" th:if="${allInitiative.isEmpty()}">
         <p class="txt"><b>No hay Iniciativas</b></p>
     </div>
+    <div th:unless="${allInitiative.isEmpty()}" th:each="ods: ${allOds}">
 
-    <div th:unless="${allInitiative.isEmpty()}" th:each="iniciativas: ${allInitiative.keySet()}">
-        <div th:unless="${allInitiative.get(iniciativas).isEmpty()}">
-        <h4  th:text="${allInitiative.get(iniciativas).get(0).nameOds +' - '+ iniciativas}"></h4>
+        <h2><a th:text="${ods.getIndex() + '. '+ods.getNameOds()}" th:href="@{/view/{nombre}(nombre=${ods.nameOds})}"></a></h2>
+        <div th:each="target: ${OdsByTarget.get(ods.getNameOds())}">
+            <h5 th:text="${target.getNameTarg()}" th:unless="${allInitiative.get(target.getNameTarg()) == null}"></h5>
 
-        <table class="table " >
-            <tr th:each="initiative: ${allInitiative.get(iniciativas)}"><td>
+        <table class="table " th:unless="${allInitiative.get(target.getNameTarg()) == null}" >
+            <tr th:each="initiative: ${allInitiative.get(target.getNameTarg())}"><td>
                 <a class="txt spaced_txt" th:text="${initiative.nameIni}" th:href="@{/initiative/view/{nIni}/(nIni=${initiative.getNameIni()})}"></a> <br>
                 <span class="txt_sec spaced_txt" th:text="${#strings.abbreviate(initiative.description,150)}"></span> <br>
             </td>
