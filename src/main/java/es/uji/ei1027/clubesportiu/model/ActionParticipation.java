@@ -9,9 +9,9 @@ public class ActionParticipation {
     private String nameIni  ;
     private String mail;
     private StatEnum stat;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
     private String commentary;
 

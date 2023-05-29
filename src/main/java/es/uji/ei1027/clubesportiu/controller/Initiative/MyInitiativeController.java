@@ -93,10 +93,12 @@ public class MyInitiativeController {
     // retrieve initial form values - save persistent model data - redirect to action creation form
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddInitiative(@ModelAttribute("initiative") Initiative initiative,
-                                   BindingResult bindingResult, Model model, HttpSession session) {
+                                       BindingResult bindingResult, Model model, HttpSession session) {
         if (validateUser(session) != null) return validateUser(session);
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
+
+        System.out.println("[myIni Controller]" + initiative);
 
         // validate basic initiative data
         InitiativeValidator initiativeValidator = new InitiativeValidator(initiativeDao.getAllInitiative());

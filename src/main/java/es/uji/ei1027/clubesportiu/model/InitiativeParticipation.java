@@ -8,12 +8,12 @@ public class InitiativeParticipation {
     private String mail;
     private String nameIni;
     private String requestMessage;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate creationDate;
     private String stat;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
 
     public InitiativeParticipation() {

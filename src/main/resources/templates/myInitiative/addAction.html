@@ -83,7 +83,7 @@
 
           <tr>
             <td class="txt txt_right_align" ><label>Nombre de la accion:   </label></td>
-            <td><input type="text" th:field="*{nameAction}" maxlength="50" required/>
+            <td><input class="long_txt_input" type="text" th:field="*{nameAction}" maxlength="50" required/>
               <span>  <span class="txt_error" th:if="${#fields.hasErrors('nameAction')}" th:errors="*{nameAction}"></span></span></td>
           </tr>
 
@@ -100,14 +100,14 @@
 
           <tr>
             <td class="txt txt_right_align" ><label>Fecha de inicio:   </label></td>
-            <td><input type="text" th:field="*{creationDate}" required/>
+            <td><input type="date" th:field="*{creationDate}" required/>
               <span>  <span class="txt_error" th:if="${#fields.hasErrors('creationDate')}" th:errors="*{creationDate}"></span></span>
             </td>
           </tr>
 
           <tr>
             <td class="txt txt_right_align" ><label>Fecha de finalización:   </label></td>
-            <td><input type="text" th:field="*{endDate}" required/>
+            <td><input type="date" th:field="*{endDate}" required/>
               <span>  <span class="txt_error" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></span></span></td>
           </tr>
 
