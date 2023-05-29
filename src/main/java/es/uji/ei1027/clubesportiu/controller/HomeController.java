@@ -81,7 +81,7 @@ public class HomeController {
         model.addAttribute("ods", ods);  // SET MODEL ATTRIBUTE
 
         //session.setAttribute("prevURL","/view/"+nOds);
-        session.setAttribute("nextUrl", "/view/"+nOds);
+        session.setAttribute("nOds", nOds);
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {

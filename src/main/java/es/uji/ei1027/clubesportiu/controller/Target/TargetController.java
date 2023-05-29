@@ -114,6 +114,7 @@ public class TargetController {
         model.addAttribute("allTarget", targetDao.getTargetByOds(target.getNameOds()));
         // model.addAttribute("ods",nODS);
         model.addAttribute("CONTENT_TITLE", "Viendo Targets");
+        model.addAttribute("nODS", target.getNameOds());
         return "targets/list_staff";
     }
 
