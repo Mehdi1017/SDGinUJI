@@ -12,6 +12,8 @@
 
 <form action="#" th:action="@{/action/update}"
       th:object="${action}" method="post">
+  <input type="hidden" th:field="*{stat}" th:value="${stat}"/>
+
   <table class="txt floater_wrapper centered_h">
 
     <tr>

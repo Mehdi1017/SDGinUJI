@@ -98,7 +98,7 @@ public class ActionDao {
                         "description = ? ," +
                         "resultados = ? ," +
                         "valoracion = ? ," +
-                        "stat = ? ," +
+                        "stat = CAST(? AS stat_enum) ," +
                         "progress = ? " +
                         "WHERE  name_act = ?",
                 action.getNameOds(),
