@@ -69,7 +69,7 @@ public class ActionDao {
 
     public void addActionn(Action action) {
         jdbcTemplate.update(
-                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?, null, 'Approved',?)",
+                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?, null, ?, null, 'Approved')",
                 action.getNameAction(),
                 action.getNameInitiative(),
                 action.getNameOds(),
@@ -77,7 +77,6 @@ public class ActionDao {
                 LocalDate.now(),
                 action.getEndDate(),
                 action.getDescription(),
-                action.getStat(),
                 action.getResultados());
     }
 
