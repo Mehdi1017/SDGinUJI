@@ -19,9 +19,9 @@
     </div>
     <div th:unless="${allInitiative.isEmpty()}" th:each="ods: ${allOds}">
 
-        <h2><a th:text="${ods.getIndex() + '. '+ods.getNameOds()}" th:href="@{/view/{nombre}(nombre=${ods.nameOds})}"></a></h2>
+        <h6><a th:text="${ods.getIndex() + '. '+ods.getNameOds()}" th:href="@{/view/{nombre}(nombre=${ods.nameOds})}"></a></h6>
         <div th:each="target: ${OdsByTarget.get(ods.getNameOds())}">
-            <h5 th:text="${target.getNameTarg()}" th:unless="${allInitiative.get(target.getNameTarg()) == null}"></h5>
+            <h8 th:text="${target.getNameTarg()}" th:unless="${allInitiative.get(target.getNameTarg()) == null}"></h8>
 
             <table class="table " th:unless="${allInitiative.get(target.getNameTarg()) == null}" >
                 <tr th:each="initiative: ${allInitiative.get(target.getNameTarg())}"><td>
