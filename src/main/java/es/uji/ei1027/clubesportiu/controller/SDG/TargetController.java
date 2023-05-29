@@ -102,11 +102,20 @@ public class TargetController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("target") Target target, HttpSession session, // RETRIEVE MODEL ATTRIBUTE
                                    BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors())
-            return "targets/add";
+
+
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
             return "redirect:/login";
+        }
+
+        TargetValidator targetValidator = new TargetValidator(targetDao.getAllTarget(), null);
+        targetValidator.validate(target, bindingResult);
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("CONTENT_TITLE","Modificando Target");
+            model.addAttribute("SELECTED_NAVBAR","SDGs");
+            return "targets/add";    // TRY AGAIN, HAD ERRORS
         }
 
         targetDao.addTarget(target);
@@ -126,18 +135,27 @@ public class TargetController {
         if (usuario == null || !usuario.isAdmin()) {
             return "redirect:/login";
         } else {
+            session.setAttribute("prevTarget",null);
             return "targets/update_staff";
         }
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateSubmit(@ModelAttribute("target") Target target, HttpSession session, // RETRIEVE MODEL ATTRIBUTE
-                                   BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "targets/update_staff";
+                                   BindingResult bindingResult, Model model) {
+
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
             return "redirect:/login";
+        }
+
+        TargetValidator targetValidator = new TargetValidator(targetDao.getAllTarget(), (Target) session.getAttribute("prevTarget"));
+        targetValidator.validate(target, bindingResult);
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("CONTENT_TITLE","Modificando Target");
+            model.addAttribute("SELECTED_NAVBAR","SDGs");
+            return "targets/update_staff";    // TRY AGAIN, HAD ERRORS
         }
 
         targetDao.updateTarget(target);

@@ -1,20 +1,23 @@
 package es.uji.ei1027.clubesportiu.controller.SDG;
 
-import es.uji.ei1027.clubesportiu.controller.Initiative.MyInitiativeController;
 import es.uji.ei1027.clubesportiu.model.Initiative;
+import es.uji.ei1027.clubesportiu.model.Ods;
 import es.uji.ei1027.clubesportiu.model.Target;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class TargetValidator implements Validator {
 
     private List<Target> targets;
+    private Target currentSdg;
 
-    public TargetValidator(List<Target> targets) {
+    public TargetValidator(List<Target> targets, Target t) {
         this.targets = targets;
+        this.currentSdg = t;
     }
 
     @Override
@@ -25,14 +28,18 @@ public class TargetValidator implements Validator {
 
     @Override
     public void validate(Object obj, Errors errors) {
-        Target target = (Target) obj;
+        Target targ = (Target) obj;
+        if (targ.getNameTarg().isBlank()){
+            errors.rejectValue("nameTarg", "obligatori", "Tienes que poner un nombre");
+        }
 
-
-        if (targets != null && !targets.isEmpty()) {
-            for (Target t : targets) {
-                if (target.getNameTarg().trim().equals(t.getNameTarg()))
+        if (targets != null && !targets.isEmpty() && (currentSdg == null || !targ.getNameTarg().equals(currentSdg.getNameTarg()))) {
+            for (Target iniciativa : targets) {
+                if (targ.getNameTarg().trim().equals(iniciativa.getNameTarg()))
                     errors.rejectValue("nameTarg", "obligatori", "Nombre ya en uso");
             }
+
         }
     }
+
 }

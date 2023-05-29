@@ -60,12 +60,13 @@ public class SDGController {
             return "redirect:/";
         }
 
-        SDGValidator sdgValidator = new SDGValidator(odsDao.getAllOds(), ods);
+        SDGValidator sdgValidator = new SDGValidator(odsDao.getAllOds(), null);
         sdgValidator.validate(ods, bindingResult);
 
         if (bindingResult.hasErrors()){
             model.addAttribute("CONTENT_TITLE","Modificando SDG");
             model.addAttribute("SELECTED_NAVBAR","SDGs");
+
             return "sdg/update_staff";    // TRY AGAIN, HAD ERRORS
         }
 
