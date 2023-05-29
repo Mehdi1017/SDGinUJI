@@ -1,4 +1,4 @@
-package es.uji.ei1027.clubesportiu.external_services;
+package es.uji.ei1027.clubesportiu.services;
 
 import org.springframework.stereotype.Service;
 
