@@ -45,12 +45,12 @@
 
     <tr>
       <td class="txt txt_right_align"><label>Motivación:   </label></td>
-      <td><input type="text" th:field="*{motivacion}" maxlength="5000" required/></td>
+      <td><textarea th:field="*{motivacion}" rows="6" cols="50" maxlength="5000" required></textarea></td>
     </tr>
 
     <tr>
       <td class="txt txt_right_align align_top"><label>Descripción:   </label></td>
-      <td><textarea th:field="*{description}" rows="6" cols="50" maxlength="500" required></textarea></td>
+      <td><textarea th:field="*{description}" rows="6" cols="50" maxlength="10000" required></textarea></td>
     </tr>
 
     <tr>
