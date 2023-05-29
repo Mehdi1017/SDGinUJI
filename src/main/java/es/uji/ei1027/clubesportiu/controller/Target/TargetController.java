@@ -101,7 +101,7 @@ public class TargetController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("target") Target target, HttpSession session, // RETRIEVE MODEL ATTRIBUTE
-                                   BindingResult bindingResult) {
+                                   BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors())
             return "targets/add";
         UserDetails usuario = (UserDetails) session.getAttribute("user");
@@ -110,7 +110,11 @@ public class TargetController {
         }
 
         targetDao.addTarget(target);
-        return "redirect:/target/view/by_ods/" + target.getNameOds();
+
+        model.addAttribute("allTarget", targetDao.getTargetByOds(target.getNameOds()));
+        // model.addAttribute("ods",nODS);
+        model.addAttribute("CONTENT_TITLE", "Viendo Targets");
+        return "targets/list_staff";
     }
 
     @RequestMapping(value="/update/{nODS}/{nTarg}", method = RequestMethod.GET)
