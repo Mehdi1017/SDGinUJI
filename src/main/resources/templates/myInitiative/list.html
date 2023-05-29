@@ -17,16 +17,46 @@
       <p class="txt"><b>No tienes iniciativas 🥺☠</b></p>
     </div>
     <a th:href="@{/area}" class="txt_sec2 color_amarillo boton_principal top_pinned">VOLVER ATRÁS</a><p></p>
-    <table class="table" th:each="initiative: ${myInitiatives}" th:object="${session}">
+    <table class="table" th:each="initiative: ${myInitiatives}" th:if="${initiative.stat == 'Approved' && session.user.getMail() == initiative.mail}" th:object="${session}">
       <tr><td>
         <a class="txt" th:href="@{/myInitiative/view/{nIni}/(nIni=${initiative.getNameIni()})}" th:text="${initiative.nameIni}"></a>
-        <span class="txt" th:if="${initiative.stat == 'Pending'}"><b>(PENDIENTE)</b></span>
-        <span class="txt" th:if="${initiative.stat == 'Rejected'}"><b>(RECHAZADA)</b></span>
-        <span class="txt" th:if="${initiative.stat == 'Ended'}"><b>(FINALIZADA)</b></span>
+
         <p class="txt-sec" th:text="${#strings.abbreviate(initiative.description,150)}"></p>
-        <a class="boton_secundario color_verde" th:href="@{/myInitiative/addResult/{nIni}/(nIni=${initiative.getNameIni()})}" th:if="${initiative.stat == 'Approved'}">AGREGAR RESULTADOS</a>
-        <a class="boton_secundario color_rojo_0" th:href="@{/myInitiative/update/{nIni}/(nIni=${initiative.getNameIni()})}" th:if="${initiative.stat == 'Approved' && session.user.getMail() == initiative.mail}">EDITAR</a>
-        <a class="boton_secundario color_amarillo" th:href="@{/initiative_participation/addParticipant/{nIni}/(nIni=${initiative.getNameIni()})}" th:if="${initiative.stat == 'Approved' && session.user.getMail() == initiative.mail}">GESTIONAR PARTICIPANTES</a>
+        <a class="boton_secundario color_verde" th:href="@{/myInitiative/addResult/{nIni}/(nIni=${initiative.getNameIni()})}" >AGREGAR RESULTADOS</a>
+        <a class="boton_secundario color_rojo_0" th:href="@{/myInitiative/update/{nIni}/(nIni=${initiative.getNameIni()})}" >EDITAR</a>
+        <a class="boton_secundario color_amarillo" th:href="@{/initiative_participation/addParticipant/{nIni}/(nIni=${initiative.getNameIni()})}" >GESTIONAR PARTICIPANTES</a>
+      </td>
+      </tr>
+    </table>
+    <table class="table" th:each="initiative: ${myInitiatives}" th:if="${initiative.stat == 'Approved' && session.user.getMail() != initiative.mail}" th:object="${session}">
+      <tr><td>
+        <a class="txt" th:href="@{/myInitiative/view/{nIni}/(nIni=${initiative.getNameIni()})}" th:text="${initiative.nameIni}"></a>
+        <p class="txt-sec" th:text="${#strings.abbreviate(initiative.description,150)}"></p>
+        <a class="boton_secundario color_verde" th:href="@{/myInitiative/addResult/{nIni}/(nIni=${initiative.getNameIni()})}">AGREGAR RESULTADOS</a>
+      </td>
+      </tr>
+    </table>
+    <table class="table" th:each="initiative: ${myInitiatives}" th:if="${initiative.stat == 'Pending'}" th:object="${session}">
+      <tr><td>
+        <a class="txt" th:href="@{/myInitiative/view/{nIni}/(nIni=${initiative.getNameIni()})}" th:text="${initiative.nameIni}"></a>
+        <span class="txt" ><b>(PENDIENTE)</b></span>
+        <p class="txt-sec" th:text="${#strings.abbreviate(initiative.description,150)}"></p>
+      </td>
+      </tr>
+    </table>
+    <table class="table" th:each="initiative: ${myInitiatives}" th:if="${initiative.stat == 'Ended'}" th:object="${session}">
+      <tr><td>
+        <a class="txt" th:href="@{/myInitiative/view/{nIni}/(nIni=${initiative.getNameIni()})}" th:text="${initiative.nameIni}"></a>
+        <span class="txt" ><b>(FINALIZADA)</b></span>
+        <p class="txt-sec" th:text="${#strings.abbreviate(initiative.description,150)}"></p>
+      </td>
+      </tr>
+    </table>
+    <table class="table" th:each="initiative: ${myInitiatives}" th:if="${initiative.stat == 'Rejected'}" th:object="${session}">
+      <tr><td>
+        <a class="txt" th:href="@{/myInitiative/view/{nIni}/(nIni=${initiative.getNameIni()})}" th:text="${initiative.nameIni}"></a>
+        <span class="txt"><b>(RECHAZADA)</b></span>
+        <p class="txt-sec" th:text="${#strings.abbreviate(initiative.description,150)}"></p>
       </td>
       </tr>
     </table>
@@ -35,8 +65,6 @@
     <a href="add" class="txt_sec2 color_verde boton_principal">NUEVA INICIATIVA</a>
   </div>
 </div>
-
-
 </div>
 </body>
 </html>
