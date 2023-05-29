@@ -18,7 +18,7 @@
         <span th:text="*{session.tmp_initiative.nameIni}"></span>
         <br>
         <b>Fecha Inicio:</b>
-        <span th:text="*{session.tmp_initiative.startDate}" ></span>
+        <span th:text="*{#temporals.format(session.tmp_initiative.startDate, 'dd/MM/yyyy')}" ></span>
         <br>
         <b>Fecha fin:</b>
         <span  th:text="*{session.tmp_initiative.endDate}" ></span>
