@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,12 +69,12 @@ public class ActionDao {
 
     public void addActionn(Action action) {
         jdbcTemplate.update(
-                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?, null, ?,?)",
+                "INSERT INTO Action VALUES(?, ?, ?,?,?,?,?, null, 'Approved',?)",
                 action.getNameAction(),
                 action.getNameInitiative(),
                 action.getNameOds(),
                 action.getNameTarget(),
-                action.getCreationDate(),
+                LocalDate.now(),
                 action.getEndDate(),
                 action.getDescription(),
                 action.getStat(),
@@ -84,7 +85,9 @@ public class ActionDao {
     // -----------------------------------------------------------------------------------------------------------------
     //-----------------------------------------------------------------------------------------------------------------
     public void deleteAction(Action action) {
-        jdbcTemplate.update("DELETE FROM Action WHERE name_act=? AND name_ini=? ",
+        jdbcTemplate.update("UPDATE action " +
+                        "SET stat = 'Ended'" +
+                        " WHERE name_act=? AND name_ini=? ",
                 action.getNameAction(), action.getNameInitiative());
     }
     // -----------------------------------------------------------------------------------------------------------------

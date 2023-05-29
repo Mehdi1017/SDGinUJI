@@ -60,7 +60,9 @@ public class MyInitiativeController {
 
         model.addAttribute("CONTENT_TITLE","Mostrando tus Iniciativas 📋");
         model.addAttribute("SELECTED_NAVBAR","Área privada");
-        model.addAttribute("myInitiatives", initiativeDao.getMyInitiative(usuario.getMail()));
+        List<Initiative> myInitiatives = initiativeDao.getMyInitiative(usuario.getMail());
+        model.addAttribute("myInitiatives", myInitiatives);
+
         return "myInitiative/list";
     }
 
@@ -293,8 +295,6 @@ public class MyInitiativeController {
     public String processAddResultSubmit(
             @ModelAttribute("updatedInitiative") Initiative updatedInitiative,// RETRIEVE MODEL ATTRIBUTE
             BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "myInitiative/addResult";    // TRY AGAIN, HAD ERRORS
 
         //System.out.println(initiative.getNameIni());
         initiative.setResultados(updatedInitiative.getResultados());
