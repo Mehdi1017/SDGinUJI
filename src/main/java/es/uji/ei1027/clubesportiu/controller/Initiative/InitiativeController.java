@@ -174,13 +174,18 @@ public class InitiativeController {
         session.setAttribute("nextUrl", "/initiative/view/"+ UriUtils.encodePath(nInitiative, "UTF-8"));
         session.setAttribute("prevUrl2", "/initiative/view/"+nInitiative);
 
+
         UserDetails usuario = (UserDetails) session.getAttribute("user");
+
+
         if (usuario == null) {
             return "Initiative/view_public";
-        } else if (!usuario.isAdmin()){
+        } else if (!usuario.isAdmin() && usuario.getMail().equals(ini.getMail())){
             return "Initiative/view_user";
-        } else {
+        } else if (usuario.isAdmin()){
             return "Initiative/view_staff";
+        } else {
+            return "Initiative/view_public";
         }
     }
 
