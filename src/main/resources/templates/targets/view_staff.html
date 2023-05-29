@@ -15,6 +15,6 @@
     <br>
     <a th:href="@{/target/update/{ods}/{targ}(ods=${target.getNameOds()}, targ=${target.getNameTarg()})}" class="txt_sec2 color_azul_0 boton_principal">Modificar Target</a>
     <a th:href="@{/target/delete/{ods}/{targ}(ods=${target.getNameOds()}, targ=${target.getNameTarg()})}" class="txt_sec2 color_rojo_0 boton_principal">Eliminar Target</a>
-    <a th:href="@{@{/target/view/by_ods/{nom}(nom=${target.getNameOds()})}}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+    <a th:href="@{/target/view/by_ods/{nom}(nom=${target.getNameOds()})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
 </div>
 </html>
