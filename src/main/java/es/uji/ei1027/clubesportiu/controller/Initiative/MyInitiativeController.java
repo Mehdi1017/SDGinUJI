@@ -62,27 +62,6 @@ public class MyInitiativeController {
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         List<Initiative> myInitiatives = initiativeDao.getMyInitiative(usuario.getMail());
         model.addAttribute("myInitiatives", myInitiatives);
-        /*List<Initiative> initiativesFinalizadas = new ArrayList<>();
-        List<Initiative> initiativesEnCurso = new ArrayList<>();
-        List<Initiative> initiativesPendientes = new ArrayList<>();
-        List<Initiative> initiativesRechazadas = new ArrayList<>();
-        for (Initiative initiative1 : myInitiatives){
-            String stat = initiative1.getStat();
-            if (stat.equals("Approved")){
-                initiativesEnCurso.add(initiative1);
-            } else if (stat.equals("Ended")) {
-                initiativesFinalizadas.add(initiative1);
-            } else if (stat.equals("Rejected")) {
-                initiativesRechazadas.add(initiative1);
-            }
-            else {
-                initiativesPendientes.add(initiative1);
-            }
-        }
-
-        model.addAttribute("initiativesFinalizadas", initiativesFinalizadas);
-        model.addAttribute("initiativesEnCurso", initiativesEnCurso);*/
-
 
         return "myInitiative/list";
     }
