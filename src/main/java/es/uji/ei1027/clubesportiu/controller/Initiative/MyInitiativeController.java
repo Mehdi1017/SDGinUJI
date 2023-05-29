@@ -62,6 +62,7 @@ public class MyInitiativeController {
         model.addAttribute("SELECTED_NAVBAR","Área privada");
         List<Initiative> myInitiatives = initiativeDao.getMyInitiative(usuario.getMail());
         model.addAttribute("myInitiatives", myInitiatives);
+        session.setAttribute("contexto", "myInitiative");
 
         return "myInitiative/list";
     }

@@ -28,7 +28,9 @@
       </tr>
     </table>
     <div>
-      <a th:href="@{/myInitiative/update/{nIni}(nIni=${session.nIni})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+      <a th:if="${session.contexto == 'myInitiative'}" th:href="@{/myInitiative/update/{nIni}(nIni=${session.nIni})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+      <a th:unless="${session.contexto == 'myInitiative'}" th:href="@{/initiative/update/{nIni}(nIni=${session.nIni})}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+      <p></p>
     </div>
   </div>
   <div class="floater_right top_pinned">

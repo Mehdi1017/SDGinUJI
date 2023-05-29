@@ -80,7 +80,7 @@ public class HomeController {
         model.addAttribute("SELECTED_NAVBAR","SDGs");
         model.addAttribute("ods", ods);  // SET MODEL ATTRIBUTE
 
-        //session.setAttribute("prevURL","/view/"+nOds);
+        session.setAttribute("prevURL","/view/"+nOds);
         session.setAttribute("nOds", nOds);
 
         UserDetails usuario = (UserDetails) session.getAttribute("user");
