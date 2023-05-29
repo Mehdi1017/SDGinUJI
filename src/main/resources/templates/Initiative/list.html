@@ -19,7 +19,7 @@
     </div>
     <div th:unless="${allInitiative.isEmpty()}" th:each="ods: ${allOds}">
 
-        <h6><a th:text="${ods.getIndex() + '. '+ods.getNameOds()}" th:href="@{/view/{nombre}(nombre=${ods.nameOds})}"></a></h6>
+        <h5><span th:text="${ods.getIndex() + '. '+ods.getNameOds()}" ></span></h5> <!--th:href="@{/view/{nombre}(nombre=${ods.nameOds})}"-->
         <div th:each="target: ${OdsByTarget.get(ods.getNameOds())}">
             <h8 th:text="${target.getNameTarg()}" th:unless="${allInitiative.get(target.getNameTarg()) == null || allInitiative.get(target.getNameTarg()).isEmpty() }"></h8>
 
