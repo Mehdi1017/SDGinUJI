@@ -97,7 +97,7 @@ public class MemberSubscriptionController {
 
     private void setModelParametersForList(Model model, UserDetails usuario) {
         model.addAttribute("CONTENT_TITLE","Viendo SDGs y Subscripciones");
-        model.addAttribute("SELECTED_NAVBAR","SDGs");
+        model.addAttribute("SELECTED_NAVBAR",null);
 
         model.addAttribute("allOds", odsDao.getAllOds());
         List<String> myOdsNames = new ArrayList<>();
