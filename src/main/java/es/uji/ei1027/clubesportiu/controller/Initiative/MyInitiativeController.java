@@ -7,6 +7,7 @@ import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
 import es.uji.ei1027.clubesportiu.dao.target.TargetDao;
 import es.uji.ei1027.clubesportiu.dao.uji_participant.UjiParticipantDao;
 import es.uji.ei1027.clubesportiu.model.*;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
@@ -74,11 +75,7 @@ public class MyInitiativeController {
     // prepare model - redirecto to form
     @RequestMapping(value="/add")
     public String addInitiative(Model model, HttpSession session) {
-        UserDetails usuario = (UserDetails) session.getAttribute("user");
-        if (usuario == null){
-            session.setAttribute("nextUrl", "/myInitiative/add");
-            return "redirect:/login";
-        }
+        if (validateUser(session) != null) return validateUser(session);
 
         model.addAttribute("CONTENT_TITLE","Creando una Iniciativa 📝"); // page data
         model.addAttribute("SELECTED_NAVBAR","Área privada");
@@ -97,11 +94,9 @@ public class MyInitiativeController {
     @RequestMapping(value="/add", method= RequestMethod.POST)
     public String processAddInitiative(@ModelAttribute("initiative") Initiative initiative,
                                    BindingResult bindingResult, Model model, HttpSession session) {
+        if (validateUser(session) != null) return validateUser(session);
+
         UserDetails usuario = (UserDetails) session.getAttribute("user");
-        if (usuario == null){
-            session.setAttribute("nextUrl", "/myInitiative/add");
-            return "redirect:/login";
-        }
 
         // validate basic initiative data
         InitiativeValidator initiativeValidator = new InitiativeValidator(initiativeDao.getAllInitiative());
@@ -138,11 +133,7 @@ public class MyInitiativeController {
     public String processAddAction(@ModelAttribute("action") Action action,
                                    @SessionAttribute("tmp_initiative") Initiative initiative,
                                    BindingResult bindingResult, Model model, HttpSession session) {
-        UserDetails usuario = (UserDetails) session.getAttribute("user");
-        if (usuario == null){
-            session.setAttribute("nextUrl", "/myInitiative/add");
-            return "redirect:/login";
-        }
+        if (validateUser(session) != null) return validateUser(session);
 
         // validate new action
         ActionValidator actionValidator = new ActionValidator(initiative, session);
@@ -173,15 +164,42 @@ public class MyInitiativeController {
         // redirect to action creation - page with tmp info + form for action creation
         return "myInitiative/addAction";
     }
+    
+    @RequestMapping(value="/editAction/{nAction}")
+    public String processEditAction(@SessionAttribute("tmp_initiative") Initiative initiative,
+                                    @PathVariable String nAction,
+                                    Model model, HttpSession session) {
+        if (validateUser(session) != null) return validateUser(session);
+
+        // extract & delete action from persistent data
+        Action act = new Action();
+        for (Action action : initiative.getActions())
+            if (action.getNameAction().equals(nAction)) {
+                act = action;
+                break;
+            }
+        initiative.getActions().remove(act);
+
+        // set extracted action as model param for next page form
+        model.addAttribute("action", act);
+
+        // set initiative as session parameter for persistance | overwrite if existing
+        session.setAttribute("tmp_initiative", initiative);
+
+        // prepare model for action form page
+        model.addAttribute("CONTENT_TITLE","Creando una Iniciativa - Añadiendo Acciones 📝");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+
+        model.addAttribute("targList", targetDao.getTargetByOds(initiative.getNameOds()));  // needed data
+
+        // redirect to addAction with model set
+        return "myInitiative/addAction";
+    }
 
     @RequestMapping(value="/submitInitiative")
     public String processAddFinal(@SessionAttribute("tmp_initiative") Initiative initiative,
                                   Model model, HttpSession session) {
-        UserDetails usuario = (UserDetails) session.getAttribute("user");
-        if (usuario == null) {
-            session.setAttribute("nextUrl", "/myInitiative/add");
-            return "redirect:/login";
-        }
+        if (validateUser(session) != null) return validateUser(session);
 
         // validate actions - inside initiative
         if (initiative.getActions().isEmpty()) {
@@ -322,5 +340,15 @@ public class MyInitiativeController {
     // -----------------------------------------------------------------------------------------------------------------
     public static Initiative getOldInitiative(){
         return initiative;
+    }
+
+    @Nullable
+    private static String validateUser(HttpSession session) {
+        UserDetails usuario = (UserDetails) session.getAttribute("user");
+        if (usuario == null){
+            session.setAttribute("nextUrl", "/myInitiative/add");
+            return "redirect:/login";
+        }
+        return null;
     }
 }
