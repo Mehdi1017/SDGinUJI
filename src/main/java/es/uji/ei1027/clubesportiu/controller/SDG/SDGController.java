@@ -1,5 +1,6 @@
-package es.uji.ei1027.clubesportiu.controller;
+package es.uji.ei1027.clubesportiu.controller.SDG;
 
+import es.uji.ei1027.clubesportiu.controller.Initiative.InitiativeValidator;
 import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
 import es.uji.ei1027.clubesportiu.model.Ods;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class HomeController {
+public class SDGController {
     private OdsDao odsDao;
     @Autowired
     public void setOdsDao(OdsDao odsDao) {
@@ -53,14 +54,21 @@ public class HomeController {
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public String processUpdateSubmit(
             @ModelAttribute("ods") Ods ods, HttpSession session, // RETRIEVE MODEL ATTRIBUTE
-            BindingResult bindingResult) {
+            BindingResult bindingResult,Model model) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
             return "redirect:/";
         }
 
-        if (bindingResult.hasErrors())
+        SDGValidator sdgValidator = new SDGValidator(odsDao.getAllOds(), ods);
+        sdgValidator.validate(ods, bindingResult);
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("CONTENT_TITLE","Modificando SDG");
+            model.addAttribute("SELECTED_NAVBAR","SDGs");
             return "sdg/update_staff";    // TRY AGAIN, HAD ERRORS
+        }
+
 
         odsDao.updateOds(ods);  // UPDATE
         String prevUrl = (String) session.getAttribute("prevURL");
@@ -102,6 +110,8 @@ public class HomeController {
             return "redirect:/";
         }
 
+
+
         model.addAttribute("ods", new Ods());  // SET MODEL ATTRIBUTE
         return "sdg/add";
     }
@@ -109,14 +119,21 @@ public class HomeController {
     @RequestMapping(value="/add", method = RequestMethod.POST)
     public String processAddSubmit(
             @ModelAttribute("ods") Ods ods, HttpSession session,
-            BindingResult bindingResult) {
+            BindingResult bindingResult, Model model) {
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         if (usuario == null || !usuario.isAdmin()) {
             return "redirect:/";
         }
 
-        if (bindingResult.hasErrors())
+        SDGValidator sdgValidator = new SDGValidator(odsDao.getAllOds(), null);
+        sdgValidator.validate(ods, bindingResult);
+
+        if (bindingResult.hasErrors()){
+            model.addAttribute("CONTENT_TITLE","Añadiendo SDG");
+            model.addAttribute("SELECTED_NAVBAR","SDGs");
             return "sdg/add";
+
+        }
 
         odsDao.addOds(ods);
         return "redirect:/";

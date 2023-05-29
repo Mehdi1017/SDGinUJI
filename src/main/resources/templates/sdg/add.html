@@ -10,11 +10,14 @@
     <table>
         <tr>
             <td><label>Nombre: </label></td>
-            <td><input class="nombre-input" maxlength="50" type="text" th:field="*{nameOds}" /></td>
+            <td><input class="nombre-input" maxlength="50" type="text" th:field="*{nameOds}" /><span class="txt_error l" th:if="${#fields.hasErrors('nameOds')}" th:errors="*{nameOds}"></span>
+            </td>
+
         </tr>
         <tr>
             <td><label>Índice: </label></td>
-            <td><input type="number" th:field="*{index}" /></td>
+            <td><input type="number" th:field="*{index}" /><span class="txt_error" th:if="${#fields.hasErrors('index')}" th:errors="*{index}"></span></td>
+
         </tr>
         <tr>
             <td><label>Relevancia: </label></td>

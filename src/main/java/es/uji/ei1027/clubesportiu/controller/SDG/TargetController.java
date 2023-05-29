@@ -1,4 +1,4 @@
-package es.uji.ei1027.clubesportiu.controller.Target;
+package es.uji.ei1027.clubesportiu.controller.SDG;
 
 
 import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;

@@ -2,7 +2,7 @@ package es.uji.ei1027.clubesportiu.controller.Initiative;
 
 import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
 import es.uji.ei1027.clubesportiu.dao.subscription.SubscriptionDao;
-import es.uji.ei1027.clubesportiu.external_services.MailManager;
+import es.uji.ei1027.clubesportiu.services.MailManager;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 import es.uji.ei1027.clubesportiu.model.Subscription;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Controller
