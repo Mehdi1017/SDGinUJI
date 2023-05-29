@@ -15,7 +15,7 @@
     <br>
     <p class="txt" th:text="*{ods.description}"> </p>
     <a th:href="@{/target/view/by_ods/{nom}(nom=${ods.getNameOds()})}" class="txt_sec2 color_verde boton_principal">Targets</a>
-    <a th:href="@{/}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+    <a th:href="@{{path}(path=*{session.get('prevUrl') != null ? session.get('prevUrl') : '/' })}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
 
 
 </div>

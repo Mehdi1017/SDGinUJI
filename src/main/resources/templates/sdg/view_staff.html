@@ -18,7 +18,7 @@
     <a th:href="@{/update/{nom}(nom=${ods.getNameOds()})}" class="txt_sec2 color_azul_0 boton_principal">Modificar SDG</a>
     <a th:href="@{/delete/{nom}(nom=${ods.getNameOds()})}" class="txt_sec2 color_rojo_0 boton_principal">Eliminar SDG</a>
     <a th:href="@{/target/view/by_ods/{nom}(nom=${ods.getNameOds()})}" class="txt_sec2 color_verde boton_principal">Targets</a>
-    <a th:href="@{/}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+    <a th:href="@{{path}(path=*{session.get('prevUrl') != null ? session.get('prevUrl') : '/' })}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
 
 
 </div>

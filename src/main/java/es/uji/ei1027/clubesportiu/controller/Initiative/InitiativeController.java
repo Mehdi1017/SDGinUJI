@@ -2,8 +2,12 @@ package es.uji.ei1027.clubesportiu.controller.Initiative;
 
 import es.uji.ei1027.clubesportiu.dao.action.ActionDao;
 import es.uji.ei1027.clubesportiu.dao.initiative.InitiativeDao;
+import es.uji.ei1027.clubesportiu.dao.ods.OdsDao;
+import es.uji.ei1027.clubesportiu.dao.target.TargetDao;
 import es.uji.ei1027.clubesportiu.model.Initiative;
 
+import es.uji.ei1027.clubesportiu.model.Ods;
+import es.uji.ei1027.clubesportiu.model.Target;
 import es.uji.ei1027.clubesportiu.model.UserDetails;
 import es.uji.ei1027.clubesportiu.services.InitiativeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriUtils;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/initiative")
@@ -29,10 +37,16 @@ public class InitiativeController {
     private InitiativeDao initiativeDao;
 
     @Autowired
+    private TargetDao targetDao;
+
+    @Autowired
     private ActionDao actionDao;
 
     @Autowired
     private InitiativeFilter iniFilter;
+
+    @Autowired
+    private OdsDao odsDao;
 
     @Autowired
     public void setInitiativeDao(InitiativeDao initiativeDao) {
@@ -42,60 +56,49 @@ public class InitiativeController {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-    /*
     @RequestMapping("/list")
-    public String listInitiative(Model model, HttpSession session) {
+    public String list(Model model, HttpSession session) {
+        session.setAttribute("prevUrl", "/initiative/list");
+
         model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
-        model.addAttribute("allInitiative", initiativeDao.getAllActualInitiative());
-        return "Initiative/list_no_filters";
+        List<Ods> ods = odsDao.getAllOds();
+        model.addAttribute("allOds",ods);
 
-    }*/
-    @RequestMapping("/list")
-    public String listInitiativeByOds(Model model, HttpSession session) {
-        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por SDG");
-        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+        Map<String, List<Target>> listTargets = new HashMap<>();
+        for (Ods o: ods){
+            List<Target> listaIni = listTargets.computeIfAbsent(o.getNameOds(), k -> new LinkedList<>());
+            listaIni.addAll(targetDao.getTargetByOds(o.getNameOds()));
+        }
+        model.addAttribute("OdsByTarget", listTargets);
 
-        session.setAttribute("prevUrl", "/initiative/list");
-
-
-        model.addAttribute("allInitiative", iniFilter.getActualInitiativesByODS());
-        return "Initiative/list_by_ods";
-
-    }
-    @RequestMapping("/list/by-target")
-    public String listInitiativeByTarget(Model model, HttpSession session) {
-        session.setAttribute("prevUrl", "/initiative/list/by-target");
-
-        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas actuales por Target");
-        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
         model.addAttribute("allInitiative", iniFilter.getActualInitiativesByTarget());
-        return "Initiative/list_by_target";
+        return "Initiative/list";
 
     }
 
     @RequestMapping("/list/ended")
-    public String listInitiativeByOdsEnded(Model model, HttpSession session) {
+    public String listEnded(Model model, HttpSession session) {
         session.setAttribute("prevUrl", "/initiative/list/ended");
 
-        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas finalizadas por SDG");
+        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas finalizadas");
         model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
-        model.addAttribute("allInitiative", iniFilter.getEndedInitiativesByODS());
-        return "Initiative/list_by_ods";
+        List<Ods> ods = odsDao.getAllOds();
+        model.addAttribute("allOds",ods);
 
-    }
-    @RequestMapping("/list/by-target/ended")
-    public String listInitiativeByTargetEnded(Model model, HttpSession session) {
-        session.setAttribute("prevUrl", "/initiative/list/by-target/ended");
+        Map<String, List<Target>> listTargets = new HashMap<>();
+        for (Ods o: ods){
+            List<Target> listaIni = listTargets.computeIfAbsent(o.getNameOds(), k -> new LinkedList<>());
+            listaIni.addAll(targetDao.getTargetByOds(o.getNameOds()));
+        }
+        model.addAttribute("OdsByTarget", listTargets);
 
-        model.addAttribute("CONTENT_TITLE","Viendo Iniciativas finalizadas por Target");
-        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
 
         model.addAttribute("allInitiative", iniFilter.getEndedInitiativesByTarget());
-        return "Initiative/list_by_target";
+        return "Initiative/list_ended";
 
     }
 
