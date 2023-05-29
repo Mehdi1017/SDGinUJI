@@ -112,7 +112,9 @@ public class MyInitiativeController {
 
         // complete initiative with user & prev actions if exists
         initiative.setMail(usuario.getMail());
-        if (session.getAttribute("tmp_initiative") != null) initiative.setActions(((Initiative) session.getAttribute("tmp_initiative")).getActions());
+        if ( session.getAttribute("tmp_initiative") != null &&
+                ((Initiative) session.getAttribute("tmp_initiative")).getNameOds().equals(initiative.getNameOds())) // si misma ods --> no editada !
+            initiative.setActions(((Initiative) session.getAttribute("tmp_initiative")).getActions());
 
         // set initiative as session parameter for persistance | overwrite if existing
         session.setAttribute("tmp_initiative", initiative);
