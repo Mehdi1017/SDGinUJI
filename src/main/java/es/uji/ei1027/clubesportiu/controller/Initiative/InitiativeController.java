@@ -123,28 +123,43 @@ public class InitiativeController {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
 
-@RequestMapping(value="/update/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
-public String editInitiative(Model model,
-                      @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
-    model.addAttribute("initiative", initiativeDao.getInitiative(nInitiative));  // SET MODEL ATTRIBUTE
-    return "Initiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
-}
+
+    @RequestMapping(value="/update/{nInitiative}", method = RequestMethod.GET)  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String editInitiative(Model model, @PathVariable String nInitiative, HttpSession session) {
+        Initiative initiative = initiativeDao.getInitiative(nInitiative); // RETRIEVE PATH VARIABLE
+        model.addAttribute("initiative", initiative);
+        model.addAttribute("CONTENT_TITLE", "Editando iniciativa 📝");
+        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+        model.addAttribute("odsList", odsDao.getAllOds());  // needed data
+        session.setAttribute("initiativeUpdate", nInitiative);
+        session.setAttribute("nextUrl", "/initiative/update/"+nInitiative);// SET MODEL ATTRIBUTE
+        return "Initiative/update";    // REDIRECT TO NEW VIEW WITH SET VALUES
+    }
 
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public String processUpdateSubmit(
             @ModelAttribute("initiative") Initiative initiative, // RETRIEVE MODEL ATTRIBUTE
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "Initiative/update";    // TRY AGAIN, HAD ERRORS
-        System.out.println(initiative);
+            BindingResult bindingResult, Model model, HttpSession session) {
+        model.addAttribute("SELECTED_NAVBAR","Iniciativas");
+
+        System.out.println("RECIBIDO UPDATE");
+
+        // validate basic initiative data
+        String nIni = session.getAttribute("initiativeUpdate").toString();
+        initiative.setNameIni(nIni);
+        InitiativeValidator initiativeValidator = new InitiativeValidator(initiativeDao.getAllInitiative());
+        initiativeValidator.validate(initiative, bindingResult);
+        if (false){
+        //if (bindingResult.hasErrors()){
+
+            model.addAttribute("odsList", odsDao.getAllOds());  // SET MODEL ATTRIBUTE
+            model.addAttribute("CONTENT_TITLE","Editando Iniciativa 📝");
+            return "Initiative/update";
+        }
+//        System.out.println(initiative);
         initiativeDao.updateInitiative(initiative);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
     }
-   /* @RequestMapping(value = "/delete/{nInitiative}")
-    public String processDeleteInitiative(@PathVariable String nInitiative) {
-        initiativeDao.deleteInitiative(nInitiative);
-        return "redirect:../list";
-    }*/
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------

@@ -21,7 +21,7 @@ public class HomeController {
     }
     @GetMapping("/")
     public String listSdg(Model model, HttpSession session) {
-
+        session.setAttribute("prevUrl","/");
         UserDetails usuario = (UserDetails) session.getAttribute("user");
         model.addAttribute("CONTENT_TITLE","Viendo SDGs");
         model.addAttribute("allOds", odsDao.getAllOds());
