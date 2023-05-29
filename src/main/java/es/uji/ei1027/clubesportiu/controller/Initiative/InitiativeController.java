@@ -72,6 +72,7 @@ public class InitiativeController {
             listaIni.addAll(targetDao.getTargetByOds(o.getNameOds()));
         }
         model.addAttribute("OdsByTarget", listTargets);
+        session.setAttribute("contexto", "initiative");
 
 
         model.addAttribute("allInitiative", iniFilter.getActualInitiativesByTarget());
