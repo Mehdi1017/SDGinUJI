@@ -16,6 +16,7 @@
     <div th:if="${myInitiatives.isEmpty()}">
       <p class="txt"><b>No tienes iniciativas 🥺☠</b></p>
     </div>
+    <a th:href="@{/area}" class="txt_sec2 color_amarillo boton_principal top_pinned">VOLVER ATRÁS</a><p></p>
     <table class="table" th:each="initiative: ${myInitiatives}" th:object="${session}">
       <tr><td>
         <a class="txt" th:href="@{/myInitiative/view/{nIni}/(nIni=${initiative.getNameIni()})}" th:text="${initiative.nameIni}"></a>
