@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+
+<div layout:fragment="content">
+    <h1 th:text="*{initiative.nameIni}"></h1>
+
+    <b>Fecha Inicio:</b>
+    <span th:text="*{initiative.startDate}" ></span>
+    <br>
+    <b>Fecha fin:</b>
+    <span  th:text="*{initiative.endDate}" ></span>
+    <br>
+    <b>Fecha ultima modificación:</b>
+    <span  th:text="*{initiative.lastModified}" ></span>
+    <br>
+    <b>Estado:</b>
+    <span  th:text="*{initiative.stat}" ></span>
+    <br>
+    <b>Progreso:</b>
+    <span  th:text="*{initiative.progress}" ></span>
+    <br>
+    <b>Responsable:</b>
+    <span  th:text="*{initiative.mail}" ></span>
+    <br>
+    <b>SDG asignado:</b>
+    <span  th:text="*{initiative.nameOds}" ></span>
+    <br>
+    <b>Motivacion:</b>
+    <span  th:text="*{initiative.motivacion}" ></span>
+    <br>
+    <b>Url:</b>
+    <span  th:text="*{initiative.url}" ></span>
+    <br>
+    <br>
+    <b>Descripcion:</b>
+    <p class="txt" th:text="*{initiative.description}"> </p>
+    <b>Resultados:</b>
+    <p class="txt" th:text="*{initiative.resultados}"> </p>
+
+    <h3>Acciones:</h3>
+
+    <div th:if="*{!initiative.getActions().isEmpty()}">
+        <div th:each="action : *{initiative.getActions()}" class="r_border added_bottom_spacing">
+            <br><b>Accion:</b><span th:text="*{action.nameAction}"></span>
+            <br><b>Target:</b><span th:text="*{action.nameTarget}"></span>
+            <br><b>Fecha Inicio:</b><span th:text="*{action.creationDate}" ></span>
+            <br><b>Fecha fin:</b><span  th:text="*{action.endDate}" ></span>
+            <br><b>Descripcion:</b><p class="txt_sec description_tiny_display"><span th:text="*{action.description}"></span></p>
+            <b>Resultados Esperados:</b><p class="txt_sec description_tiny_display"><span th:text="*{action.resultados}"></span></p>
+            <br>
+        </div>
+    </div>
+
+
+    <a th:href="@{/myInitiative/list}" class="txt_sec2 color_amarillo boton_principal">Volver atrás</a>
+
+
+</div>
+</html>

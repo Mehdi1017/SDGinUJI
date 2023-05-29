@@ -18,7 +18,7 @@
     </div>
     <table class="table" th:each="initiative: ${myInitiatives}" th:object="${session}">
       <tr><td>
-        <a class="txt" th:text="${initiative.nameIni}"></a>
+        <a class="txt" th:href="@{/myInitiative/view/{nIni}/(nIni=${initiative.getNameIni()})}" th:text="${initiative.nameIni}"></a>
         <span class="txt" th:if="${initiative.stat == 'Pending'}"><b>(PENDIENTE)</b></span>
         <span class="txt" th:if="${initiative.stat == 'Rejected'}"><b>(RECHAZADA)</b></span>
         <span class="txt" th:if="${initiative.stat == 'Ended'}"><b>(FINALIZADA)</b></span>

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriUtils;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -297,6 +298,20 @@ public class MyInitiativeController {
         initiative.setResultados(updatedInitiative.getResultados());
         initiativeDao.updateInitiative(initiative);  // UPDATE
         return "redirect:list";     // REDIRECT SO MODEL ATTRIBUTES ARE RESTARTED
+    }
+
+    @RequestMapping(value="/view/{nInitiative}")  // DEFINE MAPPIGN WITH PATH VARIABLE
+    public String viewInitiative(Model model, HttpSession session,
+                                 @PathVariable String nInitiative) {  // RETRIEVE PATH VARIABLE
+        Initiative ini = initiativeDao.getInitiative(nInitiative);
+        ini.setActions(actionDao.getActions(ini.getNameIni()));
+        model.addAttribute("initiative", ini);
+        model.addAttribute("CONTENT_TITLE", "Viendo Iniciativa");
+        model.addAttribute("SELECTED_NAVBAR","Área privada");
+        session.setAttribute("nextUrl", "/myInitiative/view/"+ UriUtils.encodePath(nInitiative, "UTF-8"));
+        session.setAttribute("prevUrl2", "/myInitiative/view/"+nInitiative);
+
+        return "myInitiative/view_user";
     }
 
 
