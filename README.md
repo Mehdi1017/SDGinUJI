@@ -1,0 +1,1 @@
+The main purpose of the software product is to allow users of the OCDS office and other members of the UJI university community to register, manage and obtain information on initiatives that can be linked to any of the SDGs defined by the United Nations . In addition, this software will be a tool to promote new proposals and encourage the participation of all members of the UJI.
